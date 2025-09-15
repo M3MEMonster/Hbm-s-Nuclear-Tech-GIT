@@ -14,6 +14,7 @@ import com.hbm.items.ItemVOTVdrive;
 import com.hbm.items.ItemVOTVdrive.Destination;
 import com.hbm.items.ModItems;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
@@ -36,11 +37,7 @@ public class CommandStations extends CommandBase {
 
 	@Override
 	public String getCommandUsage(ICommandSender sender) {
-		return String.format(Locale.US,
-			"%s/%s launch %s- Spawns a station for the held drive.\n" +
-			"%s/%s tp %s- Teleport to held drive station.\n" +
-			"%s/%s list %s- Lists all active stations.\n" +
-			"%s/%s fetch <id|name> %s- Creates a drive programmed with a specific station ID or name.",
+		return I18nUtil.format("chat.command.stations.usage",
 			EnumChatFormatting.GREEN, getCommandName(), EnumChatFormatting.LIGHT_PURPLE,
 			EnumChatFormatting.GREEN, getCommandName(), EnumChatFormatting.LIGHT_PURPLE,
 			EnumChatFormatting.GREEN, getCommandName(), EnumChatFormatting.LIGHT_PURPLE,

@@ -11,6 +11,7 @@ import com.hbm.uninos.UniNodespace;
 
 import api.hbm.fluidmk2.FluidNetMK2;
 import api.hbm.fluidmk2.FluidNode;
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -125,17 +126,17 @@ public class FluidDuctBase extends BlockContainer implements IBlockFluidDuct, IA
 			FluidType type = pipe.getType();
 
 			if(type != null) {
-				
+
 				FluidNode node = (FluidNode) UniNodespace.getNode(world, x, y, z, type.getNetworkProvider());
-				
+
 				if(node != null && node.net != null) {
 					FluidNetMK2 net = node.net;
 
 					List<String> debug = new ArrayList();
-					debug.add("Links: " + net.links.size());
-					debug.add("Subscribers: " + net.receiverEntries.size());
-					debug.add("Providers: " + net.providerEntries.size());
-					debug.add("Transfer: " + net.fluidTracker);
+					debug.add(I18nUtil.format("desc.block.fluid_duct_base.link", net.links.size()));
+					debug.add(I18nUtil.format("desc.block.fluid_duct_base.subscribers", net.receiverEntries.size()));
+					debug.add(I18nUtil.format("desc.block.fluid_duct_base.providers", net.providerEntries.size()));
+					debug.add(I18nUtil.format("desc.block.fluid_duct_base.transfer", net.fluidTracker));
 					return debug;
 				}
 			}

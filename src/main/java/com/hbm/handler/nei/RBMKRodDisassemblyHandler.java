@@ -5,6 +5,7 @@ import java.util.HashMap;
 import com.hbm.inventory.RecipesCommon.ComparableStack;
 import com.hbm.items.machine.ItemRBMKRod;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -12,7 +13,7 @@ import net.minecraft.item.ItemStack;
 public class RBMKRodDisassemblyHandler extends NEIUniversalHandler {
 
 	public RBMKRodDisassemblyHandler() {
-		super("RBMK Rod Disassembly", Blocks.crafting_table, getRecipes());
+		super(I18nUtil.resolveKey("desc.handler.nei.rmbk_rod_disassembly.recipe_name"), Blocks.crafting_table, getRecipes());
 	}
 
 	@Override

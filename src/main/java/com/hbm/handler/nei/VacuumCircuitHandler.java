@@ -8,6 +8,7 @@ import com.hbm.inventory.gui.GUIVacuumCircuit;
 import com.hbm.inventory.recipes.VacuumCircuitRecipes.VacuumCircuitRecipe;
 import com.hbm.inventory.recipes.VacuumCircuitRecipes;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
@@ -15,14 +16,14 @@ import net.minecraft.item.ItemStack;
 public class VacuumCircuitHandler extends NEIUniversalHandler {
 
     public VacuumCircuitHandler() {
-		super("Vacuum Solderer", ModBlocks.machine_vacuum_circuit, VacuumCircuitRecipes.getRecipes());
+		super(I18nUtil.resolveKey("desc.handler.nei.vacuum_circuit.recipe_name"), ModBlocks.machine_vacuum_circuit, VacuumCircuitRecipes.getRecipes());
 	}
 
 	@Override
 	public String getKey() {
 		return "ntmVacuumCircuit";
 	}
-	
+
 	@Override
 	public void loadTransferRects() {
 		super.loadTransferRects();
@@ -36,11 +37,11 @@ public class VacuumCircuitHandler extends NEIUniversalHandler {
 
 		RecipeSet rec = (RecipeSet) this.arecipes.get(recipe);
 		ItemStack output = rec.output[0].item;
-		
+
 		for(VacuumCircuitRecipe sol : VacuumCircuitRecipes.recipes) {
-			
+
 			//TODO: rethink this concept, checks only use the output and if two things output the same thing it'll break
-			
+
 			if(ItemStack.areItemStacksEqual(sol.output, output)) {
 
 				FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
@@ -53,5 +54,5 @@ public class VacuumCircuitHandler extends NEIUniversalHandler {
 			}
 		}
 	}
-    
+
 }

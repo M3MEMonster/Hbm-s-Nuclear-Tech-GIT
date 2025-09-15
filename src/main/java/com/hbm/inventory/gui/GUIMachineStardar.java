@@ -282,27 +282,27 @@ public class GUIMachineStardar extends GuiInfoContainer {
 
 					popScissor();
 
-					fontRendererObj.drawString(canLand ? "Valid location" : info, 10, 128, canLand ? 0x00FF00 : 0xFF0000);
-					if(altitude > 0) fontRendererObj.drawString("Target altitude: " + altitude, 10, 148, 0x00FF00);
+					fontRendererObj.drawString(canLand ? I18nUtil.resolveKey("desc.gui.stardar.info1") : info, 10, 128, canLand ? 0x00FF00 : 0xFF0000);
+					if(altitude > 0) fontRendererObj.drawString(I18nUtil.resolveKey("desc.gui.stardar.info2", altitude), 10, 148, 0x00FF00);
 				}
 			} else if(star.heightmap != null) {
-				fontRendererObj.drawString("Select landing zone", 10, 128, 0x00FF00);
+				fontRendererObj.drawString(I18nUtil.resolveKey("desc.gui.stardar.info3"), 10, 128, 0x00FF00);
 			}
 
 			if(star.heightmap == null) {
 				if(slotStack == null) {
-					fontRendererObj.drawString("Insert drive", 10, 128, 0x00FF00);
+					fontRendererObj.drawString(I18nUtil.resolveKey("desc.gui.stardar.info4"), 10, 128, 0x00FF00);
 				} else {
 					if(slotStack.getItem() == ModItems.full_drive) {
 						if(ItemVOTVdrive.getDestination(slotStack).body == SolarSystem.Body.ORBIT) {
-							fontRendererObj.drawString("Orbital station ready", 10, 128, 0x00FF00);
+							fontRendererObj.drawString(I18nUtil.resolveKey("desc.gui.stardar.info5"), 10, 128, 0x00FF00);
 						} else {
-							fontRendererObj.drawString("Loading heightmap...", 10, 128, 0x00FF00);
-							fontRendererObj.drawString("Please wait", 10, 148, 0x00FF00);
+							fontRendererObj.drawString(I18nUtil.resolveKey("desc.gui.stardar.info6"), 10, 128, 0x00FF00);
+							fontRendererObj.drawString(I18nUtil.resolveKey("desc.gui.stardar.info7"), 10, 148, 0x00FF00);
 						}
 					} else if(slotStack.getItem() == ModItems.hard_drive) {
-						fontRendererObj.drawString("Select body", 10, 128, 0x00FF00);
-						fontRendererObj.drawString("Drag map to pan", 10, 148, 0x00FF00);
+						fontRendererObj.drawString(I18nUtil.resolveKey("desc.gui.stardar.info8"), 10, 128, 0x00FF00);
+						fontRendererObj.drawString(I18nUtil.resolveKey("desc.gui.stardar.info9"), 10, 148, 0x00FF00);
 					}
 				}
 			}
@@ -310,13 +310,13 @@ public class GUIMachineStardar extends GuiInfoContainer {
 	}
 
 	private String landingInfo(int x, int z) {
-		if(star.heightmap == null) return "No heightmap";
-		if(x < 3 || x > 252 || z < 3 || z > 252) return "Outside bounds";
+		if(star.heightmap == null) return I18nUtil.resolveKey("desc.gui.stardar.info10");
+		if(x < 3 || x > 252 || z < 3 || z > 252) return I18nUtil.resolveKey("desc.gui.stardar.info11");
 
 		for(int ox = x - 2; ox <= x + 2; ox++) {
 			for(int oz = z - 2; oz <= z + 2; oz++) {
 				if(star.heightmap[256 * oz + ox] != star.heightmap[256 * z + x]) {
-					return "Area not flat";
+					return I18nUtil.resolveKey("desc.gui.stardar.info12");
 				}
 			}
 		}

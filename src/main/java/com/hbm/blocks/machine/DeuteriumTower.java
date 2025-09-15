@@ -74,7 +74,7 @@ public class DeuteriumTower extends BlockDummyable implements ILookOverlay {
 		TileEntityDeuteriumTower tower = (TileEntityDeuteriumTower) te;
 
 		List<String> text = new ArrayList();
-		text.add((tower.power < tower.getMaxPower() / 20 ? EnumChatFormatting.RED : EnumChatFormatting.GREEN) + "Power: " + BobMathUtil.getShortNumber(tower.power) + "HE");
+		text.add((tower.power < tower.getMaxPower() / 20 ? EnumChatFormatting.RED : EnumChatFormatting.GREEN) + I18nUtil.format("desc.block.machine.power", BobMathUtil.getShortNumber(tower.power)));
 
 		for(int i = 0; i < tower.tanks.length; i++)
 			text.add((i < 1 ? (EnumChatFormatting.GREEN + "-> ") : (EnumChatFormatting.RED + "<- ")) + EnumChatFormatting.RESET + tower.tanks[i].getTankType().getLocalizedName() + ": " + tower.tanks[i].getFill() + "/" + tower.tanks[i].getMaxFill() + "mB");

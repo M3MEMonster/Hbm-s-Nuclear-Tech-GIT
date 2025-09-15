@@ -6,6 +6,7 @@ import com.hbm.entity.item.EntityTNTPrimedBase;
 import com.hbm.util.ChatBuilder;
 
 import api.hbm.block.IToolable;
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -36,7 +37,7 @@ public abstract class BlockTNTBase extends BlockDetonatable implements IToolable
 	public IIcon getIcon(int side, int meta) {
 		return side == 0 ? this.bottomIcon : (side == 1 ? this.topIcon : this.blockIcon);
 	}
-	
+
 	@Override
 	public void onBlockAdded(World world, int x, int y, int z) {
 		super.onBlockAdded(world, x, y, z);
@@ -58,7 +59,7 @@ public abstract class BlockTNTBase extends BlockDetonatable implements IToolable
 			checkAndIgnite(world, x, y, z);
 		}
 	}
-	
+
 	public void checkAndIgnite(World world, int x, int y, int z) {
 		if (shouldIgnite(world, x, y, z)) {
 			this.onBlockDestroyedByPlayer(world, x, y, z, 1);
@@ -117,10 +118,10 @@ public abstract class BlockTNTBase extends BlockDetonatable implements IToolable
 		this.topIcon = iconRegister.registerIcon(this.getTextureName() + "_top");
 		this.bottomIcon = iconRegister.registerIcon(this.getTextureName() + "_bottom");
 	}
-	
+
 	@Override
 	public boolean onScrew(World world, EntityPlayer player, int x, int y, int z, int side, float fX, float fY, float fZ, ToolType tool) {
-		
+
 		if(tool == ToolType.DEFUSER) {
 			if(!world.isRemote) {
 				world.func_147480_a(x, y, z, false);
@@ -128,22 +129,22 @@ public abstract class BlockTNTBase extends BlockDetonatable implements IToolable
 			}
 			return true;
 		}
-		
+
 		if(tool != ToolType.SCREWDRIVER)
 			return false;
 
 		if(!world.isRemote) {
 			int meta = world.getBlockMetadata(x, y, z);
-			
+
 			if(meta == 0) {
 				world.setBlockMetadataWithNotify(x, y, z, 1, 3);
-				player.addChatComponentMessage(ChatBuilder.start("[ Ignite On Break: Enabled ]").color(EnumChatFormatting.RED).flush());
+				player.addChatComponentMessage(ChatBuilder.start(I18nUtil.resolveKey("chat.block.bomb.tnt.ignite_on_break.yes")).color(EnumChatFormatting.RED).flush());
 			} else {
 				world.setBlockMetadataWithNotify(x, y, z, 0, 3);
-				player.addChatComponentMessage(ChatBuilder.start("[ Ignite On Break: Disabled ]").color(EnumChatFormatting.GOLD).flush());
+				player.addChatComponentMessage(ChatBuilder.start(I18nUtil.resolveKey("chat.block.bomb.tnt.ignite_on_break.no")).color(EnumChatFormatting.GOLD).flush());
 			}
 		}
-		
+
 		return true;
 	}
 }

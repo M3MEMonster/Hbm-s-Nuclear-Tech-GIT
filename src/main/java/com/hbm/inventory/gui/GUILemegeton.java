@@ -1,5 +1,6 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.util.i18n.I18nUtil;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.container.ContainerLemegeton;
@@ -22,8 +23,8 @@ public class GUILemegeton extends GuiContainer {
 
 	protected void drawGuiContainerForegroundLayer(int mX, int mY) {
 
-		Minecraft.getMinecraft().standardGalacticFontRenderer.drawString("Material Upgrade Conversion", 28, 6, 4210752);
-		Minecraft.getMinecraft().standardGalacticFontRenderer.drawString("Standard Inventory", 8, this.ySize - 96 + 2, 4210752);
+		Minecraft.getMinecraft().standardGalacticFontRenderer.drawString(I18nUtil.format("desc.gui.lemegeton.upgrade"), 28, 6, 4210752);
+		Minecraft.getMinecraft().standardGalacticFontRenderer.drawString(I18nUtil.format("desc.gui.lemegeton.standard"), 8, this.ySize - 96 + 2, 4210752);
 	}
 
 	protected void drawGuiContainerBackgroundLayer(float inter, int mX, int mY) {

@@ -6,12 +6,13 @@ import com.hbm.blocks.ModBlocks;
 import com.hbm.inventory.fluid.Fluids;
 import com.hbm.items.machine.ItemFluidIcon;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.item.ItemStack;
 
 public class DairyHandler extends NEIUniversalHandler {
 
 	public DairyHandler() {
-		super("Dairy", ModBlocks.machine_milk_reformer, getDairyRecipesForNEI());
+		super(I18nUtil.resolveKey("desc.handler.nei.dairy.recipe_name"), ModBlocks.machine_milk_reformer, getDairyRecipesForNEI());
 	}
 
 	@Override
@@ -22,7 +23,7 @@ public class DairyHandler extends NEIUniversalHandler {
     public static HashMap<Object, Object> getDairyRecipesForNEI() {
 
 		HashMap<Object, Object> recipes = new HashMap<>();
-        
+
         ItemStack[] in = new ItemStack[] {
             ItemFluidIcon.make(Fluids.MILK, 100),
         };
@@ -37,5 +38,5 @@ public class DairyHandler extends NEIUniversalHandler {
 
         return recipes;
 	}
-    
+
 }

@@ -63,7 +63,7 @@ public class MachineDeuteriumExtractor extends BlockContainer implements ILookOv
 		TileEntityDeuteriumExtractor extractor = (TileEntityDeuteriumExtractor) te;
 
 		List<String> text = new ArrayList();
-		text.add((extractor.power < extractor.getMaxPower() / 20 ? EnumChatFormatting.RED : EnumChatFormatting.GREEN) + "Power: " + BobMathUtil.getShortNumber(extractor.power) + "HE");
+		text.add((extractor.power < extractor.getMaxPower() / 20 ? EnumChatFormatting.RED : EnumChatFormatting.GREEN) + I18nUtil.format("desc.block.machine.power", BobMathUtil.getShortNumber(extractor.power)));
 
 		for(int i = 0; i < extractor.tanks.length; i++)
 			text.add((i < 1 ? (EnumChatFormatting.GREEN + "-> ") : (EnumChatFormatting.RED + "<- ")) + EnumChatFormatting.RESET + extractor.tanks[i].getTankType().getLocalizedName() + ": " + extractor.tanks[i].getFill() + "/" + extractor.tanks[i].getMaxFill() + "mB");

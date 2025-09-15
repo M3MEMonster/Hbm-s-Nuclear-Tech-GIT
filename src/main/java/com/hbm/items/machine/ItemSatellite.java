@@ -102,7 +102,7 @@ public class ItemSatellite extends ItemCustomMissilePart implements ISatChip {
 
 			Satellite.orbit(targetWorld, Satellite.getIDFromItem(stack.getItem()), getFreq(stack), player.posX, player.posY, player.posZ);
 
-			player.addChatMessage(new ChatComponentText("Satellite launched successfully!"));
+			player.addChatMessage(new ChatComponentText(I18nUtil.resolveKey("chat.item.sat.launch")));
 		}
 
 		stack.stackSize--;

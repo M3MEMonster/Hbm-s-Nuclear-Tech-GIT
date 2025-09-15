@@ -29,6 +29,7 @@ import com.hbm.packet.toclient.PlayerInformPacket;
 import com.hbm.tileentity.IGUIProvider;
 
 import api.hbm.item.IDepthRockTool;
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -270,7 +271,7 @@ public class ItemToolAbility extends ItemTool implements IDepthRockTool, IGUIPro
 
 		if(this.rockBreaker) {
 			list.add("");
-			list.add(EnumChatFormatting.RED + "Can break depth rock!");
+			list.add(EnumChatFormatting.RED + I18nUtil.resolveKey("desc.item.tool_ability.break"));
 		}
 	}
 

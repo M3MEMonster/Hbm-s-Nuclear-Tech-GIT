@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.util.BobMathUtil;
 import com.hbm.util.Tuple.Pair;
+import com.hbm.util.i18n.I18nUtil;
 import com.hbm.world.gen.nbt.NBTStructure;
 
 import net.minecraft.block.Block;
@@ -28,10 +29,9 @@ public class ItemWandS extends Item {
 
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-		list.add("Creative-only item");
-		list.add("\"Replication breeds decadence\"");
-		list.add("(Saves an area defined by two right-clicks,");
-		list.add("adds a block to the blacklist by crouch right-clicking!)");
+		for (String line : I18nUtil.resolveKeyArray("desc.item.wand.structure.common")){
+			list.add(line);
+		}
 
 		if(stack.stackTagCompound != null) {
             int px = stack.stackTagCompound.getInteger("x");
@@ -39,15 +39,15 @@ public class ItemWandS extends Item {
             int pz = stack.stackTagCompound.getInteger("z");
 
 			if(px != 0 || py != 0 || pz != 0) {
-                list.add(EnumChatFormatting.AQUA + "From: " + px + ", " + py + ", " + pz);
+                list.add(I18nUtil.format("desc.item.wand.strucuture.start_pos",px, py, pz));
             } else {
-                list.add(EnumChatFormatting.AQUA + "No start position set");
+                list.add(EnumChatFormatting.AQUA + I18nUtil.resolveKey("desc.item.wand.strucuture.no_pos"));
             }
 
             Set<Pair<Block, Integer>> blocks = getBlocks(stack);
 
             if(blocks.size() > 0) {
-                list.add("Blacklist:");
+                list.add(I18nUtil.resolveKey("desc.item.wand.strucuture.blacklist"));
                 for(Pair<Block, Integer> block : blocks) {
                     list.add(EnumChatFormatting.RED + "- " + block.key.getUnlocalizedName());
                 }
@@ -68,10 +68,10 @@ public class ItemWandS extends Item {
 
             if(blocks.contains(target)) {
                 blocks.remove(target);
-                if(world.isRemote) player.addChatMessage(new ChatComponentText("Removed from blacklist " + target.key.getUnlocalizedName()));
+                if(world.isRemote) player.addChatMessage(new ChatComponentText(I18nUtil.format("chat.item.wand.structure.remove_blacklist",target.key.getUnlocalizedName())));
             } else {
                 blocks.add(target);
-                if(world.isRemote) player.addChatMessage(new ChatComponentText("Added to blacklist " + target.key.getUnlocalizedName()));
+                if(world.isRemote) player.addChatMessage(new ChatComponentText(I18nUtil.format("chat.item.wand.structure.add_blacklist",target.key.getUnlocalizedName())));
             }
 
             setBlocks(stack, blocks);
@@ -84,7 +84,7 @@ public class ItemWandS extends Item {
 			if(px == 0 && py == 0 && pz == 0) {
                 setPosition(stack, x, y, z);
 
-				if(world.isRemote) player.addChatMessage(new ChatComponentText("First position set!"));
+				if(world.isRemote) player.addChatMessage(new ChatComponentText(I18nUtil.resolveKey("chat.item.wand.structure.pos_set")));
 			} else {
                 setPosition(stack, 0, 0, 0);
 
@@ -96,7 +96,7 @@ public class ItemWandS extends Item {
 
                 NBTStructure.saveArea(filename, world, x, y, z, px, py, pz, blocks);
 
-				if(world.isRemote) player.addChatMessage(new ChatComponentText("Structure saved to: .minecraft/structures/" + filename));
+				if(world.isRemote) player.addChatMessage(new ChatComponentText(I18nUtil.format("chat.item.wand.structure.save",filename)));
 			}
 		}
 
@@ -146,7 +146,7 @@ public class ItemWandS extends Item {
 			stack.stackTagCompound.setIntArray("metas", new int[0]);
 
 			if(world.isRemote) {
-				player.addChatMessage(new ChatComponentText("Cleared blacklist"));
+				player.addChatMessage(new ChatComponentText(I18nUtil.resolveKey("chat.item.wand.structure.clear_blacklist")));
             }
 		}
 

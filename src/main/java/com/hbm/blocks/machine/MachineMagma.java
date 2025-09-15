@@ -87,11 +87,11 @@ public class MachineMagma extends BlockDummyable implements ILookOverlay, IToolt
 		CelestialBody body = CelestialBody.getBody(world);
 
 		if(body.name != "moho") {
-			text.add("&[" + (BobMathUtil.getBlink() ? 0xff0000 : 0xffff00) + "&]! ! ! MUST BE ON MOHO ! ! !");
+			text.add(I18nUtil.format("desc.block.magma.on_homo", (BobMathUtil.getBlink() ? 0xff0000 : 0xffff00)));
 		} else if(!drill.validPosition) {
-			text.add("&[" + (BobMathUtil.getBlink() ? 0xff0000 : 0xffff00) + "&]! ! ! INSUFFICIENT LAVA FOUND ! ! !");
+			text.add(I18nUtil.format("desc.block.magma.no_lava", (BobMathUtil.getBlink() ? 0xff0000 : 0xffff00)));
 		} else {
-			text.add((drill.power < drill.consumption ? EnumChatFormatting.RED : EnumChatFormatting.GREEN) + "Power: " + BobMathUtil.getShortNumber(drill.power) + "HE");
+			text.add((drill.power < drill.consumption ? EnumChatFormatting.RED : EnumChatFormatting.GREEN) + I18nUtil.format("desc.block.machine.power", BobMathUtil.getShortNumber(drill.power)));
 
 			for(int i = 0; i < drill.tanks.length; i++)
 				text.add((i == 0 ? (EnumChatFormatting.GREEN + "-> ") : (EnumChatFormatting.RED + "<- ")) + EnumChatFormatting.RESET + drill.tanks[i].getTankType().getLocalizedName() + ": " + drill.tanks[i].getFill() + "/" + drill.tanks[i].getMaxFill() + "mB");

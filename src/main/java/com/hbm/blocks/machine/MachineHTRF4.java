@@ -94,9 +94,9 @@ public class MachineHTRF4 extends BlockDummyable implements ILookOverlay {
 
 			if(world.getTileEntity(x, y, z) instanceof TileEntityProxyCombo) {
 				if(pos[0] == x || pos[2] == z) {
-					text.add("Connect to Plasma Heater from here");
+					text.add(I18nUtil.resolveKey("desc.block.HTRF4.connect.plasma"));
 				} else {
-					text.add("Connect to power from here");
+					text.add(I18nUtil.resolveKey("desc.block.HTRF4.connect.power"));
 				}
 			}
 		}

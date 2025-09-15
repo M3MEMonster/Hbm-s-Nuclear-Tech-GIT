@@ -6,6 +6,7 @@ import com.hbm.dim.CelestialBody;
 import com.hbm.inventory.fluid.FluidType;
 import com.hbm.inventory.fluid.trait.FluidTraitSimple.FT_Gaseous_ART;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 
@@ -13,9 +14,9 @@ public class FT_Gaseous extends FluidTrait {
 
     @Override
     public void addInfoHidden(List<String> info) {
-        info.add(EnumChatFormatting.BLUE + "[Gaseous]");
+        info.add(EnumChatFormatting.BLUE + I18nUtil.resolveKey("desc.fluid.gaseous.trait"));
     }
-	
+
     // Venting gases into the atmosphere
 	public static void release(World world, FluidType type, double mB) {
         if(world.isRemote) return;
@@ -25,7 +26,7 @@ public class FT_Gaseous extends FluidTrait {
 
         CelestialBody.emitGas(world, type, mB);
 	}
-	
+
     // Extracting gases from the atmosphere
 	public static void capture(World world, FluidType type, double mB) {
         if(world.isRemote) return;

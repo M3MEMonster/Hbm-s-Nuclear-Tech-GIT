@@ -8,6 +8,7 @@ import com.hbm.particle.helper.SkeletonCreator;
 import com.hbm.util.ChatBuilder;
 import com.hbm.util.DamageResistanceHandler;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
@@ -39,7 +40,7 @@ public class CommandReloadRecipes extends CommandBase {
 			sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + "Reload complete :)"));
 		} catch(Exception ex) {
 			sender.addChatMessage(ChatBuilder.start("----------------------------------").color(EnumChatFormatting.GRAY).flush());
-			sender.addChatMessage(ChatBuilder.start("An error has occoured during loading, consult the log for details.").color(EnumChatFormatting.RED).flush());
+			sender.addChatMessage(ChatBuilder.start(I18nUtil.resolveKey("chat.command.reload_recipes.error")).color(EnumChatFormatting.RED).flush());
 			sender.addChatMessage(ChatBuilder.start(ex.getLocalizedMessage()).color(EnumChatFormatting.RED).flush());
 			sender.addChatMessage(ChatBuilder.start(ex.getStackTrace()[0].toString()).color(EnumChatFormatting.RED).flush());
 			sender.addChatMessage(ChatBuilder.start("----------------------------------").color(EnumChatFormatting.GRAY).flush());

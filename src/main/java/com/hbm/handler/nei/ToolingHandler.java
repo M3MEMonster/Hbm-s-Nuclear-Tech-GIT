@@ -2,6 +2,7 @@ package com.hbm.handler.nei;
 
 import com.hbm.blocks.generic.BlockToolConversion;
 import com.hbm.items.ModItems;
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.item.ItemStack;
 
 public class ToolingHandler extends NEIUniversalHandler {
@@ -13,7 +14,7 @@ public class ToolingHandler extends NEIUniversalHandler {
 				new ItemStack(ModItems.acetylene_torch)};
 	}
 	public ToolingHandler() {
-		super("Tooling", BlockToolConversion.getRecipes(true), BlockToolConversion.getRecipes(false));
+		super(I18nUtil.resolveKey("desc.handler.nei.tooling.recipe_name"), BlockToolConversion.getRecipes(true), BlockToolConversion.getRecipes(false));
 	}
 
 	@Override

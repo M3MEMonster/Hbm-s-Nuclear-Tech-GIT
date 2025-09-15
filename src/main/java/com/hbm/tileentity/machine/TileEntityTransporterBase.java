@@ -19,6 +19,7 @@ import com.hbm.util.fauxpointtwelve.DirPos;
 import api.hbm.energymk2.IEnergyReceiverMK2.ConnectionPriority;
 import api.hbm.fluid.IFluidStandardTransceiver;
 import api.hbm.fluidmk2.IFluidStandardReceiverMK2;
+import com.hbm.util.i18n.I18nUtil;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -359,7 +360,7 @@ public abstract class TileEntityTransporterBase extends TileEntityMachineBase im
 			int x = buf.readInt();
 			int y = buf.readInt();
 			int z = buf.readInt();
-			linkedTransporterInfo = new TransporterInfo("Linked Transporter", id, x, y, z);
+			linkedTransporterInfo = new TransporterInfo(I18nUtil.resolveKey("desc.tile_entity.transporter_base.linked"), id, x, y, z);
 		} else {
 			linkedTransporterInfo = null;
 		}
@@ -439,7 +440,7 @@ public abstract class TileEntityTransporterBase extends TileEntityMachineBase im
 		int dimensionId = nbt.getInteger("dimensionId");
 		int[] coords = nbt.getIntArray("linkedTo");
 		if(coords.length > 0) {
-			linkedTransporterInfo = new TransporterInfo("Linked Transporter", dimensionId, coords[0], coords[1], coords[2]);
+			linkedTransporterInfo = new TransporterInfo(I18nUtil.resolveKey("desc.tile_entity.transporter_base.linked"), dimensionId, coords[0], coords[1], coords[2]);
 		} else {
 			linkedTransporterInfo = null;
 		}
@@ -485,7 +486,7 @@ public abstract class TileEntityTransporterBase extends TileEntityMachineBase im
 
 			int[] coords = nbt.getIntArray("linkedTo");
 			int dimensionId = nbt.getInteger("dimensionId");
-			linkedTransporterInfo = new TransporterInfo("Linked Transporter", dimensionId, coords[0], coords[1], coords[2]);
+			linkedTransporterInfo = new TransporterInfo(I18nUtil.resolveKey("desc.tile_entity.transporter_base.linked"), dimensionId, coords[0], coords[1], coords[2]);
 
 			fetchLinkedTransporter();
 

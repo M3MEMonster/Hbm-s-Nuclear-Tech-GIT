@@ -181,13 +181,13 @@ public class BlockWandJigsaw extends BlockContainer implements IBlockSideRotatio
 
 		List<String> text = new ArrayList<String>();
 
-		text.add(EnumChatFormatting.GRAY + "Target pool: " + EnumChatFormatting.RESET + jigsaw.pool);
-		text.add(EnumChatFormatting.GRAY + "Name: " + EnumChatFormatting.RESET + jigsaw.name);
-		text.add(EnumChatFormatting.GRAY + "Target name: " + EnumChatFormatting.RESET + jigsaw.target);
-		text.add(EnumChatFormatting.GRAY + "Turns into: " + EnumChatFormatting.RESET + GameRegistry.findUniqueIdentifierFor(jigsaw.replaceBlock).toString());
-		text.add(EnumChatFormatting.GRAY + "   with meta: " + EnumChatFormatting.RESET + jigsaw.replaceMeta);
-		text.add(EnumChatFormatting.GRAY + "Selection/Placement priority: " + EnumChatFormatting.RESET + jigsaw.selectionPriority + "/" + jigsaw.placementPriority);
-		text.add(EnumChatFormatting.GRAY + "Joint type: " + EnumChatFormatting.RESET + (jigsaw.isRollable ? "Rollable" : "Aligned"));
+		text.add(I18nUtil.format("desc.block.wand.jigsaw.target_pool", jigsaw.pool));
+		text.add(I18nUtil.format("desc.block.wand.jigsaw.name", jigsaw.name));
+		text.add(I18nUtil.format("desc.block.wand.jigsaw.target_name", jigsaw.target));
+		text.add(I18nUtil.format("desc.block.wand.jigsaw.turn_into", GameRegistry.findUniqueIdentifierFor(jigsaw.replaceBlock).toString()));
+		text.add(I18nUtil.format("desc.block.wand.jigsaw.meta", jigsaw.replaceMeta));
+		text.add(I18nUtil.format("desc.block.wand.jigsaw.priority", jigsaw.selectionPriority, jigsaw.placementPriority));
+		text.add(I18nUtil.format("desc.block.wand.jigsaw.joint", (jigsaw.isRollable ? I18nUtil.resolveKey("desc.block.wand.jigsaw.type.rollable") : I18nUtil.resolveKey("desc.block.wand.jigsaw.type.aligned"))));
 
 		ILookOverlay.printGeneric(event, I18nUtil.resolveKey(getUnlocalizedName() + ".name"), 0xffff00, 0x404000, text);
 	}
@@ -313,29 +313,29 @@ public class BlockWandJigsaw extends BlockContainer implements IBlockSideRotatio
 			textPlacementPriority = new GuiTextField(fontRendererObj, this.width / 2 - 40, 150, 90, 20);
 			textPlacementPriority.setText("" + jigsaw.placementPriority);
 
-			jointToggle = new GuiButton(0, this.width / 2 + 60, 150, 90, 20, jigsaw.isRollable ? "Rollable" : "Aligned");
+			jointToggle = new GuiButton(0, this.width / 2 + 60, 150, 90, 20, jigsaw.isRollable ? I18nUtil.resolveKey("desc.block.wand.jigsaw.type.rollable") : I18nUtil.resolveKey("desc.block.wand.jigsaw.type.aligned"));
 		}
 
 		@Override
 		public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 			drawDefaultBackground();
 
-			drawString(fontRendererObj, "Target pool:", this.width / 2 - 150, 37, 0xA0A0A0);
+			drawString(fontRendererObj, I18nUtil.resolveKey("gui.block.wand.jigsaw.target_pool"), this.width / 2 - 150, 37, 0xA0A0A0);
 			textPool.drawTextBox();
 
-			drawString(fontRendererObj, "Name:", this.width / 2 - 150, 87, 0xA0A0A0);
+			drawString(fontRendererObj, I18nUtil.resolveKey("gui.block.wand.jigsaw.name"), this.width / 2 - 150, 87, 0xA0A0A0);
 			textName.drawTextBox();
 
-			drawString(fontRendererObj, "Target name:", this.width / 2 + 10, 87, 0xA0A0A0);
+			drawString(fontRendererObj, I18nUtil.resolveKey("gui.block.wand.jigsaw.target_name"), this.width / 2 + 10, 87, 0xA0A0A0);
 			textTarget.drawTextBox();
 
-			drawString(fontRendererObj, "Selection priority:", this.width / 2 - 150, 137, 0xA0A0A0);
+			drawString(fontRendererObj, I18nUtil.resolveKey("gui.block.wand.jigsaw.selection_priority"), this.width / 2 - 150, 137, 0xA0A0A0);
 			textSelectionPriority.drawTextBox();
 
-			drawString(fontRendererObj, "Placement priority:", this.width / 2 - 40, 137, 0xA0A0A0);
+			drawString(fontRendererObj, I18nUtil.resolveKey("gui.block.wand.jigsaw.placement_priority"), this.width / 2 - 40, 137, 0xA0A0A0);
 			textPlacementPriority.drawTextBox();
 
-			drawString(fontRendererObj, "Joint type:", this.width / 2 + 60, 137, 0xA0A0A0);
+			drawString(fontRendererObj, I18nUtil.resolveKey("gui.block.wand.jigsaw.joint"), this.width / 2 + 60, 137, 0xA0A0A0);
 			jointToggle.drawButton(mc, mouseX, mouseY);
 
 			super.drawScreen(mouseX, mouseY, partialTicks);

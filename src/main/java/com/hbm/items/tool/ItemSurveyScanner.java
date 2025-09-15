@@ -4,6 +4,7 @@ import com.hbm.blocks.ModBlocks;
 import com.hbm.blocks.generic.BlockBedrockOreTE.TileEntityBedrockOre;
 import com.hbm.items.ModItems;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -58,14 +59,14 @@ public class ItemSurveyScanner extends Item {
 				}
 			}
 
-			if(hasOil) player.addChatComponentMessage(new ChatComponentText("Found OIL!").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.BLACK)));
-			if(hasGas) player.addChatComponentMessage(new ChatComponentText("Found NATURAL GAS!").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.WHITE)));
-			if(hasBrine) player.addChatComponentMessage(new ChatComponentText("Found BRINE!").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.WHITE)));
-			if(hasColtan) player.addChatComponentMessage(new ChatComponentText("Found COLTAN!").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GOLD)));
-			if(hasDepth) player.addChatComponentMessage(new ChatComponentText("Found DEPTH ROCK!").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GRAY)));
-			if(hasSchist) player.addChatComponentMessage(new ChatComponentText("Found SCHIST!").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.DARK_AQUA)));
-			if(hasAussie) player.addChatComponentMessage(new ChatComponentText("Found AUSTRALIUM!").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.YELLOW)));
-			if(tile != null && tile.resource != null) player.addChatComponentMessage(new ChatComponentText("Found BEDROCK ORE for " + tile.resource.getDisplayName() + "!").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
+			if(hasOil) player.addChatComponentMessage(new ChatComponentText(I18nUtil.resolveKey("chat.item.survey_scanner.found.1")).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.BLACK)));
+			if(hasGas) player.addChatComponentMessage(new ChatComponentText(I18nUtil.resolveKey("chat.item.survey_scanner.found.2")).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.WHITE)));
+			if(hasBrine) player.addChatComponentMessage(new ChatComponentText(I18nUtil.resolveKey("chat.item.survey_scanner.found.3")).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.WHITE)));
+			if(hasColtan) player.addChatComponentMessage(new ChatComponentText(I18nUtil.resolveKey("chat.item.survey_scanner.found.4")).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GOLD)));
+			if(hasDepth) player.addChatComponentMessage(new ChatComponentText(I18nUtil.resolveKey("chat.item.survey_scanner.found.5")).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GRAY)));
+			if(hasSchist) player.addChatComponentMessage(new ChatComponentText(I18nUtil.resolveKey("chat.item.survey_scanner.found.6")).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.DARK_AQUA)));
+			if(hasAussie) player.addChatComponentMessage(new ChatComponentText(I18nUtil.resolveKey("chat.item.survey_scanner.found.7")).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.YELLOW)));
+			if(tile != null && tile.resource != null) player.addChatComponentMessage(new ChatComponentText(I18nUtil.resolveKey("chat.item.survey_scanner.found.8", tile.resource.getDisplayName())).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
 		}
 
 		player.swingItem();

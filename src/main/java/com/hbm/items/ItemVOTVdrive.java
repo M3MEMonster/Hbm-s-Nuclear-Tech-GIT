@@ -47,26 +47,26 @@ public class ItemVOTVdrive extends ItemEnumMulti {
 
 			if(identifier.equals("")) identifier = "0x" + Integer.toHexString(new ChunkCoordIntPair(destination.x, destination.z).hashCode()).toUpperCase();
 
-			list.add("Destination: ORBITAL STATION");
-			list.add("Station: " + identifier);
+			list.add(I18nUtil.resolveKey("desc.item.votv.destination.orbit"));
+			list.add(I18nUtil.format("desc.item.votv.destination.orbit.station", identifier));
 			return;
 		}
 
 		int processingLevel = destination.body.getProcessingLevel(CelestialBody.getBody(player.worldObj));
 
-		list.add("Destination: " + EnumChatFormatting.AQUA + I18nUtil.resolveKey("body." + destination.body.name));
+		list.add(I18nUtil.format("desc.item.votv.destination", I18nUtil.resolveKey("body." + destination.body.name)));
 
 		if(destination.x == 0 && destination.z == 0) {
-			list.add(EnumChatFormatting.GOLD + "Needs destination coordinates!");
+			list.add(EnumChatFormatting.GOLD + I18nUtil.resolveKey("desc.item.votv.destination.no_coordinate"));
 		} else if(!getProcessed(stack)) {
 			// Display processing level info if not processed
-			list.add("Process requirement: Level " + processingLevel);
-			list.add(EnumChatFormatting.GOLD + "Needs processing!");
-			list.add("Target coordinates: " + destination.x + ", " + destination.z);
+			list.add(I18nUtil.format("desc.item.votv.process_require1",processingLevel));
+			list.add(EnumChatFormatting.GOLD + I18nUtil.resolveKey("desc.item.votv.process_require2"));
+			list.add(I18nUtil.format("desc.item.votv.destination.target", destination.x, destination.z));
 		} else {
 			// Display destination info if processed
-			list.add(EnumChatFormatting.GREEN + "Processed!");
-			list.add("Target coordinates: " + destination.x + ", " + destination.z);
+			list.add(EnumChatFormatting.GREEN + I18nUtil.resolveKey("desc.item.votv.processed"));
+			list.add(I18nUtil.format("desc.item.votv.destination.target", destination.x, destination.z));
 		}
 	}
 
@@ -271,7 +271,7 @@ public class ItemVOTVdrive extends ItemEnumMulti {
 		setProcessed(stack, true);
 
 		if(!world.isRemote)
-			player.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + "" + EnumChatFormatting.ITALIC + "Set landing coordinates to: " + x + ", " + z));
+			player.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + "" + EnumChatFormatting.ITALIC + I18nUtil.resolveKey("chat.item.votv.set_pos", x, z)));
 
 		return true;
 	}

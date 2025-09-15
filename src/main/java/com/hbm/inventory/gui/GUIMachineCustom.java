@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Locale;
 
 import com.hbm.render.util.GaugeUtil;
+import com.hbm.util.i18n.I18nUtil;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.SlotPattern;
@@ -45,7 +46,7 @@ public class GUIMachineCustom extends GuiInfoContainer {
 				int tileIndex = slot.getSlotIndex();
 
 				if(this.isMouseOverSlot(slot, x, y) && slot instanceof SlotPattern && custom.matcher.modes[tileIndex - 10] != null) {
-					this.func_146283_a(Arrays.asList(new String[] { EnumChatFormatting.RED + "Right click to change", ModulePatternMatcher.getLabel(custom.matcher.modes[tileIndex - 10]) }), x, y - 30);
+					this.func_146283_a(Arrays.asList(new String[] { EnumChatFormatting.RED + I18nUtil.resolveKey("desc.gui.common.change"), ModulePatternMatcher.getLabel(custom.matcher.modes[tileIndex - 10]) }), x, y - 30);
 				}
 			}
 		}
@@ -66,7 +67,7 @@ public class GUIMachineCustom extends GuiInfoContainer {
 		if(localizedName != null) name = localizedName;
 		this.fontRendererObj.drawString(name, 68 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
 		this.fontRendererObj.drawString(I18n.format("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
-		if(custom.config.fluxMode) this.fontRendererObj.drawString("Flux:" + custom.flux,83, 57,0x08FF00);
+		if(custom.config.fluxMode) this.fontRendererObj.drawString(I18nUtil.format("desc.gui.custom_machine.flux", custom.flux),83, 57,0x08FF00);
 	}
 
 	@Override

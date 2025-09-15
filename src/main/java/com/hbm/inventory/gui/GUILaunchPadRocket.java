@@ -2,6 +2,7 @@ package com.hbm.inventory.gui;
 
 import java.util.List;
 
+import com.hbm.util.i18n.I18nUtil;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.container.ContainerLaunchPadRocket;
@@ -29,14 +30,14 @@ public class GUILaunchPadRocket extends GuiInfoContainer {
         xSize = 188;
         ySize = 236;
     }
-	
+
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float f) {
 		super.drawScreen(mouseX, mouseY, f);
-		
+
 		this.drawElectricityInfo(this, mouseX, mouseY, guiLeft + 167, guiTop + 36, 16, 52, machine.power, machine.maxPower);
-        
-		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 56, guiTop + 20, 18, 17, mouseX, mouseY, new String[]{"COMMIT TO LAUNCH"} );
+
+		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 56, guiTop + 20, 18, 17, mouseX, mouseY, new String[]{I18nUtil.resolveKey("desc.gui.launch_pad_rocket.launch")} );
 	}
 
     @Override
@@ -44,7 +45,7 @@ public class GUILaunchPadRocket extends GuiInfoContainer {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
-		
+
 		int p = (int) (machine.power * 52 / machine.maxPower);
 		drawTexturedModalRect(guiLeft + 167, guiTop + 36 + 52 - p, xSize, 8 + 52 - p, 16, p);
 
@@ -57,22 +58,22 @@ public class GUILaunchPadRocket extends GuiInfoContainer {
 
             GL11.glPushMatrix();
             {
-    
+
                 pushScissor(97, 18, 50, 106);
-    
+
                 GL11.glTranslatef(guiLeft + 122, guiTop + 119, 100);
                 GL11.glRotatef(System.currentTimeMillis() / 10 % 360, 0, -1, 0);
-                
+
                 double size = 86;
                 double height = machine.rocket.getHeight();
                 double targetScale = size / Math.max(height, 6);
-                
+
                 GL11.glScaled(-targetScale, -targetScale, -targetScale);
-    
+
                 MissilePronter.prontRocket(machine.rocket, Minecraft.getMinecraft().getTextureManager());
-    
+
                 popScissor();
-    
+
             }
             GL11.glPopMatrix();
 
@@ -95,7 +96,7 @@ public class GUILaunchPadRocket extends GuiInfoContainer {
 	@Override
 	protected void mouseClicked(int x, int y, int i) {
     	super.mouseClicked(x, y, i);
-		
+
 		// COMMIT TO LAUNCH
     	if(machine.rocket != null && machine.rocket.validate() && checkClick(x, y, 56, 20, 18, 17)) {
 			mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));
@@ -104,5 +105,5 @@ public class GUILaunchPadRocket extends GuiInfoContainer {
 			PacketDispatcher.wrapper.sendToServer(new NBTControlPacket(data, machine.xCoord, machine.yCoord, machine.zCoord));
     	}
     }
-    
+
 }

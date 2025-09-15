@@ -7,38 +7,39 @@ import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonWriter;
 import com.hbm.util.BobMathUtil;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.util.EnumChatFormatting;
 
 public class FT_Flammable extends FluidTrait {
-	
+
 	/** How much heat energy (usually translates into HE 1:1) 1000mB hold */
 	private long energy;
-	
+
 	public FT_Flammable() { }
-	
+
 	public FT_Flammable(long energy) {
 		this.energy = energy;
 	}
-	
+
 	public long getHeatEnergy() {
 		return this.energy;
 	}
-	
+
 	@Override
 	public void addInfo(List<String> info) {
 		super.addInfo(info);
-		
-		info.add(EnumChatFormatting.YELLOW + "[Flammable]");
-		
+
+		info.add(EnumChatFormatting.YELLOW + I18nUtil.resolveKey("desc.fluid.flammable.trait"));
+
 		if(energy > 0)
-			info.add(EnumChatFormatting.YELLOW + "Provides " + EnumChatFormatting.RED + "" + BobMathUtil.getShortNumber(energy) + "TU " + EnumChatFormatting.YELLOW + "per bucket");
+			info.add(I18nUtil.format("desc.fluid.flammable.provide", BobMathUtil.getShortNumber(energy)));
 	}
 
 	@Override
 	public void serializeJSON(JsonWriter writer) throws IOException {
 		writer.name("energy").value(energy);
 	}
-	
+
 	@Override
 	public void deserializeJSON(JsonObject obj) {
 		this.energy = obj.get("energy").getAsLong();

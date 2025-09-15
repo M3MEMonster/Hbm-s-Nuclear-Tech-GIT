@@ -2,6 +2,7 @@ package com.hbm.inventory.fluid.trait;
 
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonWriter;
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.util.EnumChatFormatting;
 
 
@@ -25,9 +26,9 @@ public class FT_Pheromone extends  FluidTrait{
 	public void addInfo(List<String> info) {
 
 		if(type == 1) {
-			info.add(EnumChatFormatting.AQUA + "[Glyphid Pheromones]");
+			info.add(EnumChatFormatting.AQUA + I18nUtil.resolveKey("desc.fluid.pheromone.gly.trait"));
 		} else {
-			info.add(EnumChatFormatting.BLUE + "[Modified Pheromones]");
+			info.add(EnumChatFormatting.BLUE + I18nUtil.resolveKey("desc.fluid.pheromone.mod.trait"));
 		}
 	}
 

@@ -8,6 +8,7 @@ import com.hbm.tileentity.TileEntityProxyCombo;
 import com.hbm.tileentity.machine.TileEntityDishControl;
 import com.hbm.util.ChatBuilder;
 
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.common.Mod;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,7 +33,7 @@ public class ItemReactorSensor extends Item {
 				stack.stackTagCompound = new NBTTagCompound();
 
 			if(!world.isRemote) {
-				SendMessage(player,"Position Set!");
+				SendMessage(player,I18nUtil.resolveKey("chat.item.reactor_sensor.pos_set"));
 			}
 
 			stack.stackTagCompound.setInteger("x", x);
@@ -61,7 +62,7 @@ public class ItemReactorSensor extends Item {
 			if(entity == null) return false;
 
 			if(!world.isRemote) {
-				SendMessage(player,"Stardar Linked!");
+				SendMessage(player,I18nUtil.resolveKey("chat.item.reactor_sensor.link_start"));
 				entity.TryLink(stack);
 			}
 
@@ -88,7 +89,7 @@ public class ItemReactorSensor extends Item {
 			list.add("y: " + itemstack.stackTagCompound.getInteger("y"));
 			list.add("z: " + itemstack.stackTagCompound.getInteger("z"));
 		} else {
-			list.add("No reactor selected!");
+			list.add(I18nUtil.resolveKey("desc.item.reactor_sensor.no_reactor"));
 		}
 	}
 }

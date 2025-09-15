@@ -8,6 +8,7 @@ import com.hbm.packet.toclient.AuxParticlePacketNT;
 import com.hbm.util.ParticleUtil;
 
 import api.hbm.block.IToolable;
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -119,6 +120,6 @@ public class PartEmitter extends BlockContainer implements IToolable, ITooltipPr
 
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean ext) {
-		list.add(EnumChatFormatting.GOLD + "Use hand drill to cycle special effects");
+		list.add(EnumChatFormatting.GOLD + I18nUtil.resolveKey("desc.block.part_emitter"));
 	}
 }

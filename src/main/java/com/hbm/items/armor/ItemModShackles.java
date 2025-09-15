@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.hbm.handler.ArmorModHandler;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
@@ -17,19 +18,15 @@ public class ItemModShackles extends ItemArmorMod {
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
 
-		list.add(EnumChatFormatting.RED + "You will speak when I ask you to.");
-		list.add(EnumChatFormatting.RED + "You will eat when I tell you to.");
-		list.add(EnumChatFormatting.RED + "" + EnumChatFormatting.BOLD + "You will die when I allow you to.");
-		
-		list.add("");
-		list.add(EnumChatFormatting.GOLD + "∞ revives left");
-		list.add("");
+		for (String line : I18nUtil.resolveKeyArray("desc.item.shackles")){
+			list.add(line);
+		}
 		super.addInformation(stack, player, list, bool);
 	}
 
 	@Override
 	public void addDesc(List list, ItemStack stack, ItemStack armor) {
 
-		list.add(EnumChatFormatting.GOLD + "  " + stack.getDisplayName() + " (∞ revives left)");
+		list.add(I18nUtil.format("desc.item.shackles.add", stack.getDisplayName()));
 	}
 }

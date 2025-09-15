@@ -30,6 +30,7 @@ import com.hbm.tileentity.TileEntityMachineBase;
 import com.hbm.util.Tuple.Triplet;
 import com.hbm.util.fauxpointtwelve.BlockPos;
 import com.hbm.util.fauxpointtwelve.DirPos;
+import com.hbm.util.i18n.I18nUtil;
 import com.hbm.world.WorldUtil;
 
 import api.hbm.energymk2.IEnergyReceiverMK2;
@@ -662,7 +663,7 @@ public class TileEntityMachineRadarNT extends TileEntityMachineBase implements I
 	public Object[] isIndexPlayer(Context context, Arguments args) {
 		int index = args.checkInteger(0) - 1;
 		if(index > entries.size() || index < 0) {
-			return new Object[] {null, "No entity exists at that index."};
+			return new Object[] {null, I18nUtil.resolveKey("desc.tile_entity.radar_nt.OC.error.no_index")};
 		}
 		RadarEntry e = entries.get(index);
 		return new Object[] {e.blipLevel == IRadarDetectableNT.PLAYER};
@@ -673,7 +674,7 @@ public class TileEntityMachineRadarNT extends TileEntityMachineBase implements I
 	public Object[] getIndexType(Context context, Arguments args) {
 		int index = args.checkInteger(0) - 1;
 		if(index > entries.size() || index < 0) {
-			return new Object[] {null, "No entity exists at that index."};
+			return new Object[] {null, I18nUtil.resolveKey("desc.tile_entity.radar_nt.OC.error.no_index")};
 		}
 		RadarEntry e = entries.get(index);
 		return new Object[] {e.blipLevel};
@@ -684,7 +685,7 @@ public class TileEntityMachineRadarNT extends TileEntityMachineBase implements I
 	public Object[] getEntityAtIndex(Context context, Arguments args) {
 		int index = args.checkInteger(0) - 1;
 		if(index > entries.size() || index < 0) {
-			return new Object[] {null, "No entity exists at that index."};
+			return new Object[] {null, I18nUtil.resolveKey("desc.tile_entity.radar_nt.OC.error.no_index")};
 		}
 		RadarEntry e = entries.get(index);
 		int type = e.blipLevel;

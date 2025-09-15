@@ -723,40 +723,40 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 
 		// Check if the stage can make the journey
 		if(state == RocketState.NEEDSFUEL) {
-			text.add(EnumChatFormatting.RED + "Rocket has no fuel!");
+			text.add(EnumChatFormatting.RED + I18nUtil.resolveKey("desc.entity.rideable_rocket.no_fuel"));
 		} else if(canLaunch && !rocket.hasSufficientFuel(from.body, to.body, from.inOrbit, to.inOrbit)) {
-			text.add(EnumChatFormatting.RED + "Rocket can't reach destination!");
+			text.add(EnumChatFormatting.RED + I18nUtil.resolveKey("desc.entity.rideable_rocket.insufficient_fuel"));
 			canLaunch = false;
 		}
 
 		if(riddenByEntity == null) {
-			text.add("Interact to enter");
+			text.add(I18nUtil.resolveKey("desc.entity.rideable_rocket.enter"));
 		} else if(riddenByEntity != player) {
-			text.add("OCCUPIED");
+			text.add(I18nUtil.resolveKey("desc.entity.rideable_rocket.occupied"));
 		} else {
 			if(to.inOrbit) {
-				text.add("Destination: ORBITAL STATION");
+				text.add(I18nUtil.resolveKey("desc.entity.rideable_rocket.des.orbit"));
 			} else if(to.body != null) {
-				text.add("Destination: " + I18nUtil.resolveKey("body." + to.body.name));
+				text.add(I18nUtil.resolveKey("desc.entity.rideable_rocket.des", I18nUtil.resolveKey("body." + to.body.name)));
 			} else {
-				text.add("Destination: NO DRIVE INSTALLED");
+				text.add(I18nUtil.resolveKey("desc.entity.rideable_rocket.des.no_drive"));
 			}
 
 			if(canLaunch) {
-				text.add("JUMP TO LAUNCH");
+				text.add(I18nUtil.resolveKey("desc.entity.rideable_rocket.launch"));
 			} else if(state == RocketState.LANDED) {
-				text.add("Insert next drive to continue");
+				text.add(I18nUtil.resolveKey("desc.entity.rideable_rocket.land"));
 			}
 
 			ItemStack stack = player.getHeldItem();
 			if((state == RocketState.LANDED || state == RocketState.AWAITING) && stack != null && stack.getItem() instanceof ItemVOTVdrive) {
 				if(ItemVOTVdrive.getProcessed(stack)) {
-					text.add("Interact to swap drive");
+					text.add(I18nUtil.resolveKey("desc.entity.rideable_rocket.swap"));
 				}
 			}
 		}
 
-		ILookOverlay.printGeneric(event, "Rocket", 0xffff00, 0x404000, text);
+		ILookOverlay.printGeneric(event, I18nUtil.resolveKey("desc.entity.rideable_rocket.title"), 0xffff00, 0x404000, text);
 	}
 
 	@Override

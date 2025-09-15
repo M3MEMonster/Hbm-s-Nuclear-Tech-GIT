@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.hbm.items.ModItems;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
@@ -13,26 +14,26 @@ public class ModSword extends ItemSword {
 	public ModSword(ToolMaterial p_i45356_1_) {
 		super(p_i45356_1_);
 	}
-	
+
 	@Override
 	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean bool)
 	{
 		if(this == ModItems.saw)
-			list.add("Prepare for your examination!");
+			list.add(I18nUtil.resolveKey("desc.weapon.modsword.saw"));
 		if(this == ModItems.bat)
-			list.add("Do you like hurting other people?");
+			list.add(I18nUtil.resolveKey("desc.weapon.modsword.bat"));
 		if(this == ModItems.bat_nail)
-			list.add("Or is it a classic?");
+			list.add(I18nUtil.resolveKey("desc.weapon.modsword.bat_nail"));
 		if(this == ModItems.golf_club)
-			list.add("Property of Miami Beach Golf Club.");
+			list.add(I18nUtil.resolveKey("desc.weapon.modsword.golf_club"));
 		if(this == ModItems.pipe_rusty)
-			list.add("Ouch! Ouch! Ouch!");
+			list.add(I18nUtil.resolveKey("desc.weapon.modsword.pipe_rusty"));
 		if(this == ModItems.pipe_lead)
-			list.add("Manually override anything by smashing it with this pipe.");
-			//list.add("I'm going to attempt a manual override on this wall.");
+			list.add(I18nUtil.resolveKey("desc.weapon.modsword.pipe_lead"));
 		if(this == ModItems.reer_graar) {
-			list.add("Call now!");
-			list.add("555-10-3728-ZX7-INFINITE");
+			for (String line : I18nUtil.resolveKeyArray("desc.weapon.modsword.reer_graar")){
+				list.add(line);
+			}
 		}
 	}
 }

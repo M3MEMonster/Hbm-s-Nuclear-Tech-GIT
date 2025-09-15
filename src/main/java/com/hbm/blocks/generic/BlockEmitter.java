@@ -9,6 +9,7 @@ import com.hbm.packet.toclient.AuxParticlePacketNT;
 
 import api.hbm.block.IToolable;
 import com.hbm.tileentity.TileEntityLoadedBase;
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -239,9 +240,8 @@ public class BlockEmitter extends BlockContainer implements IToolable, ITooltipP
 
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean ext) {
-		list.add(EnumChatFormatting.GOLD + "Use screwdriver to widen beam");
-		list.add(EnumChatFormatting.GOLD + "Use defuser to narrow beam");
-		list.add(EnumChatFormatting.GOLD + "Use hand drill to cycle special effects");
-		list.add(EnumChatFormatting.GOLD + "Use dye to change color");
+		for (String line : I18nUtil.resolveKeyArray("desc.block.emitter")){
+			list.add(line);
+		}
 	}
 }

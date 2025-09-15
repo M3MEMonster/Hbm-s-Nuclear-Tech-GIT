@@ -5,6 +5,7 @@ import com.hbm.interfaces.Untested;
 import com.hbm.lib.RefStrings;
 import com.hbm.main.MainRegistry;
 
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -21,7 +22,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.Pre;
 
 public class Guide extends Block implements ILookOverlay {
-	
+
 	@SideOnly(Side.CLIENT)
 	private IIcon iconTop;
 	private IIcon iconFront;
@@ -32,7 +33,7 @@ public class Guide extends Block implements ILookOverlay {
 	public Guide(Material p_i45394_1_) {
 		super(p_i45394_1_);
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister iconRegister) {
@@ -43,7 +44,7 @@ public class Guide extends Block implements ILookOverlay {
 		this.iconLeft = iconRegister.registerIcon(RefStrings.MODID + ":guide_side_left");
 		this.iconRight = iconRegister.registerIcon(RefStrings.MODID + ":guide_side_right");
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int metadata) {
@@ -90,14 +91,14 @@ public class Guide extends Block implements ILookOverlay {
 		if(side == 3) return iconLeft;
 		if(side == 4) return iconBack;
 		if(side == 5) return iconFront;
-		
+
 		return null;
 	}
-	
+
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemStack) {
 		int i = MathHelper.floor_double(player.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
-		
+
 		if(i == 0)
 		{
 			world.setBlockMetadataWithNotify(x, y, z, 2, 2);
@@ -115,15 +116,15 @@ public class Guide extends Block implements ILookOverlay {
 			world.setBlockMetadataWithNotify(x, y, z, 4, 2);
 		}
 	}
-	
+
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-		
+
 		if(world.isRemote && !player.isSneaking()) {
 			MainRegistry.proxy.openLink("https://nucleartech.wiki/wiki/Main_Page");
 			return true;
 		}
-		
+
 		return super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
 	}
 
@@ -137,7 +138,7 @@ public class Guide extends Block implements ILookOverlay {
 		int pX = resolution.getScaledWidth() / 2 + 8;
 		int pZ = resolution.getScaledHeight() / 2;
 
-		String title = "Click to open wiki";
+		String title = I18nUtil.resolveKey("gui.block.guide.open_wiki");
 		mc.fontRenderer.drawString(title, pX + 1, pZ - 19, 0x006000);
 		mc.fontRenderer.drawString(title, pX, pZ - 20, 0x00FF00);
 	}

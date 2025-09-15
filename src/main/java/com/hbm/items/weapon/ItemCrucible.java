@@ -10,6 +10,7 @@ import com.hbm.items.tool.ItemSwordAbility;
 import com.hbm.packet.toclient.AuxParticlePacketNT;
 import com.hbm.util.ShadyUtil;
 
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -100,7 +101,7 @@ public class ItemCrucible extends ItemSwordAbility implements IEquipReceiver {
 		} else {
 
 			if(!attacker.worldObj.isRemote && attacker instanceof EntityPlayer)
-				((EntityPlayer)attacker).addChatComponentMessage(new ChatComponentText("Not enough energy.").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
+				((EntityPlayer)attacker).addChatComponentMessage(new ChatComponentText(I18nUtil.resolveKey("chat.item.crucible.no_enery")).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
 			return false;
 		}
 	}
@@ -120,7 +121,7 @@ public class ItemCrucible extends ItemSwordAbility implements IEquipReceiver {
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean ext) {
 
-		String charge = EnumChatFormatting.RED + "Charge [";
+		String charge = EnumChatFormatting.RED + I18nUtil.resolveKey("desc.item.crucible");
 
 		for(int i = 2; i >= 0; i--)
 			if(stack.getItemDamage() <= i)

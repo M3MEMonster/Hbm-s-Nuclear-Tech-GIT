@@ -1,5 +1,6 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.util.i18n.I18nUtil;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.container.ContainerMachineKeyForge;
@@ -12,31 +13,31 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 
 public class GUIMachineKeyForge extends GuiInfoContainer {
-	
+
 	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_keyforge.png");
 	private TileEntityMachineKeyForge siren;
 
 	public GUIMachineKeyForge(InventoryPlayer invPlayer, TileEntityMachineKeyForge tedf) {
 		super(new ContainerMachineKeyForge(invPlayer, tedf));
 		siren = tedf;
-		
+
 		this.xSize = 176;
 		this.ySize = 166;
 	}
-	
+
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float f) {
 		super.drawScreen(mouseX, mouseY, f);
 
-		String[] text = new String[] { "The first slot will copy the key/lock's",
-				"pin configuration and paste it to the second slot." };
+		String[] text = new String[] {I18nUtil.resolveKey("desc.gui.key_forge.slot1"),
+				I18nUtil.resolveKey("desc.gui.key_forge.slot2") };
 		this.drawCustomInfoStat(mouseX, mouseY, guiLeft - 16, guiTop + 36, 16, 16, guiLeft - 8, guiTop + 36 + 16, text);
-		
-		String[] text1 = new String[] { "The third slot will randomize the",
-				"key/lock's pin configuration."};
+
+		String[] text1 = new String[] { I18nUtil.resolveKey("desc.gui.key_forge.slot3"),
+				I18nUtil.resolveKey("desc.gui.key_forge.slot4")};
 		this.drawCustomInfoStat(mouseX, mouseY, guiLeft - 16, guiTop + 36 + 16, 16, 16, guiLeft - 8, guiTop + 36 + 16, text1);
 	}
-	
+
 	@Override
 	protected void drawGuiContainerForegroundLayer(int i, int j) {
 		String name = this.siren.hasCustomInventoryName() ? this.siren.getInventoryName() : I18n.format(this.siren.getInventoryName());

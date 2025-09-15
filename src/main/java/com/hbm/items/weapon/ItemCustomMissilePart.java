@@ -97,7 +97,7 @@ public class ItemCustomMissilePart extends Item {
 
 	public enum WarheadType {
 		HE("item.warhead.desc.he"),
-		INC("item.warhead.desc.inc"),
+		INC("item.warhead.desc.incendiary"),
 		BUSTER("item.warhead.desc.bunker_buster"),
 		CLUSTER("item.warhead.desc.cluster"),
 		NUCLEAR("item.warhead.desc.nuclear"),

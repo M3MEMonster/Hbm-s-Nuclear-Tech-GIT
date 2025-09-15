@@ -2,6 +2,7 @@ package com.hbm.inventory.gui;
 
 import java.util.Locale;
 
+import com.hbm.util.i18n.I18nUtil;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.container.ContainerWatz;
@@ -28,27 +29,27 @@ public class GUIWatz extends GuiInfoContainer {
 	public GUIWatz(InventoryPlayer invPlayer, TileEntityWatz watz) {
 		super(new ContainerWatz(invPlayer, watz));
 		this.watz = watz;
-		
+
 		this.xSize = 176;
 		this.ySize = 229;
 	}
-	
+
 	@Override
 	public void drawScreen(int x, int y, float interp) {
 		super.drawScreen(x, y, interp);
 
 		this.drawCustomInfoStat(x, y, guiLeft + 13, guiTop + 100, 18, 18, x, y, new String[] { String.format(Locale.US, "%,d", watz.heat) + " TU" });
-		this.drawCustomInfoStat(x, y, guiLeft + 143, guiTop + 71, 16, 16, x, y, new String[] { watz.isLocked ? "Unlock pellet IO configuration" : "Lock pellet IO configuration" });
+		this.drawCustomInfoStat(x, y, guiLeft + 143, guiTop + 71, 16, 16, x, y, new String[] { watz.isLocked ? I18nUtil.resolveKey("desc.gui.watz.unlock") : I18nUtil.resolveKey("desc.gui.watz.lock") });
 
 		watz.tanks[0].renderTankInfo(this, x, y, guiLeft + 142, guiTop + 23, 6, 45);
 		watz.tanks[1].renderTankInfo(this, x, y, guiLeft + 148, guiTop + 23, 6, 45);
 		watz.tanks[2].renderTankInfo(this, x, y, guiLeft + 154, guiTop + 23, 6, 45);
 	}
-	
+
 	@Override
 	protected void drawGuiContainerForegroundLayer(int i, int j) {
 		this.fontRendererObj.drawString(I18n.format("container.inventory"), 8, this.ySize - 93, 4210752);
-		
+
 		double scale = 1.25;
 		String flux = String.format(Locale.US, "%,.1f", watz.fluxDisplay);
 		GL11.glScaled(1 / scale, 1 / scale, 1);
@@ -76,7 +77,7 @@ public class GUIWatz extends GuiInfoContainer {
 		GL11.glColor4f(1.0F, col, col, 1.0F);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, 131, 122);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		
+
 		drawTexturedModalRect(guiLeft + 131, guiTop, 131, 0, 36, 122);
 		drawTexturedModalRect(guiLeft, guiTop + 130, 0, 130, xSize, 99);
 		drawTexturedModalRect(guiLeft + 126, guiTop + 31, 176, 31, 9, 60);
@@ -85,7 +86,7 @@ public class GUIWatz extends GuiInfoContainer {
 
 		if(watz.isOn) drawTexturedModalRect(guiLeft + 147, guiTop + 8, 176, 0, 8, 8);
 		if(watz.isLocked) drawTexturedModalRect(guiLeft + 142, guiTop + 70, 210, 0, 18, 18);
-		
+
 		GaugeUtil.renderGauge(Gauge.ROUND_SMALL, guiLeft + 13, guiTop + 100, this.zLevel, 1 - col);
 
 		watz.tanks[0].renderTank(guiLeft + 143, guiTop + 69, this.zLevel, 4, 43);

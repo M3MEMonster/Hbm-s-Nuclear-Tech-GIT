@@ -6,6 +6,7 @@ import com.hbm.main.MainRegistry;
 import com.hbm.tileentity.TileEntityProxyCombo;
 import com.hbm.tileentity.TileEntityProxyEnergy;
 import com.hbm.tileentity.machine.TileEntityMachineMiningLaser;
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -83,7 +84,8 @@ public class MachineMiningLaser extends BlockDummyable implements ITooltipProvid
 
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean ext) {
-		list.add("3x3x3 Multiblock");
-		list.add("Only placeable on a ceiling.");
+		for (String line : I18nUtil.resolveKeyArray("desc.block.mining_laser")){
+			list.add(line);
+		}
 	}
 }

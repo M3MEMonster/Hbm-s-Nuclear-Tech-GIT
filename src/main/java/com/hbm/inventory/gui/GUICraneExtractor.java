@@ -2,6 +2,7 @@ package com.hbm.inventory.gui;
 
 import java.util.Arrays;
 
+import com.hbm.util.i18n.I18nUtil;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.container.ContainerCraneExtractor;
@@ -21,18 +22,18 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 
 public class GUICraneExtractor extends GuiInfoContainer {
-	
+
 	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/storage/gui_crane_ejector.png");
 	private TileEntityCraneExtractor ejector;
 
 	public GUICraneExtractor(InventoryPlayer invPlayer, TileEntityCraneExtractor tedf) {
 		super(new ContainerCraneExtractor(invPlayer, tedf));
 		ejector = tedf;
-		
+
 		this.xSize = 176;
 		this.ySize = 185;
 	}
-	
+
 	@Override
 	public void drawScreen(int x, int y, float interp) {
 		super.drawScreen(x, y, interp);
@@ -40,9 +41,9 @@ public class GUICraneExtractor extends GuiInfoContainer {
 		if(this.mc.thePlayer.inventory.getItemStack() == null) {
 			for(int i = 0; i < 9; ++i) {
 				Slot slot = (Slot) this.inventorySlots.inventorySlots.get(i);
-	
+
 				if(this.isMouseOverSlot(slot, x, y) && ejector.matcher.modes[i] != null) {
-					this.func_146283_a(Arrays.asList(new String[] { EnumChatFormatting.RED + "Right click to change", ModulePatternMatcher.getLabel(ejector.matcher.modes[i]) }), x, y - 30);
+					this.func_146283_a(Arrays.asList(new String[] { EnumChatFormatting.RED + I18nUtil.resolveKey("desc.gui.common.change"), ModulePatternMatcher.getLabel(ejector.matcher.modes[i]) }), x, y - 30);
 				}
 			}
 		}
@@ -60,7 +61,7 @@ public class GUICraneExtractor extends GuiInfoContainer {
 			PacketDispatcher.wrapper.sendToServer(new NBTControlPacket(data, ejector.xCoord, ejector.yCoord, ejector.zCoord));
 		}
 	}
-	
+
 	@Override
 	protected void drawGuiContainerForegroundLayer(int i, int j) {
 		String name = this.ejector.hasCustomInventoryName() ? this.ejector.getInventoryName() : I18n.format(this.ejector.getInventoryName());
@@ -73,7 +74,7 @@ public class GUICraneExtractor extends GuiInfoContainer {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
-		
+
 		if(ejector.isWhitelist) {
 			drawTexturedModalRect(guiLeft + 139, guiTop + 33, 176, 0, 3, 6);
 		} else {

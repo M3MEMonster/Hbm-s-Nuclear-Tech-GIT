@@ -5,6 +5,7 @@ import java.util.List;
 import com.hbm.entity.grenade.*;
 import com.hbm.items.ModItems;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
@@ -13,7 +14,7 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 
 public class ItemGrenade extends Item {
-	
+
 	public int fuse = 4;
 
 	public ItemGrenade(int fuse) {
@@ -194,83 +195,83 @@ public class ItemGrenade extends Item {
 
 		return EnumRarity.common;
 	}
-	
+
 	private String translateFuse() {
 		if(fuse == -1)
-			return "Impact";
-		
+			return I18nUtil.resolveKey("desc.item.grenade.fuseImpact");
+
 		if(fuse == 0)
-			return "Instant";
-		
+			return I18nUtil.resolveKey("desc.item.grenade.fuseInstant");
+
 		return fuse + "s";
 	}
 
 	@Override
 	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean bool) {
 
-		list.add("Fuse: " + translateFuse());
+		list.add(I18nUtil.format("desc.item.grenade.fuse",translateFuse()));
 
 		if (this == ModItems.grenade_smart) {
 			list.add("");
-			list.add("\"Why did it not blow up????\"");
-			list.add(EnumChatFormatting.ITALIC + "If it didn't blow up it means it worked.");
+			list.add(I18nUtil.resolveKey("desc.item.grenade_smart1"));
+			list.add(EnumChatFormatting.ITALIC + I18nUtil.resolveKey("desc.item.grenade_smart2"));
 		}
 
 		if (this == ModItems.grenade_if_generic) {
 			list.add("");
-			list.add(EnumChatFormatting.ITALIC + "\"How do you like " + EnumChatFormatting.RESET + EnumChatFormatting.GRAY + "them" + EnumChatFormatting.ITALIC + " apples?\"");
+			list.add(I18nUtil.resolveKey("desc.item.grenade_if_generic"));
 		}
 		if (this == ModItems.grenade_if_he) {
 			list.add("");
-			list.add(EnumChatFormatting.ITALIC + "\"You better run, you better take cover!\"");
+			list.add(EnumChatFormatting.ITALIC + I18nUtil.resolveKey("desc.item.grenade_if_he"));
 		}
 		if (this == ModItems.grenade_if_bouncy) {
 			list.add("");
-			list.add(EnumChatFormatting.ITALIC + "\"Boing!\"");
+			list.add(EnumChatFormatting.ITALIC + I18nUtil.resolveKey("desc.item.grenade_if_bouncy"));
 		}
 		if (this == ModItems.grenade_if_sticky) {
 			list.add("");
-			list.add(EnumChatFormatting.ITALIC + "\"This one is the booger grenade.\"");
+			list.add(EnumChatFormatting.ITALIC + I18nUtil.resolveKey("desc.item.grenade_if_sticky"));
 		}
 		if (this == ModItems.grenade_if_impact) {
 			list.add("");
-			list.add(EnumChatFormatting.ITALIC + "\"Tossable boom.\"");
+			list.add(EnumChatFormatting.ITALIC + I18nUtil.resolveKey("desc.item.grenade_if_impact"));
 		}
 		if (this == ModItems.grenade_if_incendiary) {
 			list.add("");
-			list.add(EnumChatFormatting.ITALIC + "\"Flaming wheel of destruction!\"");
+			list.add(EnumChatFormatting.ITALIC + I18nUtil.resolveKey("desc.item.grenade_if_incendiary"));
 		}
 		if (this == ModItems.grenade_if_toxic) {
 			list.add("");
-			list.add(EnumChatFormatting.ITALIC + "\"TOXIC SHOCK\"");
+			list.add(EnumChatFormatting.ITALIC + I18nUtil.resolveKey("desc.item.grenade_if_toxic"));
 		}
 		if (this == ModItems.grenade_if_concussion) {
 			list.add("");
-			list.add(EnumChatFormatting.ITALIC + "\"Oof ouch owie, my bones!\"");
+			list.add(EnumChatFormatting.ITALIC + I18nUtil.resolveKey("desc.item.grenade_if_concussion"));
 		}
 		if (this == ModItems.grenade_if_brimstone) {
 			list.add("");
-			list.add(EnumChatFormatting.ITALIC + "\"Zoop!\"");
+			list.add(EnumChatFormatting.ITALIC + I18nUtil.resolveKey("desc.item.grenade_if_brimstone"));
 		}
 		if (this == ModItems.grenade_if_mystery) {
 			list.add("");
-			list.add(EnumChatFormatting.ITALIC + "\"It's a mystery!\"");
+			list.add(EnumChatFormatting.ITALIC + I18nUtil.resolveKey("desc.item.grenade_if_mystery"));
 		}
 		if (this == ModItems.grenade_if_spark) {
 			list.add("");
 			//list.add(EnumChatFormatting.ITALIC + "\"31-31-31-31-31-31-31-31-31-31-31-31-31\"");
-			list.add(EnumChatFormatting.ITALIC + "\"We can't rewind, we've gone too far.\"");
+			list.add(EnumChatFormatting.ITALIC + I18nUtil.resolveKey("desc.item.grenade_if_spark"));
 		}
 		if (this == ModItems.grenade_if_hopwire) {
 			list.add("");
-			list.add(EnumChatFormatting.ITALIC + "\"All I ever wished for was a bike that didn't fall over.\"");
+			list.add(EnumChatFormatting.ITALIC + I18nUtil.resolveKey("desc.item.grenade_if_hopwire"));
 		}
 		if (this == ModItems.grenade_if_null) {
 			list.add("");
 			list.add(EnumChatFormatting.ITALIC + "java.lang.NullPointerException");
 		}
 	}
-	
+
 	public static int getFuseTicks(Item grenade) {
 		return ((ItemGrenade)grenade).fuse * 20;
 	}

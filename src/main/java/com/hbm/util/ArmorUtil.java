@@ -24,6 +24,7 @@ import com.hbm.potion.HbmPotion;
 import com.hbm.util.ArmorRegistry.HazardClass;
 
 import api.hbm.item.IGasMask;
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.entity.EntityLivingBase;
@@ -539,11 +540,11 @@ public class ArmorUtil {
 		ItemStack filter = ((IGasMask)mask.getItem()).getFilter(mask, player);
 
 		if(filter == null) {
-			list.add(EnumChatFormatting.RED + "No filter installed!");
+			list.add(EnumChatFormatting.RED + I18nUtil.resolveKey("desc.armor.no_filter"));
 			return;
 		}
 
-		list.add(EnumChatFormatting.GOLD + "Installed filter:");
+		list.add(EnumChatFormatting.GOLD + I18nUtil.resolveKey("desc.armor.filter_mod"));
 
 		int meta = filter.getItemDamage();
 		int max = filter.getMaxDamage();

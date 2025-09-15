@@ -44,7 +44,7 @@ public interface ICustomWarhead
 		{
 			return I18nUtil.resolveKey("warhead.".concat(toString()));
 		}
-		
+
 		public enum EnumChemicalType
 		{
 			ACID,
@@ -56,7 +56,7 @@ public interface ICustomWarhead
 				return I18nUtil.resolveKey("warhead.CHEM.".concat(toString()));
 			}
 		}
-		
+
 		public enum EnumBioType
 		{
 			ANTHRAX,
@@ -95,7 +95,7 @@ public interface ICustomWarhead
 	public static final String KEY_CAUSTIC = "warheadFuel.ACID";
 	public static final String KEY_NERVE = "warheadFuel.NERVE";
 	public static final String KEY_TOX = "warheadFuel.TOX";
-	
+
 	public static final String NBT_GROUP = "NTM_NUKE_INFO";
 	public static final String NBT_YIELD = "YIELD";
 	public static final String NBT_ALTITUDE = "ALTITUDE";
@@ -105,7 +105,7 @@ public interface ICustomWarhead
 	public static final String NBT_TYPE = "WARHEAD_TYPE";
 	public static final String NBT_TRAIT = "WARHEAD_TRAIT";
 	public static final DecimalFormat df = new DecimalFormat("#.00");
-	
+
 	public static EnumChatFormatting getColorFromWarhead(EnumCustomWarhead warhead)
 	{
 		switch (warhead)
@@ -136,7 +136,7 @@ public interface ICustomWarhead
 			return EnumChatFormatting.WHITE;
 		}
 	}
-	
+
 	public default float getYield()
 	{
 		return 0.0F;
@@ -155,27 +155,27 @@ public interface ICustomWarhead
 	}
 	public ItemStack constructNew();
 	public ICustomWarhead getInstance();
-	
+
 	public default Item getItem()
 	{
 		return (Item) this;
 	}
-	
+
 	public static ItemStack addData(NBTTagCompound data, Item item)
 	{
 		ItemStack stackOut = new ItemStack(item);
-		
+
 		stackOut.stackTagCompound = new NBTTagCompound();
 		stackOut.stackTagCompound.setTag(NBT_GROUP, data);
-		
+
 		return stackOut.copy();
 	}
-	
+
 	public default NBTTagCompound getWarheadData(ItemStack stack)
 	{
 		return stack.getTagCompound().getCompoundTag(NBT_GROUP);
 	}
-	
+
 	public default ItemStack addFuel(ItemStack stack, Enum<?> fuel, float amount)
 	{
 		if (stack != null && stack.getItem() instanceof ICustomWarhead)
@@ -186,28 +186,28 @@ public interface ICustomWarhead
 		}
 		return stack;
 	}
-	
+
 	public default ItemStack addData(ItemStack stack, String key, String value)
 	{
 		if (stack != null && stack.getItem() instanceof ICustomWarhead)
 			getWarheadData(stack).setString(key, value);
-		
+
 		return stack;
 	}
-	
+
 	public default void addCompositionalInfo(NBTTagCompound data, List<String> tooltip, List<Enum<?>> combinedFuels)
 	{
 		for (Enum<?> f : combinedFuels)
 			if (data.getFloat(f.toString()) > 0)
-				tooltip.add(String.format(Locale.US, "%s: %skg (%s)", I18nUtil.resolveKey("warheadFuel.".concat(f.toString())), df.format(data.getFloat(f.toString())), BobMathUtil.toPercentage(data.getFloat(f.toString()), data.getFloat(NBT_MASS))));
+				tooltip.add(I18nUtil.format( "desc.interfaces.custom_warhead.compositional.info", I18nUtil.resolveKey("warheadFuel.".concat(f.toString())), df.format(data.getFloat(f.toString())), BobMathUtil.toPercentage(data.getFloat(f.toString()), data.getFloat(NBT_MASS))));
 	}
-	
+
 	public default void addTooltip(ItemStack stack, List<String> tooltip)
 	{
 //		tooltip.clear();
 		try {
 		NBTTagCompound data = getWarheadData(stack);
-		
+
 		final ArrayList<Enum<?>> combinedFuels = new ArrayList<>();
 		combinedFuels.addAll(Arrays.asList(FissileFuel.values()));
 		combinedFuels.addAll(Arrays.asList(FusionFuel.values()));
@@ -218,26 +218,26 @@ public interface ICustomWarhead
 		case NUCLEAR:
 		case TX:
 		case HE:
-			tooltip.add("Composition:");
+			tooltip.add(I18nUtil.format("desc.interfaces.custom_warhead.tooltip.composition"));
 			addCompositionalInfo(data, tooltip, combinedFuels);
 			break;
 		default:
 			break;
 		}
 		final EnumCustomWarhead warhead = getWarheadType(data);
-		tooltip.add(data.getFloat(NBT_MASS) + "kg total");
+		tooltip.add(I18nUtil.format("desc.interfaces.custom_warhead.tooltip.weight",data.getFloat(NBT_MASS)));
 		tooltip.add("");
 		switch (warhead)
 		{
 		case CHEM:
 		case BIO:
-			tooltip.add("Type: " + getColorFromWarhead(warhead) + I18nUtil.resolveKey("warhead.".concat(warhead.toString()), I18nUtil.resolveKey(data.getString(NBT_SPECIAL))));
+			tooltip.add(I18nUtil.format("desc.interfaces.custom_warhead.tooltip.type.bio", getColorFromWarhead(warhead) + I18nUtil.resolveKey("warhead.".concat(warhead.toString()), I18nUtil.resolveKey(data.getString(NBT_SPECIAL)))));
 			break;
 		default:
-			tooltip.add("Type: " + getColorFromWarhead(warhead) + warhead.getLoc());
+			tooltip.add(I18nUtil.format("desc.interfaces.custom_warhead.tooltip.type.default", getColorFromWarhead(warhead) + warhead.getLoc()));
 			break;
 		}
-		tooltip.add("Function: " + getWeaponType(data).getLoc());
+		tooltip.add(I18nUtil.format("desc.interfaces.custom_warhead.tooltip.function", getWeaponType(data).getLoc()));
 		switch (warhead)
 		{
 		case AMAT:
@@ -247,24 +247,24 @@ public interface ICustomWarhead
 		case HE:
 		case NUCLEAR:
 		case TX:
-			tooltip.add("Yield: " + BobMathUtil.getShortNumber(data.getInteger(NBT_YIELD)) + "T");
+			tooltip.add(I18nUtil.format("desc.interfaces.custom_warhead.tooltip.yield", BobMathUtil.getShortNumber(data.getInteger(NBT_YIELD))));
 			break;
 		case BIO:
 		case CHEM:
 		case SCHRAB:
-			tooltip.add("Radius: " + BobMathUtil.getShortNumber(data.getInteger(NBT_YIELD)) + "M");
+			tooltip.add(I18nUtil.format("desc.interfaces.custom_warhead.tooltip.radius", BobMathUtil.getShortNumber(data.getInteger(NBT_YIELD))));
 			break;
 		default:
 			break;
 		}
-		tooltip.add("Trait: " + getWeaponTrait(data).getLoc());
+		tooltip.add(I18nUtil.format("desc.interfaces.custom_warhead.tooltip.trait", getWeaponTrait(data).getLoc()));
 		}
 		catch (Exception e)
 		{
 			MainRegistry.logger.catching(Level.ERROR, e);
 		}
 	}
-	
+
 	public enum FissileFuel
 	{
 		U233(15F, 197.5F, HazardRegistry.u233, 19.05F),
@@ -359,7 +359,7 @@ public interface ICustomWarhead
 			return getIngotMass() / 9;
 		}
 	}
-	
+
 	/*public static class CustomWarheadWrapper
 	{
 		public static final ICustomWarhead cWarhead = (ICustomWarhead) ModItems.custom_warhead;

@@ -2,6 +2,7 @@ package com.hbm.items.tool;
 
 import java.util.List;
 
+import com.hbm.util.i18n.I18nUtil;
 import org.apache.logging.log4j.Level;
 
 import com.hbm.config.GeneralConfig;
@@ -28,12 +29,12 @@ public class ItemLaserDetonator extends Item implements IHoldableWeapon {
 
 	@Override
 	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean bool) {
-		list.add("Aim & click to detonate!");
+		list.add(I18nUtil.resolveKey("desc.item.laser_detonator"));
 	}
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		
+
 		MovingObjectPosition pos = Library.rayTrace(player, 500, 1);
 		int x = pos.blockX;
 		int y = pos.blockY;
@@ -45,20 +46,20 @@ public class ItemLaserDetonator extends Item implements IHoldableWeapon {
 
 				if(GeneralConfig.enableExtendedLogging)
 					MainRegistry.logger.log(Level.INFO, "[DET] Tried to detonate block at " + x + " / " + y + " / " + z + " by " + player.getDisplayName() + "!");
-				
+
 				world.playSoundAtEntity(player, "hbm:item.techBleep", 1.0F, 1.0F);
 				PacketDispatcher.wrapper.sendTo(new PlayerInformPacket(ChatBuilder.start("").nextTranslation(ret.getUnlocalizedMessage()).color(ret.wasSuccessful() ? EnumChatFormatting.YELLOW : EnumChatFormatting.RED).flush(), MainRegistry.proxy.ID_DETONATOR), (EntityPlayerMP) player);
-				
+
 			} else {
 				world.playSoundAtEntity(player, "hbm:item.techBoop", 1.0F, 1.0F);
 				PacketDispatcher.wrapper.sendTo(new PlayerInformPacket(ChatBuilder.start("").nextTranslation(BombReturnCode.ERROR_NO_BOMB.getUnlocalizedMessage()).color(EnumChatFormatting.RED).flush(), MainRegistry.proxy.ID_DETONATOR), (EntityPlayerMP) player);
 			}
 		} else {
-			
+
 			Vec3 vec = Vec3.createVectorHelper(x + 0.5 - player.posX, y + 0.5 - player.posY, z + 0.5 - player.posZ);
 			double len = Math.min(vec.lengthVector(), 15D);
 			vec = vec.normalize();
-			
+
 			for(int i = 0; i < len; i++) {
 				double rand = world.rand.nextDouble() * len + 3;
 				world.spawnParticle("reddust", player.posX + vec.xCoord * rand, player.posY + vec.yCoord * rand, player.posZ + vec.zCoord * rand, 0, 0, 0);

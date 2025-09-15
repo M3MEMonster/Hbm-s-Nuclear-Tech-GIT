@@ -11,6 +11,7 @@ import com.hbm.items.ModItems;
 import com.hbm.lib.RefStrings;
 import com.hbm.saveddata.satellites.SatelliteMiner;
 import com.hbm.util.ItemStackUtil;
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
@@ -37,7 +38,7 @@ public class SatelliteHandler extends TemplateRecipeHandler implements ICompatNH
 
 	@Override
 	public String getRecipeName() {
-		return "Satellite";
+		return I18nUtil.resolveKey("desc.handler.nei.satellite.recipe_name");
 	}
 
 	@Override

@@ -345,7 +345,7 @@ public abstract class TileEntityRBMKBase extends TileEntityLoadedBase {
 		exceptions.add("muffled");
 
 		//Keep the title unlocalized is cool.
-		String title = "Dump of Ordered Data Diagnostic (DODD)";
+		String title = I18nUtil.resolveKey("desc.tile_entity.RMBK.base.DODD");
 		mc.fontRenderer.drawString(title, pX + 1, pZ - 19, 0x006000);
 		mc.fontRenderer.drawString(title, pX, pZ - 20, 0x00FF00);
 

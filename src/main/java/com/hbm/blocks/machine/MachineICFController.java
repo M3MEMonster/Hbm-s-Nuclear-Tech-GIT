@@ -162,7 +162,7 @@ public class MachineICFController extends BlockContainer implements ILookOverlay
 		if(assembly.containsKey(pos)) return;
 		if(assembly.size() >= maxSize) {
 			errored = true;
-			sendError(world, x, y, z, "Max size exceeded", player);
+			sendError(world, x, y, z, I18nUtil.resolveKey("desc.block.ICF.control.error.exceed"), player);
 			return;
 		}
 
@@ -197,7 +197,7 @@ public class MachineICFController extends BlockContainer implements ILookOverlay
 			return;
 		}
 
-		sendError(world, x, y, z, "Non-laser block", player);
+		sendError(world, x, y, z, I18nUtil.resolveKey("desc.block.ICF.control.error.non_laser"), player);
 		errored = true;
 	}
 

@@ -9,6 +9,7 @@ import com.hbm.main.MainRegistry;
 import com.hbm.tileentity.TileEntityProxyCombo;
 import com.hbm.tileentity.machine.TileEntityMachineTurbofan;
 
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -40,10 +41,10 @@ public class MachineTurbofan extends BlockDummyable implements ITooltipProvider 
 	public int getOffset() {
 		return 1;
 	}
-	
+
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-		
+
 		if(world.isRemote) {
 			return true;
 		} else if(!player.isSneaking()) {
@@ -51,9 +52,9 @@ public class MachineTurbofan extends BlockDummyable implements ITooltipProvider 
 
 			if(pos == null)
 				return false;
-			
+
 			TileEntityMachineTurbofan turbofan = (TileEntityMachineTurbofan) world.getTileEntity(pos[0], pos[1], pos[2]);
-			
+
 			if(turbofan != null) {
 				FMLNetworkHandler.openGui(player, MainRegistry.instance, 0, world, pos[0], pos[1], pos[2]);
 			}
@@ -66,7 +67,7 @@ public class MachineTurbofan extends BlockDummyable implements ITooltipProvider 
 	@Override
 	protected void fillSpace(World world, int x, int y, int z, ForgeDirection dir, int o) {
 		super.fillSpace(world, x, y, z, dir, o);
-		
+
 		ForgeDirection rot = dir.getRotation(ForgeDirection.UP);
 
 		this.makeExtra(world, x, y, z);
@@ -77,7 +78,7 @@ public class MachineTurbofan extends BlockDummyable implements ITooltipProvider 
 
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean ext) {
-		list.add(EnumChatFormatting.YELLOW + "Fuel efficiency:");
+		list.add(EnumChatFormatting.YELLOW + I18nUtil.resolveKey("desc.block.fuel_efficiency"));
 		list.add(EnumChatFormatting.YELLOW + "-" + FuelGrade.AERO.getGrade() + ": " + EnumChatFormatting.RED + "100%");
 	}
 }

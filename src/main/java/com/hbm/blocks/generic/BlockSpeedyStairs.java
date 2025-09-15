@@ -2,6 +2,7 @@ package com.hbm.blocks.generic;
 
 import com.hbm.blocks.IStepTickReceiver;
 import com.hbm.blocks.ITooltipProvider;
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -34,6 +35,6 @@ public class BlockSpeedyStairs extends BlockGenericStairs implements IStepTickRe
 
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean ext) {
-		list.add(EnumChatFormatting.BLUE + "Increases speed by " + (MathHelper.floor_double((speed - 1) * 100)) + "%");
+		list.add(EnumChatFormatting.BLUE + I18nUtil.resolveKey("desc.block.speed_increase") + (MathHelper.floor_double((speed - 1) * 100)) + "%");
 	}
 }

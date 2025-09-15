@@ -23,6 +23,7 @@ import com.hbm.util.Tuple.Pair;
 import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 
@@ -70,7 +71,7 @@ public class PressRecipeHandler extends TemplateRecipeHandler implements ICompat
 
 	@Override
 	public String getRecipeName() {
-		return "Press";
+		return I18nUtil.resolveKey("desc.handler.nei.press.recipe_name");
 	}
 
 	@Override
@@ -81,9 +82,9 @@ public class PressRecipeHandler extends TemplateRecipeHandler implements ICompat
 	@Override
 	public void loadCraftingRecipes(String outputId, Object... results) {
 		if((outputId.equals("pressing")) && getClass() == PressRecipeHandler.class) {
-			
+
 			HashMap<Pair<AStack, StampType>, ItemStack> recipes = PressRecipes.recipes;
-			
+
 			for(Map.Entry<Pair<AStack, StampType>, ItemStack> recipe : recipes.entrySet()) {
 				this.arecipes.add(new SmeltingSet(ItemStamp.stamps.get(recipe.getKey().getValue()), recipe.getKey().getKey(), recipe.getValue()));
 			}
@@ -94,9 +95,9 @@ public class PressRecipeHandler extends TemplateRecipeHandler implements ICompat
 
 	@Override
 	public void loadCraftingRecipes(ItemStack result) {
-		
+
 		HashMap<Pair<AStack, StampType>, ItemStack> recipes = PressRecipes.recipes;
-		
+
 		for(Map.Entry<Pair<AStack, StampType>, ItemStack> recipe : recipes.entrySet()) {
 			if(NEIServerUtils.areStacksSameType(recipe.getValue(), result))
 				this.arecipes.add(new SmeltingSet(ItemStamp.stamps.get(recipe.getKey().getValue()), recipe.getKey().getKey(), recipe.getValue()));
@@ -114,13 +115,13 @@ public class PressRecipeHandler extends TemplateRecipeHandler implements ICompat
 
 	@Override
 	public void loadUsageRecipes(ItemStack ingredient) {
-		
+
 		HashMap<Pair<AStack, StampType>, ItemStack> recipes = PressRecipes.recipes;
-		
+
 		for(Map.Entry<Pair<AStack, StampType>, ItemStack> recipe : recipes.entrySet()) {
 			AStack in = recipe.getKey().getKey();
 			StampType stamp = recipe.getKey().getValue();
-			
+
 			if(in.matchesRecipe(ingredient, true))
 				this.arecipes.add(new SmeltingSet(ItemStamp.stamps.get(recipe.getKey().getValue()), new ComparableStack(ingredient), recipe.getValue()));
 			else if(ingredient.getItem() instanceof ItemStamp && ((ItemStamp)ingredient.getItem()).getStampType(ingredient.getItem(), ingredient.getItemDamage()) == stamp)

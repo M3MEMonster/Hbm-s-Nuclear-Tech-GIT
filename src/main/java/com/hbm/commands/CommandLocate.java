@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Locale;
 
 import com.hbm.lib.HbmWorld;
+import com.hbm.util.i18n.I18nUtil;
 import com.hbm.world.gen.nbt.NBTStructure;
 import com.hbm.world.gen.nbt.SpawnCondition;
 
@@ -30,8 +31,7 @@ public class CommandLocate extends CommandBase {
 
 	@Override
 	public String getCommandUsage(ICommandSender sender) {
-		return String.format(Locale.US,
-			"%s/%s structure <name> %s- Locates the nearest structure with a given name.",
+		return I18nUtil.format("chat.command.locate.usage",
 			EnumChatFormatting.GREEN, getCommandName(), EnumChatFormatting.LIGHT_PURPLE
 		);
 	}

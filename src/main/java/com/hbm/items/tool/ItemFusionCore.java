@@ -7,6 +7,7 @@ import com.hbm.items.armor.ArmorFSBPowered;
 import com.hbm.util.BobMathUtil;
 
 import api.hbm.energymk2.IBatteryItem;
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -14,9 +15,9 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 
 public class ItemFusionCore extends Item {
-	
+
 	private int charge;
-	
+
 	public ItemFusionCore(int charge) {
 		this.charge = charge;
 	}
@@ -51,8 +52,8 @@ public class ItemFusionCore extends Item {
 
 	@Override
 	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean bool) {
-		
-		list.add(EnumChatFormatting.YELLOW + "Charges all worn armor pieces by " + BobMathUtil.getShortNumber(charge) + "HE");
-		list.add("[Requires full electric set to be worn]");
+
+		list.add(EnumChatFormatting.YELLOW + I18nUtil.format("desc.item.fusion_core.charge", BobMathUtil.getShortNumber(charge)));
+		list.add(I18nUtil.resolveKey("desc.item.fusion_core.require"));
 	}
 }

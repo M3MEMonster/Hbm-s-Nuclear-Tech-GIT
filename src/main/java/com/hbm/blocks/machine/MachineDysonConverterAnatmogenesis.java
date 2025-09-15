@@ -69,9 +69,9 @@ public class MachineDysonConverterAnatmogenesis extends BlockDummyable implement
 
 		List<String> text = new ArrayList<String>();
 
-		text.add("Current rate: " + ((double)converter.gasProduced * 20 * 60 * 60 / AstronomyUtil.MB_PER_ATM) + "atm per hour");
-		text.add("Current gas: " + converter.fluid.getLocalizedName() + " - " + pressure);
-		text.add("Current mode: " + (converter.isEmitting ? "EMITTING" : "CAPTURING"));
+		text.add(I18nUtil.format("desc.block.dyson_converter.rate", ((double)converter.gasProduced * 20 * 60 * 60 / AstronomyUtil.MB_PER_ATM)));
+		text.add(I18nUtil.format("desc.block.dyson_converter.gas", converter.fluid.getLocalizedName(), pressure));
+		text.add(I18nUtil.format("desc.block.dyson_converter.mode", (converter.isEmitting ? I18nUtil.resolveKey("desc.block.dyson_converter.mode.emit") : I18nUtil.resolveKey("desc.block.dyson_converter.mode.cap"))));
 
 		ILookOverlay.printGeneric(event, I18nUtil.resolveKey(getUnlocalizedName() + ".name"), 0xffff00, 0x404000, text);
 	}
@@ -117,7 +117,7 @@ public class MachineDysonConverterAnatmogenesis extends BlockDummyable implement
 			if(type.hasTrait(FT_Gaseous.class) || type.hasTrait(FT_Gaseous_ART.class)) {
 				converter.fluid = type;
 				converter.markDirty();
-				player.addChatComponentMessage(new ChatComponentText("Changed type to ").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.YELLOW)).appendSibling(new ChatComponentTranslation(type.getConditionalName())).appendSibling(new ChatComponentText("!")));
+				player.addChatComponentMessage(new ChatComponentText(I18nUtil.resolveKey("chat.block.type_change")).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.YELLOW)).appendSibling(new ChatComponentTranslation(type.getConditionalName())).appendSibling(new ChatComponentText("!")));
 			}
 
 			return true;

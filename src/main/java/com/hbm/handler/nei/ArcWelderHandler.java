@@ -8,6 +8,7 @@ import com.hbm.inventory.gui.GUIMachineArcWelder;
 import com.hbm.inventory.recipes.ArcWelderRecipes;
 import com.hbm.inventory.recipes.ArcWelderRecipes.ArcWelderRecipe;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
@@ -22,7 +23,7 @@ public class ArcWelderHandler extends NEIUniversalHandler {
 	public String getKey() {
 		return "ntmArcWelder";
 	}
-	
+
 	@Override
 	public void loadTransferRects() {
 		super.loadTransferRects();
@@ -37,18 +38,18 @@ public class ArcWelderHandler extends NEIUniversalHandler {
 		RecipeSet rec = (RecipeSet) this.arecipes.get(recipe);
 		Object[] original = (Object[]) rec.originalInputInstance;
 		ItemStack output = rec.output[0].item;
-		
+
 		outer: for(ArcWelderRecipe arc : ArcWelderRecipes.recipes) {
-			
+
 			//checks do not include the fluid, will break of there's two recipes with identical input and output but with fluids
 			if(ItemStack.areItemStacksEqual(arc.output, output) && arc.ingredients.length == original.length - (arc.fluid == null ? 0 : 1)) {
-				
+
 				for(int i = 0; i < rec.input.length - (arc.fluid == null ? 0 : 1); i++) {
 					if(arc.ingredients[i] != original[i]) continue outer;
 				}
 
 				FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
-				String duration = String.format(Locale.US, "%,d", arc.duration) + " ticks";
+				String duration = String.format(Locale.US, "%,d", arc.duration) + I18nUtil.resolveKey("desc.handler.nei.tick");
 				String consumption = String.format(Locale.US, "%,d", arc.consumption) + " HE/t";
 				int side = 160;
 				fontRenderer.drawString(duration, side - fontRenderer.getStringWidth(duration), 43, 0x404040);

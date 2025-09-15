@@ -3,6 +3,7 @@ package com.hbm.items.weapon;
 import java.util.List;
 
 import com.hbm.items.ModItems;
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -17,7 +18,7 @@ public class GunB92Cell extends Item {
 	public void onUpdate(ItemStack stack, World world, Entity entity, int i, boolean b) {
 		if(entity instanceof EntityPlayer && getPower(stack) < 25) {
 			EntityPlayer player = (EntityPlayer) entity;
-			
+
 			for(int j = 0; j < player.inventory.mainInventory.length; j++) {
 				if(player.inventory.mainInventory[j] != null && player.inventory.mainInventory[j].getItem() == ModItems.gun_b92) {
 					int p = getPower(player.inventory.mainInventory[j]);
@@ -36,13 +37,10 @@ public class GunB92Cell extends Item {
 	@Override
 	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean bool) {
 
-		list.add("Draws energy from the B92, allowing you to");
-		list.add("reload it an additional 25 times.");
-		list.add("The cell will permanently hold its charge,");
-		list.add("it is not meant to be used as a battery enhancement");
-		list.add("for the B92, but rather as a bomb.");
-		list.add("");
-		list.add("Charges: " + getPower(itemstack) + " / 25");
+		for (String line : I18nUtil.resolveKeyArray("desc.item.B92_cell")){
+			list.add(line);
+		}
+		list.add(I18nUtil.format("desc.item.B92_cell.charge",getPower(itemstack)));
 	}
 
 	private static int getPower(ItemStack stack) {
@@ -63,7 +61,7 @@ public class GunB92Cell extends Item {
 		stack.stackTagCompound.setInteger("energy", i);
 
 	}
-	
+
 	public static ItemStack getFullCell() {
 		ItemStack stack = new ItemStack(ModItems.gun_b92_ammo, 1, 1);
 		setPower(stack, 25);

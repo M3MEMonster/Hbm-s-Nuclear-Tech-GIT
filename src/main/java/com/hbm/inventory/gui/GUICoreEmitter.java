@@ -1,5 +1,6 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.util.i18n.I18nUtil;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -80,7 +81,7 @@ public class GUICoreEmitter extends GuiInfoContainer {
 		String name = I18n.format(this.emitter.getInventoryName());
 		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
 
-		this.fontRendererObj.drawString("Output: " + BobMathUtil.getShortNumber(emitter.prev) + "Spk", 50, 30, 0xFF7F7F);
+		this.fontRendererObj.drawString(I18nUtil.format("desc.gui.core_emitter.output", BobMathUtil.getShortNumber(emitter.prev)), 50, 30, 0xFF7F7F);
 
 		this.fontRendererObj.drawString(I18n.format("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
 	}

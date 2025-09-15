@@ -6,6 +6,7 @@ import com.hbm.blocks.bomb.LaunchPad;
 import com.hbm.lib.Library;
 
 import api.hbm.item.IDesignatorItem;
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -20,11 +21,11 @@ public class ItemDesingatorRange extends Item implements IDesignatorItem {
 	@Override
 	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean bool) {
 		if(itemstack.stackTagCompound != null) {
-			list.add("Target Coordinates:");
+			list.add(I18nUtil.resolveKey("desc.item.desingator.target_coor"));
 			list.add("X: " + itemstack.stackTagCompound.getInteger("xCoord"));
 			list.add("Z: " + itemstack.stackTagCompound.getInteger("zCoord"));
 		} else {
-			list.add("Please select a target.");
+			list.add(I18nUtil.resolveKey("desc.item.desingator.target_select"));
 		}
 	}
 
@@ -36,7 +37,7 @@ public class ItemDesingatorRange extends Item implements IDesignatorItem {
 		int z = pos.blockZ;
 
 		if(!(world.getBlock(x, y, z) instanceof LaunchPad)) {
-			
+
 			if(stack.stackTagCompound == null)
 				stack.stackTagCompound = new NBTTagCompound();
 
@@ -44,7 +45,7 @@ public class ItemDesingatorRange extends Item implements IDesignatorItem {
 			stack.stackTagCompound.setInteger("zCoord", z);
 
 			if(world.isRemote) {
-				player.addChatMessage(new ChatComponentText("Position set to X:" + x + ", Z:" + z));
+				player.addChatMessage(new ChatComponentText(I18nUtil.resolveKey("chat.item.designator_range.pos_set", x, z)));
 			}
 
 			world.playSoundAtEntity(player, "hbm:item.techBleep", 1.0F, 1.0F);

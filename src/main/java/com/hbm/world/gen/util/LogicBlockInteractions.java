@@ -3,6 +3,7 @@ package com.hbm.world.gen.util;
 import com.hbm.blocks.generic.LogicBlock;
 import com.hbm.items.ModItems;
 import com.hbm.potion.HbmPotion;
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ChatComponentText;
@@ -38,9 +39,7 @@ public class LogicBlockInteractions {
 
 		if(player.getHeldItem() != null && player.getHeldItem().getItem() == ModItems.key){
 			player.getHeldItem().stackSize--;
-			player.addChatMessage(new ChatComponentText(
-					EnumChatFormatting.LIGHT_PURPLE + "[RAD CONTAINMENT SYSTEM]" +
-						EnumChatFormatting.RESET + " Radiation treatment administered"));
+			player.addChatMessage(new ChatComponentText(I18nUtil.resolveKey("desc.world.logic_block_interactions.rad")));
 			player.addPotionEffect(new PotionEffect(HbmPotion.radaway.getId(), 3 * 60 * 20, 4));
 			player.addPotionEffect(new PotionEffect(HbmPotion.radx.getId(), 3 * 60 * 20, 4));
 			logic.phase = 2;

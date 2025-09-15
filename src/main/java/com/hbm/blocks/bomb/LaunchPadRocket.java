@@ -95,7 +95,7 @@ public class LaunchPadRocket extends BlockDummyable implements ILookOverlay, ITo
 		if(y - pos[1] > 2) return; // Don't show tooltip on support tower
 
 		List<String> text = new ArrayList<String>();
-		text.add("Required fuels:");
+		text.add(I18nUtil.resolveKey("desc.block.launch_pad_rocket.fuel"));
 
 		for(int i = 0; i < pad.tanks.length; i++) {
 			FluidTank tank = pad.tanks[i];

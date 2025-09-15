@@ -8,6 +8,7 @@ import com.hbm.items.ModItems;
 import com.hbm.main.MainRegistry;
 import com.hbm.tileentity.IGUIProvider;
 
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,10 +27,11 @@ public class ItemCatalog extends Item implements IGUIProvider {
 
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-		
+
 		if(this == ModItems.bobmazon_hidden) {
-			list.add("For a guide on how to obtain this, visit https://bit.ly/2TPgcqT");
-			list.add("No tricks this time, i promise.");
+			for (String line : I18nUtil.resolveKeyArray("desc.item.hidden_catalog")){
+				list.add(line);
+			}
 		}
 	}
 

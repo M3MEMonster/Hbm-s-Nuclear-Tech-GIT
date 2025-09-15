@@ -17,6 +17,7 @@ import com.hbm.main.MainRegistry;
 import com.hbm.tileentity.machine.TileEntityLockableBase;
 import com.hbm.tileentity.machine.storage.*;
 
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -108,7 +109,7 @@ public class BlockStorageCrate extends BlockContainer implements IBlockMulti, IL
 
 	@Override
 	public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z, boolean willHarvest) {
-		
+
 		if(!world.isRemote && !ServerConfig.CRATE_KEEP_CONTENTS.get()) {
 			dropInv = true;
 			if(!player.capabilities.isCreativeMode) {
@@ -330,23 +331,23 @@ public class BlockStorageCrate extends BlockContainer implements IBlockMulti, IL
 
 			if(stack.stackTagCompound.getBoolean("spiders")) {
 				if(stack.stackTagCompound.hasKey("lock")) {
-					list.add(EnumChatFormatting.RED + "This container is locked.");
+					list.add(EnumChatFormatting.RED + I18nUtil.resolveKey("desc.block.storage_crate.locked"));
 				}
-				list.add(EnumChatFormatting.GRAY + "" + EnumChatFormatting.ITALIC + "Skittering emanates from within..."); // lamo
+				list.add(EnumChatFormatting.GRAY + "" + EnumChatFormatting.ITALIC + I18nUtil.resolveKey("desc.block.storage_crate.skit")); // lamo
 				return;
 			}
 
 			if(stack.stackTagCompound.hasKey("lock")) {
-				list.add(EnumChatFormatting.RED + "This container is locked."); // Sorry people who want to see what's in it while it's locked...
+				list.add(EnumChatFormatting.RED + I18nUtil.resolveKey("desc.block.storage_crate.locked")); // Sorry people who want to see what's in it while it's locked...
 
 				for(int i = 0; i < 104; i++) {
 					ItemStack content = ItemStack.loadItemStackFromNBT(stack.stackTagCompound.getCompoundTag("slot" + i));
 					if(content != null) {
-						list.add(EnumChatFormatting.YELLOW + "It feels heavy...");
+						list.add(EnumChatFormatting.YELLOW + I18nUtil.resolveKey("desc.block.storage_crate.heavy"));
 						return;
 					}
 				}
-				list.add(EnumChatFormatting.YELLOW + "It feels empty...");
+				list.add(EnumChatFormatting.YELLOW + I18nUtil.resolveKey("desc.block.storage_crate.empty"));
 				return;
 			}
 
@@ -366,12 +367,12 @@ public class BlockStorageCrate extends BlockContainer implements IBlockMulti, IL
 			}
 
 			if(!contents.isEmpty()) {
-				list.add(EnumChatFormatting.AQUA + "Contains:");
+				list.add(EnumChatFormatting.AQUA + I18nUtil.resolveKey("desc.block.storage_crate.contain"));
 				list.addAll(contents);
 				amount -= contents.size();
 
 				if(amount > 0) {
-					list.add(EnumChatFormatting.AQUA + "...and " + amount + " more.");
+					list.add(EnumChatFormatting.AQUA + I18nUtil.format("desc.block.storage_crate.more", amount));
 				}
 			}
 		}
@@ -379,7 +380,7 @@ public class BlockStorageCrate extends BlockContainer implements IBlockMulti, IL
 
 	@Override
 	public void printHook(RenderGameOverlayEvent.Pre event, World world, int x, int y, int z) {
-		
+
 		TileEntity te = world.getTileEntity(x, y, z);
 
 		if (!(te instanceof IInventory))
@@ -389,7 +390,7 @@ public class BlockStorageCrate extends BlockContainer implements IBlockMulti, IL
 
 		if (!inv.hasCustomInventoryName())
 			return;
-		
+
 		ILookOverlay.printGeneric(event, inv.getInventoryName(), 0xffff00, 0x404000, new ArrayList<String>(0));
 	}
 }

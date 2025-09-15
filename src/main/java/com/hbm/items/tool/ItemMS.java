@@ -7,6 +7,7 @@ import java.util.Random;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.items.ModItems;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -14,18 +15,18 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class ItemMS extends Item {
-	
+
 	@Override
 	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean bool)
 	{
-		list.add("Lost but not forgotten");
+		list.add(I18nUtil.resolveKey("desc.item.ms.lost"));
 	}
-	
+
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int i, float a, float b, float c)
     {
     	if(!world.isRemote) {
     		if(world.getBlock(x, y, z) == ModBlocks.ntm_dirt) {
-    			
+
 				world.func_147480_a(x, y, z, false);
 
     	    	Random rand = new Random();
@@ -34,7 +35,7 @@ public class ItemMS extends Item {
     	    	list.add(new ItemStack(ModItems.ingot_u238m2, 1, 1));
     	    	list.add(new ItemStack(ModItems.ingot_u238m2, 1, 2));
     	    	list.add(new ItemStack(ModItems.ingot_u238m2, 1, 3));
-    	    	
+
     	    	for(ItemStack sta : list) {
     	            float f = rand.nextFloat() * 0.8F + 0.1F;
     	            float f1 = rand.nextFloat() * 0.8F + 0.1F;
@@ -51,7 +52,7 @@ public class ItemMS extends Item {
     			return true;
     		}
     	}
-    	
+
         return false;
     }
 

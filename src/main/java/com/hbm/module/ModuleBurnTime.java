@@ -11,6 +11,7 @@ import com.hbm.items.ModItems;
 import com.hbm.tileentity.IConfigurableMachine;
 import com.hbm.util.ItemStackUtil;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 
@@ -133,16 +134,16 @@ public class ModuleBurnTime {
 	public List<String> getTimeDesc() {
 		List<String> list = new ArrayList();
 
-		list.add(EnumChatFormatting.GOLD + "Burn time bonuses:");
+		list.add(EnumChatFormatting.GOLD + I18nUtil.format("desc.module.burn_time.bonus.time"));
 
-		addIf(list, "Logs", modTime[modLog]);
-		addIf(list, "Wood", modTime[modWood]);
-		addIf(list, "Coal", modTime[modCoal]);
-		addIf(list, "Lignite", modTime[modLignite]);
-		addIf(list, "Coke", modTime[modCoke]);
-		addIf(list, "Solid Fuel", modTime[modSolid]);
-		addIf(list, "Rocket Fuel", modTime[modRocket]);
-		addIf(list, "Balefire", modTime[modBalefire]);
+		addIf(list, I18nUtil.resolveKey("desc.module.burn_time.type.log"), modTime[modLog]);
+		addIf(list, I18nUtil.resolveKey("desc.module.burn_time.type.wood"), modTime[modWood]);
+		addIf(list, I18nUtil.resolveKey("desc.module.burn_time.type.coal"), modTime[modCoal]);
+		addIf(list, I18nUtil.resolveKey("desc.module.burn_time.type.lignite"), modTime[modLignite]);
+		addIf(list, I18nUtil.resolveKey("desc.module.burn_time.type.coke"), modTime[modCoke]);
+		addIf(list, I18nUtil.resolveKey("desc.module.burn_time.type.solid_fuel"), modTime[modSolid]);
+		addIf(list, I18nUtil.resolveKey("desc.module.burn_time.type.rocket_fuel"), modTime[modRocket]);
+		addIf(list, I18nUtil.resolveKey("desc.module.burn_time.type.balefire"), modTime[modBalefire]);
 
 		if(list.size() == 1)
 			list.clear();
@@ -153,16 +154,16 @@ public class ModuleBurnTime {
 	public List<String> getHeatDesc() {
 		List<String> list = new ArrayList();
 
-		list.add(EnumChatFormatting.RED + "Burn heat bonuses:");
+		list.add(EnumChatFormatting.RED + I18nUtil.format("desc.module.burn_time.bonus.heat"));
 
-		addIf(list, "Logs", modHeat[modLog]);
-		addIf(list, "Wood", modHeat[modWood]);
-		addIf(list, "Coal", modHeat[modCoal]);
-		addIf(list, "Lignite", modHeat[modLignite]);
-		addIf(list, "Coke", modHeat[modCoke]);
-		addIf(list, "Solid Fuel", modHeat[modSolid]);
-		addIf(list, "Rocket Fuel", modHeat[modRocket]);
-		addIf(list, "Balefire", modHeat[modBalefire]);
+		addIf(list, I18nUtil.resolveKey("desc.module.burn_time.type.log"), modHeat[modLog]);
+		addIf(list, I18nUtil.resolveKey("desc.module.burn_time.type.wood"), modHeat[modWood]);
+		addIf(list, I18nUtil.resolveKey("desc.module.burn_time.type.coal"), modHeat[modCoal]);
+		addIf(list, I18nUtil.resolveKey("desc.module.burn_time.type.lignite"), modHeat[modLignite]);
+		addIf(list, I18nUtil.resolveKey("desc.module.burn_time.type.coke"), modHeat[modCoke]);
+		addIf(list, I18nUtil.resolveKey("desc.module.burn_time.type.solid_fuel"), modHeat[modSolid]);
+		addIf(list, I18nUtil.resolveKey("desc.module.burn_time.type.rocket_fuel"), modHeat[modRocket]);
+		addIf(list, I18nUtil.resolveKey("desc.module.burn_time.type.balefire"), modHeat[modBalefire]);
 
 		if(list.size() == 1)
 			list.clear();

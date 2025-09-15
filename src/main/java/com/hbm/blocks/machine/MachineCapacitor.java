@@ -117,22 +117,19 @@ public class MachineCapacitor extends BlockContainer implements ILookOverlay, IP
 
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean ext) {
-		list.add(EnumChatFormatting.GOLD + "Stores up to "+ BobMathUtil.getShortNumber(this.power) + "HE");
-		list.add(EnumChatFormatting.GOLD + "Charge speed: "+ BobMathUtil.getShortNumber(this.power / 200) + "HE");
-		list.add(EnumChatFormatting.GOLD + "Discharge speed: "+ BobMathUtil.getShortNumber(this.power / 600) + "HE");
+		list.add(EnumChatFormatting.GOLD + I18nUtil.format("desc.block.battery.capacity", BobMathUtil.getShortNumber(this.power)));
+		list.add(EnumChatFormatting.GOLD + I18nUtil.format("desc.block.battery.charge_speed",BobMathUtil.getShortNumber(this.power / 200)));
+		list.add(EnumChatFormatting.GOLD + I18nUtil.format("desc.block.battery.discharge_speed",BobMathUtil.getShortNumber(this.power / 600)));
 
 		if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
 			for(String s : I18nUtil.resolveKeyArray("tile.capacitor.desc")) list.add(EnumChatFormatting.YELLOW + s);
 		} else {
-			list.add(EnumChatFormatting.DARK_GRAY + "" + EnumChatFormatting.ITALIC +"Hold <" +
-					EnumChatFormatting.YELLOW + "" + EnumChatFormatting.ITALIC + "LSHIFT" +
-					EnumChatFormatting.DARK_GRAY + "" + EnumChatFormatting.ITALIC + "> to display more info");
+			list.add(I18nUtil.resolveKey("desc.more_info.common"));
 		}
 		if(this == ModBlocks.capacitor_complex) {
-			list.add("TaCdSa236-7 N-Boosted Anti Mass core surrounded by");
-			list.add("Flashlead antimatter lattice in a BF Stabilization Matrix");
-			list.add("subjected to the Ferric Osmiridium-Lutece");
-			list.add("ψ(x,t)=Aeiℏ(px−Et) Wavefunction.");
+			for (String line : I18nUtil.resolveKeyArray("desc.block.capacitor_complex")){
+				list.add(line);
+			}
 		}
 
 	}

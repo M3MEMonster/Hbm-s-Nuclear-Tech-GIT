@@ -17,6 +17,7 @@ import com.hbm.items.ModItems;
 import com.hbm.tileentity.IGUIProvider;
 import com.hbm.tileentity.TileEntityMachineBase;
 
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -47,7 +48,7 @@ public class TileEntityMachineStardar extends TileEntityMachineBase implements I
 	public float prevDishPitch = 0;
 
 	public boolean radarMode;
-	
+
 	// Sent by the server for the client to smoothly lerp to
 	public static float targetYaw = 0;
 	public static float targetPitch = 0;
@@ -165,7 +166,7 @@ public class TileEntityMachineStardar extends TileEntityMachineBase implements I
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		//timeUntilPoint = nbt.getInteger("time");
-		
+
 		radarMode = nbt.getBoolean("radarmode");
 		targetYaw = nbt.getFloat("yaw");
 		targetPitch = nbt.getFloat("pitch");
@@ -177,7 +178,7 @@ public class TileEntityMachineStardar extends TileEntityMachineBase implements I
 		buf.writeFloat(targetYaw);
 		buf.writeFloat(targetPitch);
 
-		
+
 		buf.writeBoolean(radarMode);
 		buf.writeBoolean(updateHeightmap);
 		if(updateHeightmap) {
@@ -290,7 +291,7 @@ public class TileEntityMachineStardar extends TileEntityMachineBase implements I
 					body.getOrbitalPeriod()
 			};
 		}
-		return new Object[] {null, "No body with that name found."};
+		return new Object[] {null, I18nUtil.resolveKey("desc.tile_entity.stardar.OC.error.nobody")};
 	}
 
 	@Callback(direct = true)
@@ -313,7 +314,7 @@ public class TileEntityMachineStardar extends TileEntityMachineBase implements I
 				return returnValues.toArray();
 			}
 		}
-		return new Object[]{null, "No body with that name found."};
+		return new Object[]{null, I18nUtil.resolveKey("desc.tile_entity.stardar.OC.error.nobody")};
 	}
 
 	// no `method()` or `invoke()` functions here because... this machine doesn't have any proxy blocks??

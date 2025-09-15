@@ -97,8 +97,7 @@ public class ItemConveyorWand extends Item implements ILookOverlay {
 				list.add(EnumChatFormatting.AQUA + I18nUtil.resolveKey(super.getUnlocalizedName(stack) + ".vertical.desc"));
 			}
 		} else {
-			list.add(EnumChatFormatting.DARK_GRAY + "" + EnumChatFormatting.ITALIC + "Hold <" + EnumChatFormatting.YELLOW + "" + EnumChatFormatting.ITALIC + "LSHIFT" + EnumChatFormatting.DARK_GRAY
-					+ "" + EnumChatFormatting.ITALIC + "> to display more info");
+			list.add(I18nUtil.resolveKey("desc.more_info.common"));
 		}
 	}
 
@@ -208,11 +207,11 @@ public class ItemConveyorWand extends Item implements ILookOverlay {
 						player.inventoryContainer.detectAndSendChanges();
 					}
 
-					player.addChatMessage(new ChatComponentText("Conveyor built!"));
+					player.addChatMessage(new ChatComponentText(I18nUtil.resolveKey("desc.item.conveyor_wand.build")));
 				} else if(constructCount == 0) {
-					player.addChatMessage(new ChatComponentText("Not enough conveyors, build cancelled"));
+					player.addChatMessage(new ChatComponentText(I18nUtil.resolveKey("desc.item.conveyor_wand.error.1")));
 				} else {
-					player.addChatMessage(new ChatComponentText("Conveyor obstructed, build cancelled"));
+					player.addChatMessage(new ChatComponentText(I18nUtil.resolveKey("desc.item.conveyor_wand.error.2")));
 				}
 			} else {
 				RenderOverhead.clearActionPreview();
@@ -511,7 +510,7 @@ public class ItemConveyorWand extends Item implements ILookOverlay {
 		Block block = world.getBlock(x, y, z);
 		if(block instanceof BlockConveyorBase) {
 			List<String> text = new ArrayList<>();
-			text.add("Break whole conveyor line");
+			text.add(I18nUtil.resolveKey("desc.item.conveyor_wand.break"));
 			ILookOverlay.printGeneric(event, I18nUtil.resolveKey(block.getUnlocalizedName() + ".name"), 0xffff00, 0x404000, text);
 		}
 	}

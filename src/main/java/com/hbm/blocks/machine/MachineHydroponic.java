@@ -133,7 +133,7 @@ public class MachineHydroponic extends BlockDummyable implements ILookOverlay, I
 
 		List<String> text = new ArrayList<String>();
 
-		text.add((hydro.getPower() <= 200 ? EnumChatFormatting.RED : EnumChatFormatting.GREEN) + "Power: " + BobMathUtil.getShortNumber(hydro.getPower()) + "HE");
+		text.add((hydro.getPower() <= 200 ? EnumChatFormatting.RED : EnumChatFormatting.GREEN) + I18nUtil.format("desc.block.machine.power", BobMathUtil.getShortNumber(hydro.getPower())));
 
 		text.add(EnumChatFormatting.GREEN + "-> " + EnumChatFormatting.RESET + hydro.tanks[0].getTankType().getLocalizedName() + ": " + hydro.tanks[0].getFill() + "/" + hydro.tanks[0].getMaxFill() + "mB");
 		text.add(EnumChatFormatting.RED + "<- " + EnumChatFormatting.RESET + hydro.tanks[1].getTankType().getLocalizedName() + ": " + hydro.tanks[1].getFill() + "/" + hydro.tanks[1].getMaxFill() + "mB");

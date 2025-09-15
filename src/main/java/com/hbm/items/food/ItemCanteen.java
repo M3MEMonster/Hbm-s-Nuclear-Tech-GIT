@@ -6,6 +6,7 @@ import com.hbm.config.VersatileConfig;
 import com.hbm.items.ModItems;
 import com.hbm.main.MainRegistry;
 
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.Entity;
@@ -67,16 +68,15 @@ public class ItemCanteen extends Item {
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack p_77624_1_, EntityPlayer p_77624_2_, List list, boolean p_77624_4_) {
 		if(this == ModItems.canteen_vodka) {
-			list.add("Cooldown: 3 minutes");
-			list.add("Nausea I for 10 seconds");
-			list.add("Strength III for 30 seconds");
-			list.add("");
+			for (String line : I18nUtil.resolveKeyArray("desc.item.canteen.vodka.common")){
+				list.add(line);
+			}
 
 			if(MainRegistry.polaroidID == 11)
 				// list.add("Why sipp when you can succ?");
-				list.add("Time to get hammered & sickled!");
+				list.add(I18nUtil.resolveKey("desc.item.canteen.vodka.polaroid.11"));
 			else
-				list.add("Smells like disinfectant, tastes like disinfectant.");
+				list.add(I18nUtil.resolveKey("desc.item.canteen.vodka.polaroid.other"));
 		}
 	}
 

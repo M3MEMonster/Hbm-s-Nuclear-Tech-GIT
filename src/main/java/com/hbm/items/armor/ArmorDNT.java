@@ -180,7 +180,7 @@ public class ArmorDNT extends ArmorFSBPowered {
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
 
-		list.add("Charge: " + BobMathUtil.getShortNumber(getCharge(stack)) + " / " + BobMathUtil.getShortNumber(this.getMaxCharge(stack)));
+		list.add(I18nUtil.resolveKey("desc.armor.charge") + BobMathUtil.getShortNumber(getCharge(stack)) + " / " + BobMathUtil.getShortNumber(this.getMaxCharge(stack)));
 
 		if(canSeal) {
 			list.add(EnumChatFormatting.BLUE + "" + I18nUtil.format("armor.canSeal"));

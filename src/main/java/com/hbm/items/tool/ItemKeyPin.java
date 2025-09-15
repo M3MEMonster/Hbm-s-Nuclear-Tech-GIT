@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.hbm.items.ModItems;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -15,14 +16,14 @@ public class ItemKeyPin extends Item {
 	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean bool)
 	{
 		if(getPins(itemstack) != 0)
-			list.add("Pin configuration: " + getPins(itemstack));
+			list.add(I18nUtil.resolveKey("desc.item.key.pin.conf") + getPins(itemstack));
 		else
-			list.add("Pins not set!");
-		
+			list.add(I18nUtil.resolveKey("desc.item.key.pin.no_pin"));
+
 		if(this == ModItems.key_fake) {
 
 			list.add("");
-			list.add("Pins can neither be changed, nor copied.");
+			list.add(I18nUtil.resolveKey("desc.item.key.pin.safe"));
 		}
 	}
 
@@ -33,14 +34,14 @@ public class ItemKeyPin extends Item {
 		}
 		return stack.stackTagCompound.getInteger("pins");
 	}
-	
+
 	public static void setPins(ItemStack stack, int i) {
 		if(stack.stackTagCompound == null) {
 			stack.stackTagCompound = new NBTTagCompound();
 		}
 		stack.stackTagCompound.setInteger("pins", i);
 	}
-	
+
 	public boolean canTransfer() {
 		return this != ModItems.key_fake;
 	}

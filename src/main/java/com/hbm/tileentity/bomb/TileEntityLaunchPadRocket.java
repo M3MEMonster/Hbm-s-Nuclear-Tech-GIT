@@ -31,6 +31,7 @@ import com.hbm.util.fauxpointtwelve.DirPos;
 import api.hbm.energymk2.IBatteryItem;
 import api.hbm.energymk2.IEnergyReceiverMK2;
 import api.hbm.fluid.IFluidStandardReceiver;
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -377,11 +378,11 @@ public class TileEntityLaunchPadRocket extends TileEntityMachineBase implements 
 		RocketStruct rocket = ItemCustomRocket.get(slots[0]);
 
 		if(!canSeeSky) {
-			issues.add(EnumChatFormatting.RED + "Pad is obstructed");
+			issues.add(EnumChatFormatting.RED + I18nUtil.resolveKey("desc.tile_entity.launch_pad_rocket.obstructed"));
 		}
 
 		if(power < maxPower * 0.75) {
-			issues.add(EnumChatFormatting.RED + "Insufficient power");
+			issues.add(EnumChatFormatting.RED + I18nUtil.resolveKey("desc.tile_entity.launch_pad_rocket.no_power"));
 		}
 
 		for(FluidTank tank : tanks) {
@@ -402,25 +403,25 @@ public class TileEntityLaunchPadRocket extends TileEntityMachineBase implements 
 
 		if(maxSolidFuel > 0) {
 			if(solidFuel < maxSolidFuel) {
-				issues.add(EnumChatFormatting.YELLOW + "" + solidFuel + "/" + maxSolidFuel + "kg Solid Fuel");
+				issues.add(EnumChatFormatting.YELLOW + I18nUtil.resolveKey("desc.tile_entity.launch_pad_rocket.fuel", solidFuel, maxSolidFuel));
 			} else {
-				issues.add(EnumChatFormatting.GREEN + "" + solidFuel + "/" + maxSolidFuel + "kg Solid Fuel");
+				issues.add(EnumChatFormatting.GREEN + I18nUtil.resolveKey("desc.tile_entity.launch_pad_rocket.fuel", solidFuel, maxSolidFuel));
 			}
 		}
 
 		if(!hasDrive()) {
-			issues.add(EnumChatFormatting.YELLOW + "No destination drive installed");
+			issues.add(EnumChatFormatting.YELLOW + I18nUtil.resolveKey("desc.tile_entity.launch_pad_rocket.no_drive"));
 			return issues;
 		}
 
 		if(!ItemVOTVdrive.getProcessed(slots[1])) {
-			issues.add(EnumChatFormatting.RED + "Destination drive needs processing");
+			issues.add(EnumChatFormatting.RED + I18nUtil.resolveKey("desc.tile_entity.launch_pad_rocket.process"));
 			return issues;
 		}
 
 		SolarSystem.Body target = ItemVOTVdrive.getDestination(slots[1]).body;
 		if(target == SolarSystem.Body.ORBIT && rocket.capsule.part != ModItems.rp_capsule_20 && rocket.capsule.part != ModItems.rp_station_core_20) {
-			issues.add(EnumChatFormatting.RED + "Satellite target must be a planet");
+			issues.add(EnumChatFormatting.RED + I18nUtil.resolveKey("desc.tile_entity.launch_pad_rocket.planet"));
 			return issues;
 		}
 
@@ -429,15 +430,15 @@ public class TileEntityLaunchPadRocket extends TileEntityMachineBase implements 
 		Target to = ItemVOTVdrive.getTarget(slots[1], worldObj);
 
 		if(to.inOrbit && !to.isValid && rocket.capsule.part != ModItems.rp_station_core_20) {
-			issues.add(EnumChatFormatting.RED + "Station not yet launched");
+			issues.add(EnumChatFormatting.RED + I18nUtil.resolveKey("desc.tile_entity.launch_pad_rocket.not_launch"));
 		}
 
 		if(to.inOrbit && to.isValid && rocket.capsule.part == ModItems.rp_station_core_20) {
-			issues.add(EnumChatFormatting.RED + "Station already launched");
+			issues.add(EnumChatFormatting.RED + I18nUtil.resolveKey("desc.tile_entity.launch_pad_rocket.launched"));
 		}
 
 		if(!rocket.hasSufficientFuel(from.body, to.body, from.inOrbit, to.inOrbit)) {
-			issues.add(EnumChatFormatting.RED + "Rocket can't reach destination");
+			issues.add(EnumChatFormatting.RED + I18nUtil.resolveKey("desc.tile_entity.launch_pad_rocket.no_reach"));
 		}
 
 		return issues;
@@ -601,13 +602,13 @@ public class TileEntityLaunchPadRocket extends TileEntityMachineBase implements 
 	@Optional.Method(modid = "OpenComputers")
 	public Object[] getDestination(Context context, Arguments args) {
 		if(hasDrive()) { // ok maybe I should actually check if there's an item there first
-			return new Object[] {null, "No destination drive."};
+			return new Object[] {null, I18nUtil.resolveKey("desc.tile_entity.launch_pad_rocket.OC.error.no_drive")};
 		}
 		Target target = ItemVOTVdrive.getTarget(slots[1], null);
 		if(target.body != null) {
 			return new Object[] {target.body.name.toLowerCase()};
 		}
-		return new Object[] {null, "Drive has no destination."};
+		return new Object[] {null, I18nUtil.resolveKey("desc.tile_entity.launch_pad_rocket.OC.error.no_destination")};
 	}
 
 	@Override

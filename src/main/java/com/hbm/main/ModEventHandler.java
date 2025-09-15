@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
+import com.hbm.util.i18n.I18nUtil;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.logging.log4j.Level;
 
@@ -209,7 +210,7 @@ public class ModEventHandler {
 			}
 
 			if(MobConfig.enableDucks && event.player instanceof EntityPlayerMP && !event.player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG).getBoolean("hasDucked"))
-				PacketDispatcher.wrapper.sendTo(new PlayerInformPacket("Press O to Duck!", ServerProxy.ID_DUCK, 30_000), (EntityPlayerMP) event.player);
+				PacketDispatcher.wrapper.sendTo(new PlayerInformPacket(I18nUtil.format("desc.main.event_handler.duck"), ServerProxy.ID_DUCK, 30_000), (EntityPlayerMP) event.player);
 
 
 			if(GeneralConfig.enableGuideBook) {
@@ -1359,7 +1360,7 @@ public class ModEventHandler {
 			/// GHOST FIX START ///
 
 			if(!Float.isFinite(player.getHealth()) || !Float.isFinite(player.getAbsorptionAmount())) {
-				player.addChatComponentMessage(new ChatComponentText("Your health has been restored!"));
+				player.addChatComponentMessage(new ChatComponentText(I18nUtil.resolveKey("desc.main.event_handler.health")));
 				player.worldObj.playSoundAtEntity(player, "hbm:item.syringe", 1.0F, 1.0F);
 				player.setHealth(player.getMaxHealth());
 				player.setAbsorptionAmount(0);

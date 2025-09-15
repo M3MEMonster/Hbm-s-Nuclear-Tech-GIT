@@ -4,18 +4,20 @@ import java.util.List;
 
 import com.hbm.util.fauxpointtwelve.BlockPos;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 
 public class ItemStructureRandomized extends ItemStructureTool {
-	
+
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean ext) {
 		super.addInformation(stack, player, list, ext);
-		list.add(EnumChatFormatting.YELLOW + "Click to print a <fillWithRandomizedBlocks>");
-		list.add(EnumChatFormatting.YELLOW + "line with block selector.");
+		for (String line : I18nUtil.resolveKeyArray("desc.item.tool.structure.randomized")) {
+			list.add(line);
+		}
 	}
 
 	@Override
@@ -25,7 +27,7 @@ public class ItemStructureRandomized extends ItemStructureTool {
 
 	@Override
 	protected void doTheThing(ItemStack stack, World world, int x, int y, int z) {
-		
+
 		BlockPos pos = this.getAnchor(stack);
 		if(pos == null) return;
 

@@ -5,6 +5,7 @@ import java.util.List;
 import com.hbm.config.GeneralConfig;
 import com.hbm.items.ItemCustomLore;
 
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -33,7 +34,7 @@ public class ItemSchraranium extends ItemCustomLore {
 	public String getItemStackDisplayName(ItemStack stack) {
 
 		if(GeneralConfig.enableLBSM && GeneralConfig.enableLBSMFullSchrab)
-			return "Nikonium Ingot";
+			return I18nUtil.resolveKey("desc.item.schra.lbsm");
 		else
 			return super.getItemStackDisplayName(stack);
 	}
@@ -41,7 +42,7 @@ public class ItemSchraranium extends ItemCustomLore {
 	@Override
 	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean bool) {
 		if(GeneralConfig.enableLBSM && GeneralConfig.enableLBSMFullSchrab)
-			list.add("pankæk");
+			list.add(I18nUtil.resolveKey("desc.item.schra.lbsm.add"));
 		else
 			super.addInformation(itemstack, player, list, bool);
 	}

@@ -8,6 +8,7 @@ import com.hbm.inventory.fluid.Fluids;
 import com.hbm.items.ModItems;
 import com.hbm.util.BobMathUtil;
 
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.creativetab.CreativeTabs;
@@ -43,10 +44,10 @@ public class ItemFluidIcon extends Item {
 			if(getQuantity(stack) > 0) list.add(getQuantity(stack) + "mB");
 			if(getPressure(stack) > 0) {
 				list.add(EnumChatFormatting.RED + "" + getPressure(stack) + "PU");
-				list.add((BobMathUtil.getBlink() ? EnumChatFormatting.RED : EnumChatFormatting.DARK_RED) + "Pressurized, use compressor!");
+				list.add((BobMathUtil.getBlink() ? EnumChatFormatting.RED : EnumChatFormatting.DARK_RED) + I18nUtil.resolveKey("desc.fluid.trait.pressurized"));
 			}
 		}
-		
+
 		Fluids.fromID(stack.getItemDamage()).addInfo(list);
 	}
 

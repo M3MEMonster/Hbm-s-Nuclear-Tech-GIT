@@ -5,6 +5,7 @@ import com.hbm.blocks.generic.BlockPedestal;
 import com.hbm.blocks.generic.LogicBlock;
 import com.hbm.entity.mob.EntityUndeadSoldier;
 import com.hbm.items.ModItems;
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -67,7 +68,7 @@ public class LogicBlockConditions {
 		int z = tile.zCoord;
 
 		if(tile.phase == 0 &&  world.isBlockIndirectlyGettingPowered(x,y,z)){
-			world.getClosestPlayer(x,y,z, 25).addChatMessage(new ChatComponentText("Find a " + EnumChatFormatting.GOLD + "great" + EnumChatFormatting.RESET + " ancient weapon, of questionable use in the modern age"));
+			world.getClosestPlayer(x,y,z, 25).addChatMessage(new ChatComponentText(I18nUtil.resolveKey("desc.world.logic_block_conditions.find")));
 			world.setBlock(x,y + 1,z, ModBlocks.pedestal);
 			return true;
 		}

@@ -122,7 +122,7 @@ public class BlockAirPump extends BlockContainer implements ILookOverlay, IBlock
 			if(type.hasTrait(FT_Gaseous.class)) {
 				pump.tank.setTankType(type);
 				pump.markDirty();
-				player.addChatComponentMessage(new ChatComponentText("Changed type to ").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.YELLOW)).appendSibling(new ChatComponentTranslation(type.getConditionalName())).appendSibling(new ChatComponentText("!")));
+				player.addChatComponentMessage(new ChatComponentText(I18nUtil.resolveKey("chat.block.type_change")).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.YELLOW)).appendSibling(new ChatComponentTranslation(type.getConditionalName())).appendSibling(new ChatComponentText("!")));
 			}
 		}
 

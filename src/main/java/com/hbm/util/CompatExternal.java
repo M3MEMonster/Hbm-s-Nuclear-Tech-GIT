@@ -23,6 +23,7 @@ import com.hbm.inventory.recipes.loader.SerializableRecipe;
 import com.hbm.items.weapon.ItemCustomMissilePart.WarheadType;
 import com.hbm.tileentity.machine.TileEntityDummy;
 import com.hbm.tileentity.turret.TileEntityTurretSentry;
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityChicken;
@@ -191,7 +192,7 @@ public class CompatExternal {
 	public static void setWarheadLabel(WarheadType type, String label) { type.labelCustom = label; }
 	public static void setWarheadImpact(WarheadType type, Consumer<EntityMissileCustom> impact) { type.impactCustom = impact; }
 	public static void setWarheadUpdate(WarheadType type, Consumer<EntityMissileCustom> update) { type.updateCustom = update; }
-	
+
 	/**
 	 * Registers an IRecipeRegisterListener to the recipe system. The listener is called every time a SerializableRecipe instance has its recipes loaded, before the
 	 * config files are written, but after the defaults are initialized.
@@ -200,7 +201,7 @@ public class CompatExternal {
 	public static void registerRecipeRegisterListener(IRecipeRegisterListener listener) {
 		SerializableRecipe.additionalListeners.add(listener);
 	}
-	
+
 	/**
 	 * Registers an IFluidRegisterListener which is called every time the fluid list is loaded, either during startup or when the refresh command is used.
 	 * Ensures that fluids are registered when they should, instead of being purged permanently when the system reloads.
@@ -222,7 +223,7 @@ public class CompatExternal {
 			return 0;
 		});
 		//configures CUSTOM0 to have a custom label and impact effect
-		CompatExternal.setWarheadLabel(WarheadType.CUSTOM0, EnumChatFormatting.YELLOW + "Micro Nuke");
+		CompatExternal.setWarheadLabel(WarheadType.CUSTOM0, EnumChatFormatting.YELLOW + I18nUtil.resolveKey("desc.util.compat_external.label"));
 		CompatExternal.setWarheadImpact(WarheadType.CUSTOM0, (missile) -> {
 			ExplosionNukeSmall.explode(missile.worldObj, missile.posX, missile.posY + 0.5, missile.posZ, ExplosionNukeSmall.PARAMS_MEDIUM);
 		});

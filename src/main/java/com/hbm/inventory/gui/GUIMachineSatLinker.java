@@ -1,5 +1,6 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.util.i18n.I18nUtil;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.container.ContainerMachineSatLinker;
@@ -12,31 +13,31 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 
 public class GUIMachineSatLinker extends GuiInfoContainer {
-	
+
 	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_linker.png");
 	private TileEntityMachineSatLinker siren;
 
 	public GUIMachineSatLinker(InventoryPlayer invPlayer, TileEntityMachineSatLinker tedf) {
 		super(new ContainerMachineSatLinker(invPlayer, tedf));
 		siren = tedf;
-		
+
 		this.xSize = 176;
 		this.ySize = 166;
 	}
-	
+
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float f) {
 		super.drawScreen(mouseX, mouseY, f);
 
-		String[] text = new String[] { "The first slot will copy the satellite/chip's",
-				"frequency and paste it to the second slot." };
+		String[] text = new String[] {I18nUtil.resolveKey("desc.gui.sat_linker.info1"),
+				I18nUtil.resolveKey("desc.gui.sat_linker.info2") };
 		this.drawCustomInfoStat(mouseX, mouseY, guiLeft - 16, guiTop + 36, 16, 16, guiLeft - 8, guiTop + 36 + 16, text);
-		
-		String[] text1 = new String[] { "The third slot will randomize the",
-				"satellite/chip's frequency."};
+
+		String[] text1 = new String[] { I18nUtil.resolveKey("desc.gui.sat_linker.info3"),
+				I18nUtil.resolveKey("desc.gui.sat_linker.info4")};
 		this.drawCustomInfoStat(mouseX, mouseY, guiLeft - 16, guiTop + 36 + 16, 16, 16, guiLeft - 8, guiTop + 36 + 16, text1);
 	}
-	
+
 	@Override
 	protected void drawGuiContainerForegroundLayer(int i, int j) {
 		String name = this.siren.hasCustomInventoryName() ? this.siren.getInventoryName() : I18n.format(this.siren.getInventoryName());

@@ -20,6 +20,7 @@ import com.hbm.packet.toclient.AuxParticlePacketNT;
 import com.hbm.particle.helper.ExplosionCreator;
 import com.hbm.potion.HbmPotion;
 
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -81,45 +82,45 @@ public class ItemAmmoHIMARS extends Item {
 
 		switch(stack.getItemDamage()) {
 		case SMALL:
-			list.add(y + "Strength: 20");
-			list.add(y + "Damage modifier: 3x");
-			list.add(b + "Does not destroy blocks");
+			list.add(y + I18nUtil.format("desc.item.ammo.strength","20"));
+			list.add(y + I18nUtil.format("desc.item.ammo.damage_modifier","3x"));
+			list.add(b + I18nUtil.resolveKey("desc.item.ammo.destroy_blocks.no"));
 			break;
 		case SMALL_HE:
-			list.add(y + "Strength: 20");
-			list.add(y + "Damage modifier: 3x");
-			list.add(r + "Destroys blocks");
+			list.add(y + I18nUtil.format("desc.item.ammo.strength","20"));
+			list.add(y + I18nUtil.format("desc.item.ammo.damage_modifier","3x"));
+			list.add(r + I18nUtil.resolveKey("desc.item.ammo.destroy_blocks.yes"));
 			break;
 		case SMALL_WP:
-			list.add(y + "Strength: 20");
-			list.add(y + "Damage modifier: 3x");
-			list.add(r + "Phosphorus splash");
-			list.add(b + "Does not destroy blocks");
+			list.add(y + I18nUtil.format("desc.item.ammo.strength","20"));
+			list.add(y + I18nUtil.format("desc.item.ammo.damage_modifier","3x"));
+			list.add(r + I18nUtil.resolveKey("desc.item.ammo.pho"));
+			list.add(b + I18nUtil.resolveKey("desc.item.ammo.destroy_blocks.no"));
 			break;
 		case SMALL_TB:
-			list.add(y + "Strength: 20");
-			list.add(y + "Damage modifier: 10x");
-			list.add(r + "Destroys blocks");
+			list.add(y + I18nUtil.format("desc.item.ammo.strength","20"));
+			list.add(y + I18nUtil.format("desc.item.ammo.damage_modifier","10x"));
+			list.add(r + I18nUtil.resolveKey("desc.item.ammo.destroy_blocks.yes"));
 			break;
 		case SMALL_MINI_NUKE:
-			list.add(y + "Strength: 20");
-			list.add(r + "Deals nuclear damage");
-			list.add(r + "Destroys blocks");
+			list.add(y + I18nUtil.format("desc.item.ammo.strength","20"));
+			list.add(r + I18nUtil.resolveKey("desc.item.ammo.nuclear"));
+			list.add(r + I18nUtil.resolveKey("desc.item.ammo.destroy_blocks.yes"));
 			break;
 		case SMALL_LAVA:
-			list.add(y + "Strength: 20");
-			list.add(r + "Creates volcanic lava");
-			list.add(r + "Destroys blocks");
+			list.add(y + I18nUtil.format("desc.item.ammo.strength","20"));
+			list.add(r + I18nUtil.resolveKey("desc.item.ammo.volcanic"));
+			list.add(r + I18nUtil.resolveKey("desc.item.ammo.destroy_blocks.yes"));
 			break;
 		case LARGE:
-			list.add(y + "Strength: 50");
-			list.add(y + "Damage modifier: 5x");
-			list.add(r + "Destroys blocks");
+			list.add(y + I18nUtil.format("desc.item.ammo.strength","50"));
+			list.add(y + I18nUtil.format("desc.item.ammo.damage_modifier","5x"));
+			list.add(r + I18nUtil.resolveKey("desc.item.ammo.destroy_blocks.yes"));
 			break;
 		case LARGE_TB:
-			list.add(y + "Strength: 50");
-			list.add(y + "Damage modifier: 12x");
-			list.add(r + "Destroys blocks");
+			list.add(y + I18nUtil.format("desc.item.ammo.strength","50"));
+			list.add(y + I18nUtil.format("desc.item.ammo.damage_modifier","12x"));
+			list.add(r + I18nUtil.resolveKey("desc.item.ammo.destroy_blocks.yes"));
 			break;
 		}
 	}

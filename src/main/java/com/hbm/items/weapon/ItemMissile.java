@@ -71,11 +71,11 @@ public class ItemMissile extends ItemCustomLore {
 	}
 
 	public enum MissileTier {
-		TIER0("Tier 0"),
-		TIER1("Tier 1"),
-		TIER2("Tier 2"),
-		TIER3("Tier 3"),
-		TIER4("Tier 4");
+		TIER0(I18nUtil.resolveKey("desc.item.missile.tier.0")),
+		TIER1(I18nUtil.resolveKey("desc.item.missile.tier.1")),
+		TIER2(I18nUtil.resolveKey("desc.item.missile.tier.2")),
+		TIER3(I18nUtil.resolveKey("desc.item.missile.tier.3")),
+		TIER4(I18nUtil.resolveKey("desc.item.missile.tier.4"));
 
 		public String display;
 

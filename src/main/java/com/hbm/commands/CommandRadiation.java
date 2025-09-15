@@ -2,6 +2,7 @@ package com.hbm.commands;
 
 import com.hbm.handler.radiation.ChunkRadiationManager;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
@@ -21,17 +22,17 @@ public class CommandRadiation extends CommandBase {
 
 	@Override
 	public void processCommand(ICommandSender sender, String[] args) {
-		
+
 		if(args.length == 1 && "clear".equals(args[0])) {
 			ChunkRadiationManager.proxy.clearSystem(sender.getEntityWorld());
-			sender.addChatMessage(new ChatComponentText("Cleared radiation data!"));
+			sender.addChatMessage(new ChatComponentText(I18nUtil.resolveKey("chat.command.radiation.clear")));
 			return;
 		}
-		
+
 		if(args.length == 2 && "set".equals(args[0])) {
 			float amount = (float) this.parseDoubleBounded(sender, args[1], 0D, 100_000D);
 			ChunkRadiationManager.proxy.setRadiation(sender.getEntityWorld(), sender.getPlayerCoordinates().posX, sender.getPlayerCoordinates().posY, sender.getPlayerCoordinates().posZ, amount);
-			sender.addChatMessage(new ChatComponentText("Radiation set."));
+			sender.addChatMessage(new ChatComponentText(I18nUtil.resolveKey("chat.command.radiation.set")));
 			return;
 		}
 

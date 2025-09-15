@@ -6,6 +6,7 @@ import com.hbm.handler.ArmorModHandler;
 import com.hbm.util.BobMathUtil;
 
 import api.hbm.energymk2.IBatteryItem;
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
@@ -31,7 +32,7 @@ public class ArmorFSBPowered extends ArmorFSB implements IBatteryItem {
 
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean ext) {
-		list.add("Charge: " + BobMathUtil.getShortNumber(getCharge(stack)) + " / " + BobMathUtil.getShortNumber(getMaxCharge(stack)));
+		list.add(I18nUtil.resolveKey("desc.common.charge", BobMathUtil.getShortNumber(getCharge(stack)), BobMathUtil.getShortNumber(getMaxCharge(stack))));
 		super.addInformation(stack, player, list, ext);
 	}
 

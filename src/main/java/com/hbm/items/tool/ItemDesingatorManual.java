@@ -7,6 +7,7 @@ import com.hbm.main.MainRegistry;
 import com.hbm.tileentity.IGUIProvider;
 
 import api.hbm.item.IDesignatorItem;
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,11 +31,11 @@ public class ItemDesingatorManual extends Item implements IDesignatorItem, IGUIP
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
 		if(stack.stackTagCompound != null) {
-			list.add("Target Coordinates:");
+			list.add(I18nUtil.resolveKey("desc.item.desingator.target_coor"));
 			list.add("X: " + stack.stackTagCompound.getInteger("xCoord"));
 			list.add("Z: " + stack.stackTagCompound.getInteger("zCoord"));
 		} else {
-			list.add("Please select a target.");
+			list.add(I18nUtil.resolveKey("desc.item.desingator.target_select"));
 		}
 	}
 

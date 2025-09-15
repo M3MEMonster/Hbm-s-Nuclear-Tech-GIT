@@ -75,9 +75,9 @@ public class AtmoVent extends BlockDummyable implements ILookOverlay, IToolable 
 
 		List<String> text = new ArrayList<String>();
 		if(!CelestialBody.hasTrait(world, CBT_Atmosphere.class)) {
-			text.add(((EnumChatFormatting.RED + "ERROR: ")) + EnumChatFormatting.RESET + I18nUtil.resolveKey("CANNOT COLLECT IN VACUUM"));
+			text.add(I18nUtil.resolveKey("desc.block.atmo_vent.error"));
 		} else {
-			text.add((tower.power < tower.getMaxPower() / 20 ? EnumChatFormatting.RED : EnumChatFormatting.GREEN) + "Power: " + BobMathUtil.getShortNumber(tower.power) + "HE");
+			text.add((tower.power < tower.getMaxPower() / 20 ? EnumChatFormatting.RED : EnumChatFormatting.GREEN) + I18nUtil.format("desc.block.machine.power", BobMathUtil.getShortNumber(tower.power)));
 			text.add(((EnumChatFormatting.RED + "<- ")) + EnumChatFormatting.RESET + I18nUtil.resolveKey("hbmfluid." + tower.tank.getTankType().getName().toLowerCase()) + ": " + tower.tank.getFill() + "/" + tower.tank.getMaxFill() + "mB");
 		}
 

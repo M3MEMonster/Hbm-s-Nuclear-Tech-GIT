@@ -682,7 +682,7 @@ public class TileEntityRBMKConsole extends TileEntityMachineBase implements ICon
 		if(foundRods)
 			return new Object[] {};
 		else
-			return new Object[] {"No control rods found"};
+			return new Object[] {I18nUtil.resolveKey("desc.tile_entity.RMBK.console.OC.error.no_rods")};
 	}
 
 	@Callback(direct = true)
@@ -703,7 +703,7 @@ public class TileEntityRBMKConsole extends TileEntityMachineBase implements ICon
 			te.markDirty();
 			return new Object[] {};
 		}
-		return new Object[] {"No control rod found at "+(x+7)+","+(7-y)};
+		return new Object[] {I18nUtil.resolveKey("desc.tile_entity.RMBK.console.OC.error.no_rods_at",(x+7),(7-y))};
 	}
 
 	@Callback(direct = true)
@@ -733,9 +733,9 @@ public class TileEntityRBMKConsole extends TileEntityMachineBase implements ICon
 			if(foundRods)
 				return new Object[] {};
 			else
-				return new Object[] { "No rods for color "+color+" found" };
+				return new Object[] { I18nUtil.resolveKey("desc.tile_entity.RMBK.console.OC.error.no_rods.color",color) };
 		}
-		return new Object[] {"Color "+color+" does not exist"};
+		return new Object[] {I18nUtil.resolveKey("desc.tile_entity.RMBK.console.OC.error.no_color",color)};
 	}
 
 	@Callback(direct = true)
@@ -753,9 +753,9 @@ public class TileEntityRBMKConsole extends TileEntityMachineBase implements ICon
 				te.markDirty();
 				return new Object[] {};
 			}
-			return new Object[] {"No control rod found at "+(x+7)+","+(7-y)};
+			return new Object[] {I18nUtil.resolveKey("desc.tile_entity.RMBK.console.OC.error.no_rods_at",(x+7),(7-y))};
 		}
-		return new Object[] {"Color "+new_color+" does not exist"};
+		return new Object[] {I18nUtil.resolveKey("desc.tile_entity.RMBK.console.OC.error.no_color",new_color)};
 	}
 
 	@Callback(direct = true)
@@ -778,7 +778,7 @@ public class TileEntityRBMKConsole extends TileEntityMachineBase implements ICon
 		if(hasRods){
 			return new Object[] {};
 		} else {
-			return new Object[] {"No control rods found"};
+			return new Object[] {I18nUtil.resolveKey("desc.tile_entity.RMBK.console.OC.error.no_rods")};
 		}
 	}
 }

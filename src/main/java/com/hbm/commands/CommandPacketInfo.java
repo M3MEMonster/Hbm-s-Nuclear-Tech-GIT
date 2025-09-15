@@ -4,6 +4,7 @@ import com.hbm.config.GeneralConfig;
 import com.hbm.handler.threading.PacketThreading;
 import com.hbm.main.MainRegistry;
 import com.hbm.util.BobMathUtil;
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
@@ -38,11 +39,11 @@ public class CommandPacketInfo extends CommandBase {
 				case "toggleThreadingStatus":
 					GeneralConfig.enablePacketThreading = !GeneralConfig.enablePacketThreading; // Force toggle.
 					PacketThreading.init(); // Reinit threads.
-					sender.addChatMessage(new ChatComponentText(EnumChatFormatting.GREEN + "Packet sending status toggled to " + GeneralConfig.enablePacketThreading + "."));
+					sender.addChatMessage(new ChatComponentText(EnumChatFormatting.GREEN + I18nUtil.format("chat.command.packet.thread", GeneralConfig.enablePacketThreading)));
 					return;
 				case "forceLock":
 					PacketThreading.lock.lock(); // oh my fucking god never do this please unless you really have to
-					sender.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "Packet thread lock acquired, this may freeze the main thread!"));
+					sender.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + I18nUtil.resolveKey("chat.command.packet.thread.lock")));
 					MainRegistry.logger.error("Packet thread lock acquired by {}, this may freeze the main thread!", sender.getCommandSenderName());
 					return;
 				case "forceUnlock":
@@ -50,37 +51,37 @@ public class CommandPacketInfo extends CommandBase {
 					MainRegistry.logger.warn("Packet thread lock released by {}.", sender.getCommandSenderName());
 					return;
 				case "info":
-					sender.addChatMessage(new ChatComponentText(EnumChatFormatting.GOLD + "NTM Packet Debugger v1.2"));
+					sender.addChatMessage(new ChatComponentText(EnumChatFormatting.GOLD + I18nUtil.resolveKey("chat.command.packet.info")));
 
 					if (PacketThreading.isTriggered() && GeneralConfig.enablePacketThreading)
-						sender.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "Packet Threading Errored, check log."));
+						sender.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + I18nUtil.resolveKey("chat.command.packet.thread.error")));
 					else if (GeneralConfig.enablePacketThreading)
-						sender.addChatMessage(new ChatComponentText(EnumChatFormatting.GREEN + "Packet Threading Active"));
+						sender.addChatMessage(new ChatComponentText(EnumChatFormatting.GREEN + I18nUtil.resolveKey("chat.command.packet.thread.active")));
 					else
-						sender.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "Packet Threading Inactive"));
+						sender.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + I18nUtil.resolveKey("chat.command.packet.thread.inactive")));
 
-					sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + "Thread Pool Info"));
-					sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + "# Threads (total): " + PacketThreading.threadPool.getPoolSize()));
-					sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + "# Threads (core): " + PacketThreading.threadPool.getCorePoolSize()));
-					sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + "# Threads (idle): " + (PacketThreading.threadPool.getPoolSize() - PacketThreading.threadPool.getActiveCount())));
-					sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + "# Threads (maximum): " + PacketThreading.threadPool.getMaximumPoolSize()));
+					sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + I18nUtil.resolveKey("chat.command.packet.thread.pool")));
+					sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + I18nUtil.format("chat.command.packet.thread.total", PacketThreading.threadPool.getPoolSize())));
+					sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + I18nUtil.format("chat.command.packet.thread.core", PacketThreading.threadPool.getCorePoolSize())));
+					sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + I18nUtil.format("chat.command.packet.thread.idle", (PacketThreading.threadPool.getPoolSize() - PacketThreading.threadPool.getActiveCount()))));
+					sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + I18nUtil.format("chat.command.packet.thread.max", PacketThreading.threadPool.getMaximumPoolSize())));
 
 					for (ThreadInfo thread : ManagementFactory.getThreadMXBean().dumpAllThreads(false, false))
 						if (thread.getThreadName().startsWith(PacketThreading.threadPrefix)) {
-							sender.addChatMessage(new ChatComponentText(EnumChatFormatting.GOLD + "Thread Name: " + thread.getThreadName()));
-							sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + "Thread ID: " + thread.getThreadId()));
-							sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + "Thread state: " + thread.getThreadState()));
-							sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + "Locked by: " + (thread.getLockOwnerName() == null ? "None" : thread.getLockName())));
+							sender.addChatMessage(new ChatComponentText(EnumChatFormatting.GOLD + I18nUtil.format("chat.command.packet.thread.name", thread.getThreadName())));
+							sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + I18nUtil.format("chat.command.packet.thread.id", thread.getThreadId())));
+							sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + I18nUtil.format("chat.command.packet.thread.state", thread.getThreadState())));
+							sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + I18nUtil.format("chat.command.packet.thread.if_lock", (thread.getLockOwnerName() == null ? I18nUtil.resolveKey("desc.common.none") : thread.getLockName()))));
 						}
 
-					sender.addChatMessage(new ChatComponentText(EnumChatFormatting.GOLD + "Packet Info: "));
-					sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + "Amount total: " + totalCnt));
-					sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + "Amount remaining: " + PacketThreading.threadPool.getQueue().size()));
+					sender.addChatMessage(new ChatComponentText(EnumChatFormatting.GOLD + I18nUtil.resolveKey("chat.command.packet.thread.packet")));
+					sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + I18nUtil.format("chat.command.packet.thread.amount.total", totalCnt)));
+					sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + I18nUtil.format("chat.command.packet.thread.amount.remain", PacketThreading.threadPool.getQueue().size())));
 
 					if (totalCnt != 0)
-						sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + "% Remaining to process: " + BobMathUtil.roundDecimal(((double) PacketThreading.threadPool.getQueue().size() / totalCnt) * 100, 2) + "%"));
+						sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + I18nUtil.format("chat.command.packet.thread.process_remain", BobMathUtil.roundDecimal(((double) PacketThreading.threadPool.getQueue().size() / totalCnt) * 100, 2))));
 
-					sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + "Time spent waiting on thread(s) last tick: " + BobMathUtil.roundDecimal(TimeUnit.MILLISECONDS.convert(PacketThreading.nanoTimeWaited, TimeUnit.NANOSECONDS), 4) + "ms"));
+					sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + I18nUtil.format("chat.command.packet.thread.process_time", BobMathUtil.roundDecimal(TimeUnit.MILLISECONDS.convert(PacketThreading.nanoTimeWaited, TimeUnit.NANOSECONDS), 4))));
 					return;
 			}
 		}

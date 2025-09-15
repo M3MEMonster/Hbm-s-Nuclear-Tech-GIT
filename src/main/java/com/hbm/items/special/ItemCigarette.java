@@ -8,6 +8,7 @@ import com.hbm.items.ModItems;
 import com.hbm.main.MainRegistry;
 import com.hbm.packet.toclient.AuxParticlePacketNT;
 
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -80,10 +81,9 @@ public class ItemCigarette extends Item  {
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean ext) {
 
 		if(this == ModItems.cigarette) {
-			list.add(EnumChatFormatting.RED + "✓ Asbestos filter");
-			list.add(EnumChatFormatting.RED + "✓ High in tar");
-			list.add(EnumChatFormatting.RED + "✓ Tobacco contains 100% Polonium-210");
-			list.add(EnumChatFormatting.RED + "✓ Yum");
+			for (String line : I18nUtil.resolveKeyArray("desc.item.ffi_cigarette")){
+				list.add(line);
+			}
 		} else {
 			String[] colors = new String[] {
 					EnumChatFormatting.RED + "",
@@ -96,7 +96,7 @@ public class ItemCigarette extends Item  {
 					EnumChatFormatting.LIGHT_PURPLE + "",
 			};
 			int len = 2000;
-			list.add("This can't be good for me, but I feel " + colors[(int)(System.currentTimeMillis() % len * colors.length / len)] + "GREAT");
+			list.add(I18nUtil.format("desc.item.snuff_bottle",colors[(int)(System.currentTimeMillis() % len * colors.length / len)]));
 		}
 	}
 }

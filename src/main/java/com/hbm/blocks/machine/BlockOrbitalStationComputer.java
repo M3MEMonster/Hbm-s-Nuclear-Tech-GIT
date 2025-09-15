@@ -130,7 +130,7 @@ public class BlockOrbitalStationComputer extends BlockDummyable implements ILook
 		List<String> text = new ArrayList<>();
 
 		if(!station.hasEngines) {
-			text.add(EnumChatFormatting.RED + "No engines available");
+			text.add(EnumChatFormatting.RED + I18nUtil.resolveKey("desc.block.orbital_station_computer.no_engine"));
 		} else if(station.errorsAt.size() > 0) {
 			for(ThreeInts errorAt : station.errorsAt) {
 				TileEntity error = world.getTileEntity(errorAt.x, errorAt.y, errorAt.z);

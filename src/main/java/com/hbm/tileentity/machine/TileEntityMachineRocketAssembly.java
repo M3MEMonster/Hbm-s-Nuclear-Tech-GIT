@@ -17,6 +17,7 @@ import com.hbm.tileentity.IGUIProvider;
 import com.hbm.tileentity.TileEntityMachineBase;
 import com.hbm.util.BobMathUtil;
 
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
@@ -164,7 +165,7 @@ public class TileEntityMachineRocketAssembly extends TileEntityMachineBase imple
 			}
 
 			if(platformFailed) {
-				rocket.addIssue(EnumChatFormatting.RED + "VAB ceiling too low ");
+				rocket.addIssue(EnumChatFormatting.RED + I18nUtil.resolveKey("desc.tile_entity.rocket_assembly.VAB"));
 			}
 
 			networkPackNT(250);

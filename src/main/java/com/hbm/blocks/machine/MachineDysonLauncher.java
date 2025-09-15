@@ -217,11 +217,11 @@ public class MachineDysonLauncher extends BlockDummyable implements ILookOverlay
 		List<String> text = new ArrayList<String>();
 
 		if(launcher.swarmId > 0) {
-			text.add("ID: " + launcher.swarmId);
-			text.add("Swarm: " + launcher.swarmCount + " members");
-			text.add((launcher.power < TileEntityDysonLauncher.MAX_POWER ? EnumChatFormatting.RED : EnumChatFormatting.GREEN) + "Power: " + BobMathUtil.getShortNumber(launcher.power) + "HE");
+			text.add(I18nUtil.format("desc.block.dyson_launcher_receiver.id", launcher.swarmId));
+			text.add(I18nUtil.format("desc.block.dyson_launcher_receiver.swarm", launcher.swarmCount));
+			text.add((launcher.power < TileEntityDysonLauncher.MAX_POWER ? EnumChatFormatting.RED : EnumChatFormatting.GREEN) + I18nUtil.format("desc.block.machine.power", BobMathUtil.getShortNumber(launcher.power)));
 		} else {
-			text.add("No Satellite ID-Chip installed!");
+			text.add(I18nUtil.resolveKey("desc.block.dyson_launcher_receiver.no_chip"));
 		}
 
 		ILookOverlay.printGeneric(event, I18nUtil.resolveKey(getUnlocalizedName() + ".name"), 0xffff00, 0x404000, text);

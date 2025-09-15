@@ -18,6 +18,7 @@ import com.hbm.lib.RefStrings;
 
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 
@@ -31,31 +32,31 @@ public class CrucibleAlloyingHandler extends TemplateRecipeHandler implements IC
 	public String getRecipeID() {
 		return "ntmCrucibleAlloying";
 	}
-	
+
 	public LinkedList<RecipeTransferRect> transferRectsRec = new LinkedList<RecipeTransferRect>();
 	public LinkedList<Class<? extends GuiContainer>> guiRec = new LinkedList<Class<? extends GuiContainer>>();
-	
+
 	public class RecipeSet extends TemplateRecipeHandler.CachedRecipe {
 
 		List<PositionedStack> inputs = new ArrayList();
 		PositionedStack template;
 		PositionedStack crucible;
 		List<PositionedStack> outputs = new ArrayList();
-		
+
 		public RecipeSet(CrucibleRecipe recipe) {
 			List<ItemStack> inputs = new ArrayList();
 			List<ItemStack> outputs = new ArrayList();
 			for(MaterialStack stack : recipe.input) inputs.add(ItemScraps.create(stack, true));
 			for(MaterialStack stack : recipe.output) outputs.add(ItemScraps.create(stack, true));
-			
+
 			this.template = new PositionedStack(new ItemStack(ModItems.crucible_template, 1, recipe.getId()), 75, 6);
 			this.crucible = new PositionedStack(new ItemStack(ModBlocks.machine_crucible), 75, 42);
-			
+
 			for(int i = 0; i < inputs.size(); i++) {
 				PositionedStack pos = new PositionedStack(inputs.get(i), 12 + (i % 3) * 18, 6 + (i / 3) * 18);
 				this.inputs.add(pos);
 			}
-			
+
 			for(int i = 0; i < outputs.size(); i++) {
 				PositionedStack pos = new PositionedStack(outputs.get(i), 102 + (i % 3) * 18, 6 + (i / 3) * 18);
 				this.outputs.add(pos);
@@ -85,17 +86,17 @@ public class CrucibleAlloyingHandler extends TemplateRecipeHandler implements IC
 
 	@Override
 	public String getRecipeName() {
-		return "Crucible Alloying";
+		return I18nUtil.resolveKey("desc.handler.nei.crucible_alloying.recipe_name");
 	}
 
 	@Override
 	public String getGuiTexture() {
 		return RefStrings.MODID + ":textures/gui/nei/gui_nei_crucible.png";
 	}
-	
+
 	@Override
 	public void loadCraftingRecipes(String outputId, Object... results) {
-		
+
 		if(outputId.equals("ntmCrucibleAlloying")) {
 
 			for(CrucibleRecipe recipe : CrucibleRecipes.recipes) {
@@ -105,17 +106,17 @@ public class CrucibleAlloyingHandler extends TemplateRecipeHandler implements IC
 			super.loadCraftingRecipes(outputId, results);
 		}
 	}
-	
+
 	@Override
 	public void loadCraftingRecipes(ItemStack result) {
-		
+
 		if(result.getItem() != ModItems.scraps)
 			return;
-		
+
 		NTMMaterial material = Mats.matById.get(result.getItemDamage());
 
 		for(CrucibleRecipe recipe : CrucibleRecipes.recipes) {
-			
+
 			for(MaterialStack stack : recipe.output) {
 				if(stack.material == material) {
 					this.arecipes.add(new RecipeSet(recipe));
@@ -124,27 +125,27 @@ public class CrucibleAlloyingHandler extends TemplateRecipeHandler implements IC
 			}
 		}
 	}
-	
+
 	@Override
 	public void loadUsageRecipes(String inputId, Object... ingredients) {
-		
+
 		if(inputId.equals("ntmCrucibleAlloying")) {
 			loadCraftingRecipes("ntmCrucibleAlloying", new Object[0]);
 		} else {
 			super.loadUsageRecipes(inputId, ingredients);
 		}
 	}
-	
+
 	@Override
 	public void loadUsageRecipes(ItemStack ingredient) {
-		
+
 		if(ingredient.getItem() != ModItems.scraps)
 			return;
-		
+
 		NTMMaterial material = Mats.matById.get(ingredient.getItemDamage());
 
 		for(CrucibleRecipe recipe : CrucibleRecipes.recipes) {
-			
+
 			for(MaterialStack stack : recipe.input) {
 				if(stack.material == material) {
 					this.arecipes.add(new RecipeSet(recipe));
@@ -153,7 +154,7 @@ public class CrucibleAlloyingHandler extends TemplateRecipeHandler implements IC
 			}
 		}
 	}
-	
+
 	@Override
 	public void loadTransferRects() {
 		transferRects.add(new RecipeTransferRect(new Rectangle(65, 23, 36, 18), "ntmCrucibleAlloying"));

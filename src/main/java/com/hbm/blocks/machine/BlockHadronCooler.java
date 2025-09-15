@@ -19,7 +19,7 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 
 public class BlockHadronCooler extends BlockMulti implements ITooltipProvider {
-	
+
 	private IIcon[] icons = new IIcon[getSubCount()];
 
 	public BlockHadronCooler(Material mat) {
@@ -47,21 +47,19 @@ public class BlockHadronCooler extends BlockMulti implements ITooltipProvider {
 	@Override
 	public String getUnlocalizedName(ItemStack stack) {
 		int meta = this.rectify(stack.getItemDamage());
-		
+
 		if(meta == 1) return this.getUnlocalizedName() + "_mk2";
-		
+
 		return this.getUnlocalizedName();
 	}
 
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean ext) {
-		
+
 		if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
 			for(String s : I18nUtil.resolveKeyArray(this.getUnlocalizedName(stack) + ".desc")) list.add(EnumChatFormatting.YELLOW + s);
 		} else {
-			list.add(EnumChatFormatting.DARK_GRAY + "" + EnumChatFormatting.ITALIC +"Hold <" +
-					EnumChatFormatting.YELLOW + "" + EnumChatFormatting.ITALIC + "LSHIFT" +
-					EnumChatFormatting.DARK_GRAY + "" + EnumChatFormatting.ITALIC + "> to display more info");
+			list.add(I18nUtil.resolveKey("desc.more_info.common"));
 		}
 	}
 }

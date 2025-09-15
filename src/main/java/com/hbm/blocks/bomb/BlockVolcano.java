@@ -3,6 +3,7 @@ package com.hbm.blocks.bomb;
 import java.util.Arrays;
 import java.util.List;
 
+import com.hbm.util.i18n.I18nUtil;
 import org.apache.logging.log4j.Level;
 
 import com.hbm.blocks.IBlockMulti;
@@ -63,12 +64,12 @@ public class BlockVolcano extends BlockContainer implements ITooltipProvider, IB
 		int meta = stack.getItemDamage();
 
 		if(meta == META_SMOLDERING) {
-			list.add(EnumChatFormatting.GOLD + "SHIELD VOLCANO");
+			list.add(EnumChatFormatting.GOLD + I18nUtil.resolveKey("desc.block.volcano.shield"));
 			return;
 		}
 
-		list.add(BlockVolcano.isGrowing(meta) ? (EnumChatFormatting.RED + "DOES GROW") : (EnumChatFormatting.DARK_GRAY + "DOES NOT GROW"));
-		list.add(BlockVolcano.isExtinguishing(meta) ? (EnumChatFormatting.RED + "DOES EXTINGUISH") : (EnumChatFormatting.DARK_GRAY + "DOES NOT EXTINGUISH"));
+		list.add(BlockVolcano.isGrowing(meta) ? (EnumChatFormatting.RED + I18nUtil.resolveKey("desc.block.volcano.grow")) : (EnumChatFormatting.DARK_GRAY + I18nUtil.resolveKey("desc.block.volcano.grow.no")));
+		list.add(BlockVolcano.isExtinguishing(meta) ? (EnumChatFormatting.RED + I18nUtil.resolveKey("desc.block.volcano.extinguish")) : (EnumChatFormatting.DARK_GRAY + I18nUtil.resolveKey("desc.block.volcano.extinguish.no")));
 	}
 
 	public static final int META_STATIC_ACTIVE = 0;

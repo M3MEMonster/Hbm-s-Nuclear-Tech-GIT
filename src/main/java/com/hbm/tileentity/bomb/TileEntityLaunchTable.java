@@ -27,6 +27,7 @@ import com.hbm.tileentity.TileEntityLoadedBase;
 import api.hbm.energymk2.IEnergyReceiverMK2;
 import api.hbm.fluid.IFluidStandardReceiver;
 import api.hbm.item.IDesignatorItem;
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
@@ -545,7 +546,7 @@ public class TileEntityLaunchTable extends TileEntityLoadedBase implements ISide
 			}
 		}
 		nbt.setTag("items", list);
-		
+
 		if (customName != null) {
 			nbt.setString("name", customName);
 		}
@@ -671,7 +672,7 @@ public class TileEntityLaunchTable extends TileEntityLoadedBase implements ISide
 
 			return new Object[] {xCoord2, zCoord2};
 		}
-		return new Object[] {false, "Designator not found"};
+		return new Object[] {false, I18nUtil.resolveKey("desc.tile_entity.launch_table.OC.error.no_designator")};
 	}
 	@Callback
 	@Optional.Method(modid = "OpenComputers")
@@ -683,7 +684,7 @@ public class TileEntityLaunchTable extends TileEntityLoadedBase implements ISide
 
 			return new Object[] {true};
 		}
-		return new Object[] {false, "Designator not found"};
+		return new Object[] {false, I18nUtil.resolveKey("desc.tile_entity.launch_table.OC.error.no_designator")};
 	}
 
 	@Callback

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.hbm.util.i18n.I18nUtil;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -229,7 +230,7 @@ public class GUIScreenBobmazon extends GuiScreen {
 		}
 
 		public Offer(ItemStack offer, Requirement requirement, int cost, int rating) {
-			this(offer, requirement, cost, rating, "No Ratings", "");
+			this(offer, requirement, cost, rating, I18nUtil.resolveKey("desc.bobmazon.no_rating"), "");
 		}
 
 		public void drawRequirement(GUIScreenBobmazon gui, int x, int y) {
@@ -253,9 +254,9 @@ public class GUIScreenBobmazon extends GuiScreen {
 				gui.fontRendererObj.drawString(I18n.format(offer.getDisplayName()) + count, (int) ((x + 20) / scale), (int) ((y - 12) / scale), 4210752);
 				GL11.glPopMatrix();
 
-				String price = cost + " Cap";
+				String price = cost + I18nUtil.resolveKey("desc.bobmazon.cap");
 				if(cost != 1)
-					price += "s";
+					price += I18nUtil.resolveKey("desc.bobmazon.cap.plural");
 
 				gui.fontRendererObj.drawString(price, x + 62, y - 3, 4210752);
 

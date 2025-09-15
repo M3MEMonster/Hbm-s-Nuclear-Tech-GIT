@@ -25,7 +25,7 @@ public class RotaryFurnaceHandler extends NEIUniversalHandler {
 	public String getKey() {
 		return "ntmRotaryFurnace";
 	}
-	
+
 	@Override
 	public void loadTransferRects() {
 		super.loadTransferRects();
@@ -40,17 +40,17 @@ public class RotaryFurnaceHandler extends NEIUniversalHandler {
 		RecipeSet rec = (RecipeSet) this.arecipes.get(recipe);
 		Object[] original = (Object[]) rec.originalInputInstance;
 		ItemStack output = rec.output[0].item;
-		
+
 		outer: for(RotaryFurnaceRecipe arc : RotaryFurnaceRecipes.recipes) {
-			
+
 			if(ItemStack.areItemStacksEqual(ItemScraps.create(arc.output, true), output) && arc.ingredients.length == original.length - (arc.fluid == null ? 0 : 1)) {
-				
+
 				for(int i = 0; i < rec.input.length - (arc.fluid == null ? 0 : 1); i++) {
 					if(arc.ingredients[i] != original[i]) continue outer;
 				}
 
 				FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
-				String duration = String.format(Locale.US, "%,d", arc.duration) + " ticks";
+				String duration = String.format(Locale.US, "%,d", arc.duration) + I18nUtil.resolveKey("desc.handler.nei.tick");
 				String consumption = I18nUtil.resolveKey(Fluids.STEAM.getUnlocalizedName()) + ": " + String.format(Locale.US, "%,d", arc.steam) + " mB/t";
 				int side = 160;
 				fontRenderer.drawString(duration, side - fontRenderer.getStringWidth(duration), 43, 0x404040);

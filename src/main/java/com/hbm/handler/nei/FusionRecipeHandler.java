@@ -15,6 +15,7 @@ import com.hbm.lib.RefStrings;
 import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 
@@ -35,19 +36,19 @@ public class FusionRecipeHandler extends TemplateRecipeHandler implements ICompa
     public LinkedList<Class<? extends GuiContainer>> guiGui = new LinkedList<Class<? extends GuiContainer>>();
 
     public class SmeltingSet extends TemplateRecipeHandler.CachedRecipe {
-    	
+
 		PositionedStack input;
         PositionedStack result;
-    	
+
         public SmeltingSet(ItemStack in, ItemStack out) {
-        	
+
         	this.input = new PositionedStack(in, 30, 24);
             this.result = new PositionedStack(out, 120, 24);
         }
 
         @Override
 		public List<PositionedStack> getIngredients() {
-        	
+
             return new ArrayList() {{ add(input); }};
         }
 
@@ -56,23 +57,23 @@ public class FusionRecipeHandler extends TemplateRecipeHandler implements ICompa
             return result;
         }
     }
-    
+
 	@Override
 	public String getRecipeName() {
-		return "Fusion Reactor";
+		return I18nUtil.resolveKey("desc.handler.nei.fusion.recipe_name");
 	}
-	
+
 	@Override
 	public void loadCraftingRecipes(String outputId, Object... results) {
-		
+
 		if(outputId.equals("fusion") && getClass() == FusionRecipeHandler.class) {
-			
+
 			Map<ItemStack, ItemStack> recipes = FusionRecipes.getRecipes();
-			
+
 			for(Map.Entry<ItemStack, ItemStack> recipe : recipes.entrySet()) {
 				this.arecipes.add(new SmeltingSet(recipe.getKey(), recipe.getValue()));
 			}
-			
+
 		} else {
 			super.loadCraftingRecipes(outputId, results);
 		}
@@ -80,11 +81,11 @@ public class FusionRecipeHandler extends TemplateRecipeHandler implements ICompa
 
 	@Override
 	public void loadCraftingRecipes(ItemStack result) {
-		
+
 		Map<ItemStack, ItemStack> recipes = FusionRecipes.getRecipes();
-		
+
 		for(Map.Entry<ItemStack, ItemStack> recipe : recipes.entrySet()) {
-			
+
 			if(NEIServerUtils.areStacksSameTypeCrafting(recipe.getValue(), result)) {
 				this.arecipes.add(new SmeltingSet(recipe.getKey(), recipe.getValue()));
 			}
@@ -93,7 +94,7 @@ public class FusionRecipeHandler extends TemplateRecipeHandler implements ICompa
 
 	@Override
 	public void loadUsageRecipes(String inputId, Object... ingredients) {
-		
+
 		if(inputId.equals("fusion") && getClass() == FusionRecipeHandler.class) {
 			loadCraftingRecipes("fusion", new Object[0]);
 		} else {
@@ -103,17 +104,17 @@ public class FusionRecipeHandler extends TemplateRecipeHandler implements ICompa
 
 	@Override
 	public void loadUsageRecipes(ItemStack ingredient) {
-		
+
 		Map<ItemStack, ItemStack> recipes = FusionRecipes.getRecipes();
-		
+
 		for(Map.Entry<ItemStack, ItemStack> recipe : recipes.entrySet()) {
-			
+
 			if(NEIServerUtils.areStacksSameTypeCrafting(recipe.getKey(), ingredient)) {
 				this.arecipes.add(new SmeltingSet(recipe.getKey(), recipe.getValue()));
 			}
 		}
 	}
-    
+
     @Override
     public void loadTransferRects() {
         transferRectsGui = new LinkedList<RecipeTransferRect>();

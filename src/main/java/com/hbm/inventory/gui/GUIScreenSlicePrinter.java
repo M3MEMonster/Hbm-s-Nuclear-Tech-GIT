@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 
+import com.hbm.util.i18n.I18nUtil;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.blocks.machine.BlockPWR;
@@ -68,7 +69,7 @@ public class GUIScreenSlicePrinter extends GuiScreen {
 
 		// Once we've reached the top slice, close the GUI
 		if(yIndex >= sizeY) {
-			mc.thePlayer.addChatMessage(new ChatComponentText("Slices saved to: .minecraft/printer/" + dirname));
+			mc.thePlayer.addChatMessage(new ChatComponentText(I18nUtil.resolveKey("chat.gui.screen_slice_printer.save") + dirname));
 			mc.thePlayer.closeScreen();
 			return;
 		}

@@ -14,6 +14,7 @@ import com.hbm.util.BufferUtil;
 import com.hbm.util.EnumUtil;
 
 import api.hbm.energymk2.IEnergyReceiverMK2;
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
@@ -53,13 +54,13 @@ public class TileEntityMachineDriveProcessor extends TileEntityMachineBase imple
 
 			if(power < maxPower * 0.75) {
 				isProcessing = false;
-				status = EnumChatFormatting.RED + "No power ";
+				status = EnumChatFormatting.RED + I18nUtil.resolveKey("desc.tile_entity.drive_processor.no_power");
 			} else if(slots[0] == null || slots[0].getItem() != ModItems.full_drive) {
 				isProcessing = false;
 				status = "";
 			} else if(getProcessingTier() < ItemVOTVdrive.getProcessingTier(slots[0], CelestialBody.getBody(worldObj))) {
 				isProcessing = false;
-				status = EnumChatFormatting.RED + "Low tier ";
+				status = EnumChatFormatting.RED + I18nUtil.resolveKey("desc.tile_entity.drive_processor.low_tier");
 			}
 
 			if(lastTier != getProcessingTier()) {
@@ -69,14 +70,14 @@ public class TileEntityMachineDriveProcessor extends TileEntityMachineBase imple
 			if(isProcessing) {
 				power -= 200;
 
-				status = EnumChatFormatting.GREEN + "" + EnumChatFormatting.ITALIC + "Processing  ";
+				status = EnumChatFormatting.GREEN + "" + EnumChatFormatting.ITALIC + I18nUtil.resolveKey("desc.tile_entity.drive_processor.process");
 				progress++;
 
 				if(progress >= maxProgress) {
 					progress = 0;
 					isProcessing = false;
 					ItemVOTVdrive.setProcessed(slots[0], true);
-					status = EnumChatFormatting.GREEN + "Done! ";
+					status = EnumChatFormatting.GREEN + I18nUtil.resolveKey("desc.tile_entity.drive_processor.done");
 				}
 			} else {
 				progress = 0;
@@ -173,14 +174,14 @@ public class TileEntityMachineDriveProcessor extends TileEntityMachineBase imple
 		if(power < maxPower * 0.75) return;
 		if(slots[0] == null || slots[0].getItem() != ModItems.full_drive) return;
 		if(slots[1] == null || slots[1].getItem() != ModItems.hard_drive) {
-			status = EnumChatFormatting.RED + "No target ";
+			status = EnumChatFormatting.RED + I18nUtil.resolveKey("desc.tile_entity.drive_processor.no_target");
 			return;
 		}
 
 		ItemVOTVdrive.markCopied(slots[0]);
 		slots[1] = slots[0].copy();
 
-		status = EnumChatFormatting.GREEN + "Drive cloned ";
+		status = EnumChatFormatting.GREEN + I18nUtil.resolveKey("desc.tile_entity.drive_processor.clone");
 	}
 
 	@Override

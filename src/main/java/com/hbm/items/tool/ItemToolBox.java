@@ -8,6 +8,7 @@ import com.hbm.lib.RefStrings;
 import com.hbm.main.MainRegistry;
 import com.hbm.tileentity.IGUIProvider;
 import com.hbm.util.ItemStackUtil;
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -64,8 +65,9 @@ public class ItemToolBox extends Item implements IGUIProvider {
 
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-		list.add("Click with the toolbox to swap hotbars in/out of the toolbox.");
-		list.add("Shift-click with the toolbox to open the toolbox.");
+		for (String line : I18nUtil.resolveKeyArray("desc.item.tool_box")){
+			list.add(line);
+		}
 	}
 
 	// Finds active rows in the toolbox (rows with items inside them).
@@ -114,9 +116,9 @@ public class ItemToolBox extends Item implements IGUIProvider {
 
 		if(extraToolboxes > 0) {
 			if(extraToolboxes == 1)
-				player.addChatComponentMessage(new ChatComponentText("You can't toolbox a toolbox... ").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED))); // TODO: tell someone else to do i18n stuff; i don't want to
+				player.addChatComponentMessage(new ChatComponentText(I18nUtil.resolveKey("chat.item.tool_box")).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED))); // TODO: tell someone else to do i18n stuff; i don't want to
 			else
-				player.addChatComponentMessage(new ChatComponentText("You can't toolbox a toolbox... (x" + extraToolboxes + ")").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED))); // TODO: this too :ayo:
+				player.addChatComponentMessage(new ChatComponentText(I18nUtil.format("chat.item.tool_box.extra", extraToolboxes)).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED))); // TODO: this too :ayo:
 		}
 
 		// Move stacks around inside the box, mostly shifts rows to other rows and shifts the top row to the hotbar.
@@ -188,7 +190,7 @@ public class ItemToolBox extends Item implements IGUIProvider {
 				byte[] abyte = CompressedStreamTools.compress(nbt);
 
 				if (abyte.length > 6000) {
-					player.addChatComponentMessage(new ChatComponentText(EnumChatFormatting.RED + "Warning: Container NBT exceeds 6kB, contents will be ejected!"));
+					player.addChatComponentMessage(new ChatComponentText(EnumChatFormatting.RED + I18nUtil.resolveKey("chat.item.item_inventory.exceed")));
 					ItemStack[] stacks1 = ItemStackUtil.readStacksFromNBT(box, 24 /* Toolbox inv size. */);
 					if(stacks1 == null)
 						return;

@@ -3,6 +3,7 @@ package com.hbm.inventory.gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hbm.util.i18n.I18nUtil;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
@@ -108,7 +109,7 @@ public class GUIWarController extends GuiInfoContainer {
 		case "setpos":
 			if(parts.length < 3) {
 				addCommandHistory("> " + command);
-				addCommandHistory("Error, invalid args", EnumChatFormatting.RED);
+				addCommandHistory(I18nUtil.resolveKey("chat.gui.war_controller.invalid_args"), EnumChatFormatting.RED);
 				return;
 			}
 
@@ -116,12 +117,12 @@ public class GUIWarController extends GuiInfoContainer {
 			String zValueStr = parts[2];
 			if(sucker.slots[1] == null) {
 				addCommandHistory("> " + command);
-				addCommandHistory("No drive.", EnumChatFormatting.RED);
+				addCommandHistory(I18nUtil.resolveKey("chat.gui.war_controller.no_drive"), EnumChatFormatting.RED);
 				return;
 			}
 			if(!xValueStr.matches("-?\\d+") || !zValueStr.matches("-?\\d+")) {
 				addCommandHistory("> " + command);
-				addCommandHistory("Invalid number format.", EnumChatFormatting.RED);
+				addCommandHistory(I18nUtil.resolveKey("chat.gui.war_controller.invalid_num"), EnumChatFormatting.RED);
 				return;
 			}
 
@@ -129,7 +130,7 @@ public class GUIWarController extends GuiInfoContainer {
 			int zValue = Integer.parseInt(zValueStr);
 
 			addCommandHistory("> " + command);
-			addCommandHistory("Set to: X=" + xValue + ", Z=" + zValue);
+			addCommandHistory(I18nUtil.resolveKey("chat.gui.war_controller.set_pos", xValue, zValue));
 
 			data.setInteger("xcoord", xValue);
 			data.setInteger("zcoord", zValue);
@@ -139,13 +140,13 @@ public class GUIWarController extends GuiInfoContainer {
 
 		case "health":
 			addCommandHistory("> " + command);
-			addCommandHistory("Requesting " + cmd + "...");
+			addCommandHistory(I18nUtil.resolveKey("chat.gui.war_controller.request", cmd));
 
 			if(sat == null) {
-				addCommandHistory("Satellite not in orbit!", EnumChatFormatting.RED);
+				addCommandHistory(I18nUtil.resolveKey("chat.gui.war_controller.not_in_orbit"), EnumChatFormatting.RED);
 			} else {
 				if(sat instanceof SatelliteWar) {
-					addCommandHistory("health: " + sat.getInterp());
+					addCommandHistory(I18nUtil.resolveKey("chat.gui.war_controller.health", sat.getInterp()));
 				}
 			}
 
@@ -153,14 +154,14 @@ public class GUIWarController extends GuiInfoContainer {
 
 		case "fire":
 			if(sat == null) {
-				addCommandHistory("Satellite not in orbit!", EnumChatFormatting.RED);
+				addCommandHistory(I18nUtil.resolveKey("chat.gui.war_controller.not_in_orbit"), EnumChatFormatting.RED);
 			} else {
 				if(sat instanceof SatelliteWar) {
-					addCommandHistory("Firing!");
+					addCommandHistory(I18nUtil.resolveKey("chat.gui.war_controller.fire"));
 
 					PacketDispatcher.wrapper.sendToServer(new SatActivatePacket(satId));
 				} else {
-					addCommandHistory("Wrong satellite" + EnumChatFormatting.RED);
+					addCommandHistory(I18nUtil.resolveKey("chat.gui.war_controller.wrong") + EnumChatFormatting.RED);
 				}
 			}
 			break;
@@ -168,21 +169,21 @@ public class GUIWarController extends GuiInfoContainer {
 		case "getsat":
 			addCommandHistory("> " + command);
 			if(sucker.slots[2] == null) {
-				addCommandHistory("No satellite chip in slot 2.", EnumChatFormatting.RED);
+				addCommandHistory(I18nUtil.resolveKey("chat.gui.war_controller.no_chip"), EnumChatFormatting.RED);
 			} else {
-				addCommandHistory("Requesting Satellite ID: " + satId);
+				addCommandHistory(I18nUtil.resolveKey("chat.gui.war_controller.id", satId));
 
 				if(sat == null) {
-					addCommandHistory("Satellite not in orbit!", EnumChatFormatting.RED);
+					addCommandHistory(I18nUtil.resolveKey("chat.gui.war_controller.not_in_orbit"), EnumChatFormatting.RED);
 				} else {
-					addCommandHistory("Satellite: " + sat.getClass().getSimpleName());
+					addCommandHistory(I18nUtil.resolveKey("chat.gui.war_controller.sat",sat.getClass().getSimpleName()));
 				}
 			}
 			break;
 
 		default:
 			addCommandHistory("> " + command);
-			addCommandHistory("Unknown command.", EnumChatFormatting.RED);
+			addCommandHistory(I18nUtil.resolveKey("chat.gui.war_controller.unknown"), EnumChatFormatting.RED);
 			break;
 		}
 

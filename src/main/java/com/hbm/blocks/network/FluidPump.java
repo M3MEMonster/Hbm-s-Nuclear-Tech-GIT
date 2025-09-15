@@ -94,7 +94,7 @@ public class FluidPump extends BlockContainer implements INBTBlockTransformable,
 						TileEntityFluidPump pump = (TileEntityFluidPump) tile;
 						pump.tank[0].setTankType(type);
 						pump.markDirty();
-						player.addChatComponentMessage(new ChatComponentText("Changed type to ").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.YELLOW)).appendSibling(new ChatComponentTranslation(type.getConditionalName())).appendSibling(new ChatComponentText("!")));
+						player.addChatComponentMessage(new ChatComponentText(I18nUtil.resolveKey("chat.block.type_change")).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.YELLOW)).appendSibling(new ChatComponentTranslation(type.getConditionalName())).appendSibling(new ChatComponentText("!")));
 					}
 					return true;
 				}
@@ -120,8 +120,8 @@ public class FluidPump extends BlockContainer implements INBTBlockTransformable,
 
 		List<String> text = new ArrayList();
 		text.add(EnumChatFormatting.GREEN + "-> " + EnumChatFormatting.RESET + pump.tank[0].getTankType().getLocalizedName() + " (" + pump.tank[0].getPressure() + " PU): " + BobMathUtil.format(pump.bufferSize) + "mB/t" + EnumChatFormatting.RED + " ->");
-		text.add("Priority: " + EnumChatFormatting.YELLOW + pump.priority.name());
-		if(pump.tank[0].getFill() > 0) text.add(BobMathUtil.format(pump.tank[0].getFill()) + "mB buffered");
+		text.add(I18nUtil.format("desc.block.fluid_pump.priority", pump.priority.name()));
+		if(pump.tank[0].getFill() > 0) text.add(I18nUtil.format("desc.block.fluid_pump.buffer", BobMathUtil.format(pump.tank[0].getFill())));
 		ILookOverlay.printGeneric(event, I18nUtil.resolveKey(getUnlocalizedName() + ".name"), 0xffff00, 0x404000, text);
 	}
 
@@ -295,7 +295,7 @@ public class FluidPump extends BlockContainer implements INBTBlockTransformable,
 					priority = ConnectionPriority.HIGHEST;
 					break;
 				default:
-					return new Object[] {null, "Not a valid Priority."};
+					return new Object[] {null, I18nUtil.resolveKey("desc.block.fluid_pump.OC.error.invalid")};
 			}
 			return new Object[] {true};
 		}
@@ -305,7 +305,7 @@ public class FluidPump extends BlockContainer implements INBTBlockTransformable,
 		public Object[] setFlow(Context context, Arguments args) {
 			int input = args.checkInteger(0);
 			if (input > 10000 || input < 0)
-				return new Object[] {null, "Number outside of bounds."};
+				return new Object[] {null, I18nUtil.resolveKey("desc.block.fluid_pump.OC.error.index")};
 			bufferSize = input;
 			return new Object[] {true};
 		}
@@ -380,14 +380,14 @@ public class FluidPump extends BlockContainer implements INBTBlockTransformable,
 		public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 			drawDefaultBackground();
 
-			drawString(fontRendererObj, "Throughput:", this.width / 2 - 150, 80, 0xA0A0A0);
-			drawString(fontRendererObj, "(max. 10,000mB)", this.width / 2 - 150, 90, 0xA0A0A0);
+			drawString(fontRendererObj, I18nUtil.resolveKey("gui.block.fluid_pump1"), this.width / 2 - 150, 80, 0xA0A0A0);
+			drawString(fontRendererObj, I18nUtil.resolveKey("gui.block.fluid_pump2"), this.width / 2 - 150, 90, 0xA0A0A0);
 			textPlacementPriority.drawTextBox();
 
-			drawString(fontRendererObj, "Pressure:", this.width / 2 - 50, 80, 0xA0A0A0);
+			drawString(fontRendererObj, I18nUtil.resolveKey("gui.block.fluid_pump3"), this.width / 2 - 50, 80, 0xA0A0A0);
 			buttonPressure.drawButton(mc, mouseX, mouseY);
 
-			drawString(fontRendererObj, "Priority:", this.width / 2 + 50, 80, 0xA0A0A0);
+			drawString(fontRendererObj, I18nUtil.resolveKey("gui.block.fluid_pump4"), this.width / 2 + 50, 80, 0xA0A0A0);
 			buttonPriority.drawButton(mc, mouseX, mouseY);
 
 			super.drawScreen(mouseX, mouseY, partialTicks);

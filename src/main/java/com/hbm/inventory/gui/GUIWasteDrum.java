@@ -1,5 +1,6 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.util.i18n.I18nUtil;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.container.ContainerWasteDrum;
@@ -12,32 +13,32 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 
 public class GUIWasteDrum extends GuiInfoContainer {
-	
+
 	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_waste_drum.png");
 	private TileEntityWasteDrum diFurnace;
 
 	public GUIWasteDrum(InventoryPlayer invPlayer, TileEntityWasteDrum tedf) {
 		super(new ContainerWasteDrum(invPlayer, tedf));
 		diFurnace = tedf;
-		
+
 		this.xSize = 176;
 		this.ySize = 189;
 	}
-	
+
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float f) {
 		super.drawScreen(mouseX, mouseY, f);
-		
-		String[] text = new String[] { "The drum will cool down hot nuclear",
-				"waste when submerged in water. More",
-				"water speeds up the process." };
+
+		String[] text = new String[] {I18nUtil.resolveKey("desc.gui.waste_drum.info1"),
+				I18nUtil.resolveKey("desc.gui.waste_drum.info2"),
+				I18nUtil.resolveKey("desc.gui.waste_drum.info3") };
 		this.drawCustomInfoStat(mouseX, mouseY, guiLeft - 16, guiTop + 36, 16, 16, guiLeft - 8, guiTop + 36 + 16, text);
 	}
-	
+
 	@Override
 	protected void drawGuiContainerForegroundLayer(int i, int j) {
 		String name = this.diFurnace.hasCustomInventoryName() ? this.diFurnace.getInventoryName() : I18n.format(this.diFurnace.getInventoryName());
-		
+
 		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
 		this.fontRendererObj.drawString(I18n.format("container.inventory"), 8, this.ySize - 96 + 5, 4210752);
 	}

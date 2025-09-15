@@ -237,16 +237,16 @@ public class ItemRBMKRod extends Item {
 	}
 
 	public static enum EnumBurnFunc {
-		PASSIVE(EnumChatFormatting.DARK_GREEN + "SAFE / PASSIVE"),			//const, no reactivity
-		LOG_TEN(EnumChatFormatting.YELLOW + "MEDIUM / LOGARITHMIC"),		//log10(x + 1) * reactivity * 50
-		PLATEU(EnumChatFormatting.GREEN + "SAFE / EULER"),					//(1 - e^(-x/25)) * reactivity * 100
-		ARCH(EnumChatFormatting.RED + "DANGEROUS / NEGATIVE-QUADRATIC"),	//x-(x²/1000) * reactivity
-		SIGMOID(EnumChatFormatting.GREEN + "SAFE / SIGMOID"),				//100 / (1 + e^(-(x - 50) / 10)) <- tiny amount of reactivity at x=0 !
-		SQUARE_ROOT(EnumChatFormatting.YELLOW + "MEDIUM / SQUARE ROOT"),	//sqrt(x) * 10 * reactivity
-		LINEAR(EnumChatFormatting.RED + "DANGEROUS / LINEAR"),				//x * reactivity
-		QUADRATIC(EnumChatFormatting.RED + "DANGEROUS / QUADRATIC"),		//x^2 / 100 * reactivity
-		SLOW_LINEAR(EnumChatFormatting.YELLOW + "MEDIUM / SLOW LINEAR"),  
-		EXPERIMENTAL(EnumChatFormatting.RED + "EXPERIMENTAL / SINE SLOPE");		//x * (sin(x) + 1)
+		PASSIVE(EnumChatFormatting.DARK_GREEN + I18nUtil.resolveKey("desc.item.rmbk_rod.PASSIVE")),			//const, no reactivity
+		LOG_TEN(EnumChatFormatting.YELLOW + I18nUtil.resolveKey("desc.item.rmbk_rod.LOG_TEN")),		//log10(x + 1) * reactivity * 50
+		PLATEU(EnumChatFormatting.GREEN + I18nUtil.resolveKey("desc.item.rmbk_rod.PLATEU")),					//(1 - e^(-x/25)) * reactivity * 100
+		ARCH(EnumChatFormatting.RED + I18nUtil.resolveKey("desc.item.rmbk_rod.ARCH")),	//x-(x²/1000) * reactivity
+		SIGMOID(EnumChatFormatting.GREEN + I18nUtil.resolveKey("desc.item.rmbk_rod.SIGMOID")),				//100 / (1 + e^(-(x - 50) / 10)) <- tiny amount of reactivity at x=0 !
+		SQUARE_ROOT(EnumChatFormatting.YELLOW + I18nUtil.resolveKey("desc.item.rmbk_rod.SQUARE_ROOT")),	//sqrt(x) * 10 * reactivity
+		LINEAR(EnumChatFormatting.RED + I18nUtil.resolveKey("desc.item.rmbk_rod.LINEAR")),				//x * reactivity
+		QUADRATIC(EnumChatFormatting.RED + I18nUtil.resolveKey("desc.item.rmbk_rod.QUADRATIC")),		//x^2 / 100 * reactivity
+		SLOW_LINEAR(EnumChatFormatting.YELLOW + I18nUtil.resolveKey("desc.item.rmbk_rod.SLOW_LINEAR")),
+		EXPERIMENTAL(EnumChatFormatting.RED + I18nUtil.resolveKey("desc.item.rmbk_rod.EXPERIMENTAL"));		//x * (sin(x) + 1)
 
 		public String title = "";
 

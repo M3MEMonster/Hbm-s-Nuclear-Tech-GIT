@@ -10,6 +10,7 @@ import com.hbm.main.MainRegistry;
 import com.hbm.packet.toclient.AuxParticlePacketNT;
 import com.hbm.tileentity.machine.TileEntityPWRController;
 import com.hbm.util.fauxpointtwelve.BlockPos;
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -109,12 +110,12 @@ public class MachinePWRController extends BlockContainer implements ITooltipProv
 		floodFill(world, x + dir.offsetX, y, z + dir.offsetZ, player);
 
 		if(fuelRods.size() == 0){
-			sendError(world, x, y, z, "Fuel rods required", player);
+			sendError(world, x, y, z, I18nUtil.resolveKey("desc.block.PWR.control.error.no_rods"), player);
 			errored = true;
 		}
 
 		if(sources.size() == 0) {
-			sendError(world, x, y, z, "Neutron sources required", player);
+			sendError(world, x, y, z, I18nUtil.resolveKey("desc.block.PWR.control.error.no_neutron"), player);
 			errored = true;
 		}
 
@@ -159,7 +160,7 @@ public class MachinePWRController extends BlockContainer implements ITooltipProv
 		if(assembly.containsKey(pos)) return;
 		if(assembly.size() >= maxSize) {
 			errored = true;
-			sendError(world, x, y, z, "Max size exceeded", player);
+			sendError(world, x, y, z, I18nUtil.resolveKey("desc.block.PWR.control.error.exceed"), player);
 			return;
 		}
 
@@ -183,7 +184,7 @@ public class MachinePWRController extends BlockContainer implements ITooltipProv
 			return;
 		}
 
-		sendError(world, x, y, z, "Non-reactor block", player);
+		sendError(world, x, y, z, I18nUtil.resolveKey("desc.block.PWR.control.error.non_reactor"), player);
 		errored = true;
 	}
 

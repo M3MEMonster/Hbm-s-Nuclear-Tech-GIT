@@ -2,6 +2,7 @@ package com.hbm.handler.ability;
 
 import com.hbm.util.ChatBuilder;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
@@ -29,13 +30,13 @@ public class ToolPreset {
 
 	public ChatComponentText getMessage() {
 		if(isNone()) {
-			return ChatBuilder.start("[Tool ability deactivated]").color(EnumChatFormatting.GOLD).flush();
+			return ChatBuilder.start(I18nUtil.resolveKey("desc.handler.tool_present.disable")).color(EnumChatFormatting.GOLD).flush();
 		}
 
 		boolean hasArea = areaAbility != IToolAreaAbility.NONE;
 		boolean hasHarvest = harvestAbility != IToolHarvestAbility.NONE;
 
-		ChatBuilder builder = ChatBuilder.start("[Enabled ");
+		ChatBuilder builder = ChatBuilder.start(I18nUtil.resolveKey("desc.handler.tool_present.enable"));
 
 		if(hasArea) {
 			builder.nextTranslation(areaAbility.getName());

@@ -117,7 +117,7 @@ public class TileEntityRadioTorchBase extends TileEntityLoadedBase implements IC
 		return "radio_torch";
 	}
 
-	@Callback(direct = true, limit = 4, doc = "setChannle(channel: string) -- Set the channel the torch is listening/broadcasting to")
+	@Callback(direct = true, limit = 4, doc = "setChannel(channel: string) -- Set the channel the torch is listening/broadcasting to")
 	@Optional.Method(modid = "OpenComputers")
 	public Object[] setChannel(Context context, Arguments args) {
 		channel = args.checkString(0);

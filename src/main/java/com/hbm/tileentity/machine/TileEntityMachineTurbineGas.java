@@ -27,6 +27,7 @@ import com.hbm.util.CompatEnergyControl;
 import api.hbm.energymk2.IEnergyProviderMK2;
 import api.hbm.fluid.IFluidStandardTransceiver;
 import api.hbm.tile.IInfoProviderEC;
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -631,7 +632,7 @@ public class TileEntityMachineTurbineGas extends TileEntityMachineBase implement
 	public Object[] setThrottle(Context context, Arguments args) {
 		double input = args.checkInteger(0) * 60D / 100D;
 		if (input < 0 || input > 100)
-			return new Object[] {null, "Input out of range."};
+			return new Object[] {null, I18nUtil.resolveKey("desc.tile_entity.turbine_gas.OC.error.out_range")};
 		powerSliderPos = (int) (input);
 		return new Object[] {true};
 	}

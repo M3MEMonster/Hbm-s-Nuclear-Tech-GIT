@@ -8,12 +8,13 @@ import com.hbm.items.ModItems;
 import com.hbm.items.special.ItemWasteLong;
 import com.hbm.items.special.ItemWasteShort;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.item.ItemStack;
 
 public class RBMKWasteDecayHandler extends NEIUniversalHandler {
 
 	public RBMKWasteDecayHandler() {
-		super("Nuclear Waste Decay", ModBlocks.machine_storage_drum, getRecipes());
+		super(I18nUtil.resolveKey("desc.handler.nei.rmbk_waste_decay.recipe_name"), ModBlocks.machine_storage_drum, getRecipes());
 	}
 
 	@Override

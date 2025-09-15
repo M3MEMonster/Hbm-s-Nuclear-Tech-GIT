@@ -1,5 +1,6 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.util.i18n.I18nUtil;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.container.ContainerMachineDischarger;
@@ -13,7 +14,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 
 public class GUIMachineDischarger extends GuiInfoContainer {
-	
+
 	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_discharger.png");
 	private static ResourceLocation geer = new ResourceLocation(RefStrings.MODID + ":textures/gui/geer2.png");
 	private TileEntityMachineDischarger diFurnace;
@@ -21,29 +22,29 @@ public class GUIMachineDischarger extends GuiInfoContainer {
 	public GUIMachineDischarger(InventoryPlayer invPlayer, TileEntityMachineDischarger tedf) {
 		super(new ContainerMachineDischarger(invPlayer, tedf));
 		diFurnace = tedf;
-		
+
 		this.xSize = 176;
 		this.ySize = 222;
 	}
-	
+
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float f) {
 		super.drawScreen(mouseX, mouseY, f);
 
 		this.drawElectricityInfo(this, mouseX, mouseY, guiLeft + 8, guiTop + 106 - 88, 16, 88, diFurnace.power, diFurnace.maxPower);
-		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 30, guiTop + 25, 8, 80, mouseX, mouseY, new String[] {"Temperature: " + (diFurnace.temp) + "°C"});
-		String[] text = new String[] { "Accepted Fuels:",
-				"Uranium-233",
-				"Schrabidium",
-				"Dineutronium" };
+		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 30, guiTop + 25, 8, 80, mouseX, mouseY, new String[] {I18nUtil.resolveKey("desc.gui.machine_discharger.temperature", (diFurnace.temp))});
+		String[] text = new String[] {I18nUtil.resolveKey("desc.gui.machine_discharger.accept_fuel"),
+				I18nUtil.resolveKey("desc.gui.machine_discharger.fuel.u233"),
+				I18nUtil.resolveKey("desc.gui.machine_discharger.fuel.sa"),
+				I18nUtil.resolveKey("desc.gui.machine_discharger.fuel.di") };
 		this.drawCustomInfoStat(mouseX, mouseY, guiLeft - 16, guiTop + 36, 16, 16, guiLeft - 8, guiTop + 36 + 16, text);
 
 	}
-	
+
 	@Override
 	protected void drawGuiContainerForegroundLayer(int i, int j) {
 		String name = this.diFurnace.hasCustomInventoryName() ? this.diFurnace.getInventoryName() : I18n.format(this.diFurnace.getInventoryName());
-		
+
 		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
 		//this.fontRendererObj.drawString(I18n.format(String.valueOf(diFurnace.getPower()) + " HE"), this.xSize / 2 - this.fontRendererObj.getStringWidth(String.valueOf(diFurnace.getPower()) + " HE") / 2, 16, 4210752);
 		this.fontRendererObj.drawString(I18n.format("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
@@ -57,7 +58,7 @@ public class GUIMachineDischarger extends GuiInfoContainer {
 	    Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
 	    drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 
-	    drawTexturedModalRect(guiLeft -16, guiTop + 35, 176, 106, 16, 50);		    
+	    drawTexturedModalRect(guiLeft -16, guiTop + 35, 176, 106, 16, 50);
 		//this.drawInfoPanel(guiLeft - 16, guiTop + 10, 16, 16, 2);
 	    if (diFurnace.getPower() > 0) {
 	        int i = (int) diFurnace.getPowerScaled(88);
@@ -74,15 +75,15 @@ public class GUIMachineDischarger extends GuiInfoContainer {
 	    	 int i = (int) diFurnace.getTempScaled(88);
 	    	 drawTexturedModalRect(guiLeft + 30, guiTop + 106 - i, 192, 88 - i, 20, i);
 	 	    if(diFurnace.temp < 2000) {
-	 		    drawTexturedModalRect(guiLeft + 28, guiTop + 108, 176, 88, 8, 18);		    
+	 		    drawTexturedModalRect(guiLeft + 28, guiTop + 108, 176, 88, 8, 18);
 	 		    }
 	 		    if(diFurnace.temp < 800) {
-	 		    drawTexturedModalRect(guiLeft + 28, guiTop + 108, 184, 88, 8, 18);	
+	 		    drawTexturedModalRect(guiLeft + 28, guiTop + 108, 184, 88, 8, 18);
 	 		    }
 	 		    if(diFurnace.temp < 200) {
-	 		    drawTexturedModalRect(guiLeft + 28, guiTop + 108, 192, 88, 8, 18);	
-	 		    }	 
-	 		    
+	 		    drawTexturedModalRect(guiLeft + 28, guiTop + 108, 192, 88, 8, 18);
+	 		    }
+
 	    }
 	}
 }

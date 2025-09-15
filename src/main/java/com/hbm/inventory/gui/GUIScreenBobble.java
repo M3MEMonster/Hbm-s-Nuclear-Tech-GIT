@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.lang.Math;
 
+import com.hbm.util.i18n.I18nUtil;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.blocks.generic.BlockBobble.BobbleType;
@@ -17,7 +18,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.ResourceLocation;
 
 public class GUIScreenBobble extends GuiScreen {
-	
+
 	TileEntityBobble bobble;
 
 	public GUIScreenBobble(TileEntityBobble bobble) {
@@ -31,7 +32,7 @@ public class GUIScreenBobble extends GuiScreen {
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float f) {
-		
+
 		this.drawDefaultBackground();
 		GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glEnable(GL11.GL_BLEND);
@@ -43,7 +44,7 @@ public class GUIScreenBobble extends GuiScreen {
 		double sizeY = 150;
 		double left = (this.width - sizeX) / 2;
 		double top = (this.height - sizeY) / 2;
-		
+
 		Tessellator tess = Tessellator.instance;
 		tess.startDrawingQuads();
 		tess.setColorRGBA_F(0F, 0.2F, 0F, 0.8F);
@@ -56,26 +57,26 @@ public class GUIScreenBobble extends GuiScreen {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glEnable(GL11.GL_ALPHA_TEST);
 		GL11.glDisable(GL11.GL_BLEND);
-		
+
 		int nextLevel = (int)top + 10;
 
-		String bobbleTitle = "Nuclear Tech Commemorative Bobblehead";
+		String bobbleTitle = I18nUtil.resolveKey("gui.block.bobble.title");
 		this.fontRendererObj.drawStringWithShadow(bobbleTitle, (int)(left + sizeX / 2 - this.fontRendererObj.getStringWidth(bobbleTitle) / 2), nextLevel, 0x00ff00);
-		
+
 		nextLevel += 10;
-		
+
 		String bobbleName = this.bobble.type.name;
 		if(this.bobble.type == BobbleType.MELLOW)
 			bobbleName = anagramIt(bobbleName, "GEORGEWILLIAMPATON");
 		this.fontRendererObj.drawStringWithShadow(bobbleName, (int)(left + sizeX / 2 - this.fontRendererObj.getStringWidth(bobbleName) / 2), nextLevel, 0x009900);
-		
+
 		nextLevel += 20;
-		
+
 		if(this.bobble.type.contribution != null) {
 
-			String title = "Has contributed";
+			String title = I18nUtil.resolveKey("gui.block.bobble.contribute");
 			this.fontRendererObj.drawStringWithShadow(title, (int)(left + sizeX / 2 - this.fontRendererObj.getStringWidth(title) / 2), nextLevel, 0x00ff00);
-			
+
 			nextLevel += 10;
 
 
@@ -87,12 +88,12 @@ public class GUIScreenBobble extends GuiScreen {
 
 			nextLevel += 10;
 		}
-		
+
 		if(this.bobble.type.inscription != null) {
 
-			String title = "On the bottom is the following inscription:";
+			String title = I18nUtil.resolveKey("gui.block.bobble.inscription");
 			this.fontRendererObj.drawStringWithShadow(title, (int)(left + sizeX / 2 - this.fontRendererObj.getStringWidth(title) / 2), nextLevel, 0x00ff00);
-			
+
 			nextLevel += 10;
 
 			String[] list = this.bobble.type.inscription.split("\\$");
@@ -103,7 +104,7 @@ public class GUIScreenBobble extends GuiScreen {
 
 			nextLevel += 10;
 		}
-		
+
 		GL11.glEnable(GL11.GL_LIGHTING);
 	}
 
@@ -113,7 +114,7 @@ public class GUIScreenBobble extends GuiScreen {
 			this.mc.thePlayer.closeScreen();
 		}
 	}
-	
+
 	@Override
 	public boolean doesGuiPauseGame() {
 		return false;

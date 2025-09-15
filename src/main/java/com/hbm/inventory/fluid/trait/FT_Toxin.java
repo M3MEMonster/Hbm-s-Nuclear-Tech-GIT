@@ -21,54 +21,54 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.util.StringUtils;
 
 public class FT_Toxin extends FluidTrait {
-	
+
 	public List<ToxinEntry> entries = new ArrayList();
-	
+
 	public FT_Toxin addEntry(ToxinEntry entry) {
 		entries.add(entry);
 		return this;
 	}
-	
+
 	@Override
 	public void addInfoHidden(List<String> info) {
-		info.add(EnumChatFormatting.LIGHT_PURPLE + "[Toxin]");
-		
+		info.add(EnumChatFormatting.LIGHT_PURPLE + I18nUtil.resolveKey("desc.fluid.toxin.trait"));
+
 		for(ToxinEntry entry : entries) {
 			entry.addInfo(info);
 		}
 	}
-	
+
 	public void affect(EntityLivingBase entity, double intensity) {
-		
+
 		for(ToxinEntry entry : entries) {
 			entry.poison(entity, intensity);
 		}
 	}
 
 	public static abstract class ToxinEntry {
-		
+
 		public HazardClass clazz;
 		public boolean fullBody = false;
-		
+
 		public ToxinEntry(HazardClass clazz, boolean fullBody) {
 			this.clazz = clazz;
 			this.fullBody = fullBody;
 		}
-		
+
 		public boolean isProtected(EntityLivingBase entity) {
-			
+
 			boolean hasMask = clazz == null;
 			boolean hasSuit = !fullBody;
-			
+
 			if(clazz != null && ArmorRegistry.hasAllProtection(entity, 3, clazz)) {
 				ArmorUtil.damageGasMaskFilter(entity, 1);
 				hasMask = true;
 			}
-			
+
 			if(fullBody && ArmorUtil.checkForHazmat(entity)) {
 				hasSuit = true;
 			}
-			
+
 			return hasMask && hasSuit;
 		}
 
@@ -81,7 +81,7 @@ public class FT_Toxin extends FluidTrait {
 		public DamageSource damage;
 		public float amount;
 		public int delay;
-		
+
 		public ToxinDirectDamage(DamageSource damage, float amount, int delay, HazardClass clazz, boolean fullBody) {
 			super(clazz, fullBody);
 			this.damage = damage;
@@ -91,9 +91,9 @@ public class FT_Toxin extends FluidTrait {
 
 		@Override
 		public void poison(EntityLivingBase entity, double intensity) {
-			
+
 			if(isProtected(entity)) return;
-			
+
 			if(delay == 0 || entity.worldObj.getTotalWorldTime() % delay == 0) {
 				entity.attackEntityFrom(damage, (float) (amount * intensity));
 			}
@@ -101,18 +101,18 @@ public class FT_Toxin extends FluidTrait {
 
 		@Override
 		public void addInfo(List<String> info) {
-			info.add(EnumChatFormatting.YELLOW + "- " + I18nUtil.resolveKey(clazz.lang) + (fullBody ? EnumChatFormatting.RED + " (requires hazmat suit)" : "") + ": " + EnumChatFormatting.YELLOW + String.format(Locale.US, "%,.1f", amount * 20 / delay) + " DPS");
+			info.add(EnumChatFormatting.YELLOW + "- " + I18nUtil.resolveKey(clazz.lang) + (fullBody ? EnumChatFormatting.RED + I18nUtil.resolveKey("desc.fluid.toxin.protect") : "") + ": " + EnumChatFormatting.YELLOW + String.format(Locale.US, "%,.1f", amount * 20 / delay) + " DPS");
 		}
 	}
 
 	public static class ToxinEffects extends ToxinEntry {
 
 		public List<PotionEffect> effects = new ArrayList();
-		
+
 		public ToxinEffects(HazardClass clazz, boolean fullBody) {
 			super(clazz, fullBody);
 		}
-		
+
 		public ToxinEffects add(PotionEffect... effs) {
 			for(PotionEffect eff : effs) this.effects.add(eff);
 			return this;
@@ -120,9 +120,9 @@ public class FT_Toxin extends FluidTrait {
 
 		@Override
 		public void poison(EntityLivingBase entity, double intensity) {
-			
+
 			if(isProtected(entity)) return;
-			
+
 			for(PotionEffect eff : effects) {
 				entity.addPotionEffect(new PotionEffect(eff.getPotionID(), (int) (eff.getDuration() * intensity), eff.getAmplifier()));
 			}
@@ -130,18 +130,18 @@ public class FT_Toxin extends FluidTrait {
 
 		@Override
 		public void addInfo(List<String> info) {
-			info.add(EnumChatFormatting.YELLOW + "- " + I18nUtil.resolveKey(clazz.lang) + (fullBody ? EnumChatFormatting.RED + " (requires hazmat suit)" + EnumChatFormatting.YELLOW : "") + ":");
-			
+			info.add(EnumChatFormatting.YELLOW + "- " + I18nUtil.resolveKey(clazz.lang) + (fullBody ? EnumChatFormatting.RED + I18nUtil.resolveKey("desc.fluid.toxin.protect") + EnumChatFormatting.YELLOW : "") + ":");
+
 			for(PotionEffect eff : effects) {
 				info.add(EnumChatFormatting.YELLOW + "   - " + I18nUtil.resolveKey(eff.getEffectName()) + (eff.getAmplifier() > 0 ? " " + StatCollector.translateToLocal("potion.potency." + eff.getAmplifier()).trim() : "") + " " + StringUtils.ticksToElapsedTime(eff.getDuration()));
 			}
 		}
 	}
-	
+
 	@Override public void serializeJSON(JsonWriter writer) throws IOException {
-		
+
 		writer.name("entries").beginArray();
-		
+
 		for(ToxinEntry entry : entries) {
 			writer.beginObject();
 
@@ -169,20 +169,20 @@ public class FT_Toxin extends FluidTrait {
 				writer.name("hazmat").value(e.fullBody);
 				writer.name("masktype").value(e.clazz.name());
 			}
-			
+
 			writer.endObject();
 		}
-		
+
 		writer.endArray();
 	}
-	
+
 	@Override public void deserializeJSON(JsonObject obj) {
 		JsonArray array = obj.get("entries").getAsJsonArray();
-		
+
 		for(int i = 0; i < array.size(); i++) {
 			JsonObject entry = array.get(i).getAsJsonObject();
 			String name = entry.get("type").getAsString();
-			
+
 			if(name.equals("directdamage")) {
 				ToxinDirectDamage e = new ToxinDirectDamage(
 						new DamageSource(entry.get("source").getAsString()),
@@ -193,7 +193,7 @@ public class FT_Toxin extends FluidTrait {
 						);
 				this.entries.add(e);
 			}
-			
+
 			if(name.equals("effects")) {
 				ToxinEffects e = new ToxinEffects(
 						HazardClass.valueOf(entry.get("masktype").getAsString()),

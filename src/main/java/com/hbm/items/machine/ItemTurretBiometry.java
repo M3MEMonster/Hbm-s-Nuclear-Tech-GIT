@@ -3,6 +3,7 @@ package com.hbm.items.machine;
 import java.util.Arrays;
 import java.util.List;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -26,7 +27,7 @@ public class ItemTurretBiometry extends Item {
 		addName(stack, player.getDisplayName());
 
 		if(world.isRemote)
-			player.addChatMessage(new ChatComponentText("Added player data!"));
+			player.addChatMessage(new ChatComponentText(I18nUtil.resolveKey("chat.item.turrent_biomatry.add_data")));
 
 		world.playSoundAtEntity(player, "hbm:item.techBleep", 1.0F, 1.0F);
 

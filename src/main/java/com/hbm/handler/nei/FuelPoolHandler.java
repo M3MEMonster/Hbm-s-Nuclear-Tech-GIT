@@ -4,12 +4,13 @@ import com.hbm.blocks.ModBlocks;
 import com.hbm.inventory.recipes.FuelPoolRecipes;
 import com.hbm.items.machine.ItemRBMKRod;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.item.ItemStack;
 
 public class FuelPoolHandler extends NEIUniversalHandler {
 
 	public FuelPoolHandler() {
-		super("Spent Fuel Pool Drum", ModBlocks.machine_waste_drum, FuelPoolRecipes.recipes);
+		super(I18nUtil.resolveKey("desc.handler.nei.fuel_pool.recipe_name"), ModBlocks.machine_waste_drum, FuelPoolRecipes.recipes);
 	}
 
 	@Override

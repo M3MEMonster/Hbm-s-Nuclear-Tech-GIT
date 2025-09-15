@@ -2,6 +2,7 @@ package com.hbm.items.tool;
 
 import java.util.List;
 
+import com.hbm.util.i18n.I18nUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.Level;
 
@@ -22,12 +23,12 @@ public class ItemMultiDetonator extends Item {
 
 	@Override
 	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean bool) {
-		list.add("Shift right-click block to add position,");
-		list.add("right-click to detonate!");
-		list.add("Shift right-click in the air to clear postitions.");
+		for (String line : I18nUtil.resolveKeyArray("desc.item.multi_detonator")){
+			list.add(line);
+		}
 
 		if(itemstack.getTagCompound() == null || getLocations(itemstack) == null) {
-			list.add(EnumChatFormatting.RED + "No position set!");
+			list.add(EnumChatFormatting.RED + I18nUtil.resolveKey("desc.item.detonator.no_position"));
 		} else {
 
 			int[][] locs = getLocations(itemstack);
@@ -52,7 +53,7 @@ public class ItemMultiDetonator extends Item {
 				player.addChatMessage(ChatBuilder.start("[").color(EnumChatFormatting.DARK_AQUA)
 						.nextTranslation(this.getUnlocalizedName() + ".name").color(EnumChatFormatting.DARK_AQUA)
 						.next("] ").color(EnumChatFormatting.DARK_AQUA)
-						.next("Position added!").color(EnumChatFormatting.GREEN).flush());
+						.next(I18nUtil.resolveKey("chat.item.multi_detonator.add_pos")).color(EnumChatFormatting.GREEN).flush());
 			}
 
 			world.playSoundAtEntity(player, "hbm:item.techBoop", 2.0F, 1.0F);
@@ -67,14 +68,14 @@ public class ItemMultiDetonator extends Item {
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 
 		if(stack.stackTagCompound == null || getLocations(stack) == null) {
-			
+
 			if(!world.isRemote) {
 				player.addChatMessage(ChatBuilder.start("[").color(EnumChatFormatting.DARK_AQUA)
 						.nextTranslation(this.getUnlocalizedName() + ".name").color(EnumChatFormatting.DARK_AQUA)
 						.next("] ").color(EnumChatFormatting.DARK_AQUA)
-						.next("No position set!").color(EnumChatFormatting.RED).flush());
+						.next(I18nUtil.resolveKey("chat.item.detonator.no_position")).color(EnumChatFormatting.RED).flush());
 			}
-			
+
 		} else {
 
 			if(!player.isSneaking()) {
@@ -89,10 +90,10 @@ public class ItemMultiDetonator extends Item {
 					int z = locs[2][i];
 
 					if(world.getBlock(x, y, z) instanceof IBomb) {
-						
+
 						if(!world.isRemote) {
 							BombReturnCode ret = ((IBomb) world.getBlock(x, y, z)).explode(world, x, y, z);
-							
+
 							if(ret.wasSuccessful())
 								succ++;
 
@@ -101,16 +102,16 @@ public class ItemMultiDetonator extends Item {
 						}
 					}
 				}
-				
+
 				world.playSoundAtEntity(player, "hbm:item.techBleep", 1.0F, 1.0F);
-				
+
 				if(!world.isRemote) {
 					player.addChatMessage(ChatBuilder.start("[").color(EnumChatFormatting.DARK_AQUA)
 							.nextTranslation(this.getUnlocalizedName() + ".name").color(EnumChatFormatting.DARK_AQUA)
 							.next("] ").color(EnumChatFormatting.DARK_AQUA)
-							.next("Triggered " + succ + "/" + locs[0].length + "!").color(EnumChatFormatting.YELLOW).flush());
+							.next(I18nUtil.format("chat.item.multi_detonator.trigger", succ, locs[0].length)).color(EnumChatFormatting.YELLOW).flush());
 				}
-				
+
 			} else {
 
 				stack.stackTagCompound.setIntArray("xValues", new int[0]);
@@ -118,12 +119,12 @@ public class ItemMultiDetonator extends Item {
 				stack.stackTagCompound.setIntArray("zValues", new int[0]);
 
 				world.playSoundAtEntity(player, "hbm:item.techBoop", 2.0F, 1.0F);
-				
+
 				if(!world.isRemote) {
 					player.addChatMessage(ChatBuilder.start("[").color(EnumChatFormatting.DARK_AQUA)
 							.nextTranslation(this.getUnlocalizedName() + ".name").color(EnumChatFormatting.DARK_AQUA)
 							.next("] ").color(EnumChatFormatting.DARK_AQUA)
-							.next("Locations cleared!").color(EnumChatFormatting.RED).flush());
+							.next(I18nUtil.resolveKey("chat.item.multi_detonator.clear")).color(EnumChatFormatting.RED).flush());
 				}
 			}
 		}

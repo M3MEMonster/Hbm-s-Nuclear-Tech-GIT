@@ -18,6 +18,7 @@ import com.hbm.tileentity.network.TileEntityPneumoTube;
 import com.hbm.util.Compat;
 
 import api.hbm.block.IToolable;
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.relauncher.Side;
@@ -112,9 +113,9 @@ public class PneumoTube extends BlockContainer implements IToolable, ITooltipPro
 							if(canUse) {
 								tube.compair.setTankType(type);
 								tube.markDirty();
-								player.addChatComponentMessage(new ChatComponentText("Changed type to ").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.YELLOW)).appendSibling(new ChatComponentTranslation(type.getConditionalName())).appendSibling(new ChatComponentText("!")));
+								player.addChatComponentMessage(new ChatComponentText(I18nUtil.resolveKey("chat.block.type_change")).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.YELLOW)).appendSibling(new ChatComponentTranslation(type.getConditionalName())).appendSibling(new ChatComponentText("!")));
 							} else {
-								player.addChatComponentMessage(new ChatComponentText("Invalid gas!").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
+								player.addChatComponentMessage(new ChatComponentText(I18nUtil.resolveKey("chat.block.pneumo_tube.invalid_gas")).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
 							}
 						}
 					} else {

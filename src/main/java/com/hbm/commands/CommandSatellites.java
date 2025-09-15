@@ -4,6 +4,7 @@ import com.hbm.items.ISatChip;
 import com.hbm.items.ModItems;
 import com.hbm.saveddata.SatelliteSavedData;
 import com.hbm.saveddata.satellites.Satellite;
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,10 +26,7 @@ public class CommandSatellites extends CommandBase {
 
 	@Override
 	public String getCommandUsage(ICommandSender iCommandSender) {
-		return String.format(Locale.US,
-				"%s/%s orbit [frequency] %s- Launch the held satellite with optional frequency override.\n" +
-				"%s/%s descend <frequency> %s- Deletes satellite by frequency.\n"+
-				"%s/%s list %s- Lists all active satellites.",
+		return I18nUtil.format("chat.command.satellites.usage",
 				EnumChatFormatting.GREEN, getCommandName(), EnumChatFormatting.LIGHT_PURPLE,
 				EnumChatFormatting.GREEN, getCommandName(), EnumChatFormatting.LIGHT_PURPLE,
 				EnumChatFormatting.GREEN, getCommandName(), EnumChatFormatting.LIGHT_PURPLE

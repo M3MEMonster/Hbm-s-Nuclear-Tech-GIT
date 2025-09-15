@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.hbm.items.ModItems;
 
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.common.registry.GameData;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -22,15 +23,15 @@ public class ItemMultitoolTool extends ItemTool {
 	public ItemMultitoolTool(float f, ToolMaterial mat, Set set) {
 		super(f, mat, set);
 	}
-    
+
     public static Set getAllBlocks() {
-    	
+
     	Set all = new HashSet();
-    	
+
     	for(Object b : GameData.getBlockRegistry()) {
     		all.add(b);
     	}
-    	
+
     	return all;
     }
 
@@ -38,9 +39,9 @@ public class ItemMultitoolTool extends ItemTool {
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
     {
 		if(player.isSneaking()) {
-			
+
 	        world.playSoundAtEntity(player, "hbm:item.techBoop", 2.0F, 1.0F);
-	        
+
 			if(this == ModItems.multitool_dig) {
 				ItemStack item = new ItemStack(ModItems.multitool_silk, 1, stack.getItemDamage());
 				item.addEnchantment(Enchantment.silkTouch, 3);
@@ -51,32 +52,34 @@ public class ItemMultitoolTool extends ItemTool {
 				return item;
 			}
 		}
-		
+
 		return stack;
 	}
-	
+
     @Override
 	public boolean func_150897_b(Block p_150897_1_) {
     	return true;
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public boolean isFull3D()
     {
         return false;
     }
-    
+
 	@Override
 	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean bool)
 	{
 		if(this == ModItems.multitool_dig) {
-			list.add("Breaks blocks extremely fast");
-			list.add("Extra drops for ores");
+			for (String line : I18nUtil.resolveKeyArray("desc.item.multitool_dig")){
+				list.add(line);
+			}
 		}
 		if(this == ModItems.multitool_silk) {
-			list.add("Breaks blocks extremely fast");
-			list.add("Ores will drop themselves via silk touch");
+			for (String line : I18nUtil.resolveKeyArray("desc.item.multitool_silk")){
+				list.add(line);
+			}
 		}
 	}
 

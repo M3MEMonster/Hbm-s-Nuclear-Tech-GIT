@@ -5,6 +5,7 @@ import java.util.List;
 import com.hbm.util.BobMathUtil;
 
 import api.hbm.energymk2.IBatteryItem;
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
@@ -58,7 +59,7 @@ public class ItemSwordAbilityPower extends ItemSwordAbility implements IBatteryI
     			stack.stackTagCompound = new NBTTagCompound();
     			stack.stackTagCompound.setLong("charge", this.maxPower - i);
     		}
-    		
+
     		if(stack.stackTagCompound.getLong("charge") < 0)
     			stack.stackTagCompound.setLong("charge", 0);
     	}
@@ -75,33 +76,33 @@ public class ItemSwordAbilityPower extends ItemSwordAbility implements IBatteryI
     			return stack.stackTagCompound.getLong("charge");
     		}
     	}
-    	
+
     	return 0;
     }
-    
+
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean ext) {
-    	
-    	list.add("Charge: " + BobMathUtil.getShortNumber(getCharge(stack)) + " / " + BobMathUtil.getShortNumber(maxPower));
-    	
+
+    	list.add(I18nUtil.resolveKey("desc.common.charge", BobMathUtil.getShortNumber(getCharge(stack)), BobMathUtil.getShortNumber(maxPower)));
+
     	super.addInformation(stack, player, list, ext);
     }
 
 	@Override
     public boolean showDurabilityBar(ItemStack stack) {
-    	
+
         return getCharge(stack) < maxPower;
     }
 
 	@Override
     public double getDurabilityForDisplay(ItemStack stack) {
-    	
+
         return 1 - (double)getCharge(stack) / (double)maxPower;
     }
 
 	@Override
     protected boolean canOperate(ItemStack stack) {
-    	
+
     	return getCharge(stack) >= this.consumption;
     }
 

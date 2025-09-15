@@ -14,6 +14,7 @@ import com.hbm.tileentity.machine.storage.TileEntityCrateBase;
 import com.hbm.util.ContaminationUtil;
 import com.hbm.util.MobUtil;
 import com.hbm.util.Vec3NT;
+import com.hbm.util.i18n.I18nUtil;
 import com.hbm.world.WorldUtil;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
@@ -159,7 +160,7 @@ public class LogicBlockActions {
 
 		if(tile.phase != 1) return;
 
-		world.getClosestPlayer(x,y,z, 25).addChatMessage(new ChatComponentText(EnumChatFormatting.LIGHT_PURPLE + "[COMMAND UNIT]"+ EnumChatFormatting.RESET + " Missile Fired"));
+		world.getClosestPlayer(x,y,z, 25).addChatMessage(new ChatComponentText(I18nUtil.resolveKey("desc.world.logic_block_action.fire")));
 
 		ForgeDirection parallel = tile.direction.getRotation(ForgeDirection.UP);
 
@@ -219,9 +220,7 @@ public class LogicBlockActions {
 		}
 
 		if (tile.phase == 2 && tile.timer > 40){
-			world.getClosestPlayer(x,y,z, 25).addChatMessage(new ChatComponentText(
-				EnumChatFormatting.LIGHT_PURPLE + "[RAD CONTAINMENT SYSTEM]" +
-					EnumChatFormatting.RESET + " Diagnostics found containment failure, commencing lockdown"));
+			world.getClosestPlayer(x,y,z, 25).addChatMessage(new ChatComponentText(I18nUtil.resolveKey("desc.world.logic_block_action.rad")));
 
 			for(int i = 1; i < 20; i++) {
 				int checkX, checkY, checkZ;

@@ -5,6 +5,7 @@ import com.hbm.blocks.ITooltipProvider;
 import com.hbm.tileentity.TileEntityProxyCombo;
 import com.hbm.tileentity.machine.TileEntityDishControl;
 import com.hbm.util.ChatBuilder;
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -51,7 +52,7 @@ public class MachineDishControl extends BlockDummyable implements ITooltipProvid
 					player.addChatMessage(ChatBuilder.start("[").color(EnumChatFormatting.DARK_AQUA)
 						.nextTranslation(this.getUnlocalizedName() + ".name").color(EnumChatFormatting.DARK_AQUA)
 						.next("] ").color(EnumChatFormatting.DARK_AQUA)
-						.next("Dish not linked!").color(EnumChatFormatting.RED).flush());
+						.next(I18nUtil.resolveKey("desc.block.dish_control")).color(EnumChatFormatting.RED).flush());
 
 					return false;
 				}

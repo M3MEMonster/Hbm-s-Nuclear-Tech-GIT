@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.hbm.blocks.ITooltipProvider;
 import com.hbm.lib.RefStrings;
+import com.hbm.util.i18n.I18nUtil;
 import com.hbm.world.gen.nbt.INBTBlockTransformable;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -91,7 +92,7 @@ public class BlockPipe extends Block implements ITooltipProvider, INBTBlockTrans
 
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean ext) {
-		list.add("Purely decorative");
+		list.add(I18nUtil.resolveKey("desc.block.blockpipe"));
 	}
 
 	@Override

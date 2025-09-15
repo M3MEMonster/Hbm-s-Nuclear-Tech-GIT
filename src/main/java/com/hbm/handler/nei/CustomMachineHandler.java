@@ -21,6 +21,7 @@ import com.hbm.util.Tuple.Pair;
 import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
@@ -84,13 +85,13 @@ public class CustomMachineHandler extends TemplateRecipeHandler {
 				}
 				outputs.add(new PositionedStack(out, 102 + (i - 3) * 18, 42));
 			}
-			
+
 			this.pollutionType = recipe.pollutionType;
 			this.pollutionAmount = recipe.pollutionAmount;
 			this.radiationAmount = recipe.radiationAmount;
 			if(conf.fluxMode) this.flux = recipe.flux;
 			if(conf.maxHeat > 0 && recipe.heat > 0) this.heat = recipe.heat;
-			
+
 			this.machine = new PositionedStack(new ItemStack(ModBlocks.custom_machine, 1, 100 + CustomMachineConfigJSON.niceList.indexOf(conf)), 75, 42);
 		}
 
@@ -221,7 +222,7 @@ public class CustomMachineHandler extends TemplateRecipeHandler {
 		RecipeSet Recipe = (RecipeSet) this.arecipes.get(recipe);
 		int side = 83;
 		if(Recipe.radiationAmount != 0){
-			String radiation = "Radiation:" + Recipe.radiationAmount + "";
+			String radiation = I18nUtil.resolveKey("desc.handler.nei.custom_machine.radiation") + Recipe.radiationAmount + "";
 			GuiDraw.drawString(radiation, 160 - GuiDraw.fontRenderer.getStringWidth(radiation), 63, 0x08FF00);
 		}
 		if (Recipe.pollutionAmount != 0){
@@ -229,11 +230,11 @@ public class CustomMachineHandler extends TemplateRecipeHandler {
 			GuiDraw.drawString(pollution, 160 - GuiDraw.fontRenderer.getStringWidth(pollution), 75, 0x404040);
 		}
 		if(conf.fluxMode) {
-			String flux = "Flux:" + Recipe.flux + "";
+			String flux = I18nUtil.resolveKey("desc.handler.nei.custom_machine.flux") + Recipe.flux + "";
 			GuiDraw.drawString(flux, side - GuiDraw.fontRenderer.getStringWidth(flux) / 2, 16, 0x08FF00);
 		}
 		if(conf.maxHeat>0 && Recipe.heat>0){
-			String heat = "Heat:" + Recipe.heat + "";
+			String heat = I18nUtil.resolveKey("desc.handler.nei.custom_machine.heat") + Recipe.heat + "";
 			GuiDraw.drawString(heat, side - GuiDraw.fontRenderer.getStringWidth(heat) / 2, 8, 0xFF0000);
 		}
 	}

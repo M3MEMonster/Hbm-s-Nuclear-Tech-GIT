@@ -24,6 +24,7 @@ import com.hbm.util.fauxpointtwelve.DirPos;
 
 import api.hbm.energymk2.IEnergyProviderMK2;
 import api.hbm.fluid.IFluidStandardTransceiver;
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -402,7 +403,7 @@ public class TileEntityMachineCombustionEngine extends TileEntityMachinePollutin
 	public Object[] setThrottle(Context context, Arguments args) {
 		int throttleRequest = args.checkInteger(0);
 		if ((throttleRequest < 0) || (throttleRequest > 30)) { // return false without doing anything if number is outside normal
-			return new Object[] {false, "Throttle request outside of range 0-30"};
+			return new Object[] {false, I18nUtil.resolveKey("desc.tile_entity.combustion_engine.OC.error.outside")};
 		};
 		setting = throttleRequest;
 		return new Object[] {true};

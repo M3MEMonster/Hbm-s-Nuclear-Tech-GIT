@@ -16,6 +16,7 @@ import com.hbm.inventory.recipes.MachineRecipes;
 import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 
@@ -73,7 +74,7 @@ public class AlloyFurnaceRecipeHandler extends TemplateRecipeHandler implements 
 
 	@Override
 	public String getRecipeName() {
-		return "Blast Furnace";
+		return I18nUtil.format("desc.handler.nei.alloy_furnace.recipe_name");
 	}
 
 	@Override

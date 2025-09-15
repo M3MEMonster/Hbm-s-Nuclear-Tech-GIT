@@ -1,6 +1,7 @@
 package com.hbm.items;
 
 import com.hbm.util.ItemStackUtil;
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -48,7 +49,7 @@ public abstract class ItemInventory implements IInventory {
 			byte[] abyte = CompressedStreamTools.compress(nbt);
 
 			if (abyte.length > 6000) {
-				player.addChatComponentMessage(new ChatComponentText(EnumChatFormatting.RED + "Warning: Container NBT exceeds 6kB, contents will be ejected!"));
+				player.addChatComponentMessage(new ChatComponentText(EnumChatFormatting.RED + I18nUtil.format("chat.item.item_inventory.exceed")));
 				for (int i1 = 0; i1 < this.getSizeInventory(); ++i1) {
 					ItemStack itemstack = this.getStackInSlot(i1);
 

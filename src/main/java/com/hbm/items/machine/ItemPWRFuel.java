@@ -8,6 +8,7 @@ import com.hbm.util.function.Function;
 import com.hbm.util.function.Function.FunctionLogarithmic;
 import com.hbm.util.function.Function.FunctionSqrt;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
@@ -17,7 +18,7 @@ public class ItemPWRFuel extends ItemEnumMulti {
 	public ItemPWRFuel() {
 		super(EnumPWRFuel.class, true, true);
 	}
-	
+
 	public static enum EnumPWRFuel {
 		MEU(		05.0D,	new FunctionLogarithmic(20 * 30).withDiv(2_500)),
 		HEU233(		07.5D,	new FunctionSqrt(25)),
@@ -38,27 +39,25 @@ public class ItemPWRFuel extends ItemEnumMulti {
 		public double yield = 1_000_000_000;
 		public double heatEmission;
 		public Function function;
-		
+
 		private EnumPWRFuel(double heatEmission, Function function, double yield) {
 			this.heatEmission = heatEmission;
 			this.function = function;
 		}
-		
+
 		private EnumPWRFuel(double heatEmission, Function function) {
 			this(heatEmission, function, 1_000_000_000);
 		}
 	}
-	
+
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-		
+
 		EnumPWRFuel num = EnumUtil.grabEnumSafely(EnumPWRFuel.class, stack.getItemDamage());
-		
-		String color = EnumChatFormatting.GOLD + "";
-		String reset = EnumChatFormatting.RESET + "";
-		
-		list.add(color + "Heat per flux: " + reset + num.heatEmission + " TU");
-		list.add(color + "Reaction function: " + reset + num.function.getLabelForFuel());
-		list.add(color + "Fuel type: " + reset + num.function.getDangerFromFuel());
+
+
+		list.add(I18nUtil.format("desc.item.PWR_fuel.heat", num.heatEmission));
+		list.add(I18nUtil.format("desc.item.PWR_fuel.function", num.function.getLabelForFuel()));
+		list.add(I18nUtil.format("desc.item.PWR_fuel.type", num.function.getDangerFromFuel()));
 	}
 }

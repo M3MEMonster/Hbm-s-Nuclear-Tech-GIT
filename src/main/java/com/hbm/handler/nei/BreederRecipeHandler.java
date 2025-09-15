@@ -15,6 +15,7 @@ import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 
@@ -47,7 +48,7 @@ public class BreederRecipeHandler extends TemplateRecipeHandler implements IComp
 		public List<PositionedStack> getIngredients() {
 			return getCycledIngredients(cycleticks / 48, Arrays.asList(new PositionedStack[] { input }));
 		}
-		
+
 		@Override
 		public PositionedStack getResult() {
 			return result;
@@ -56,7 +57,7 @@ public class BreederRecipeHandler extends TemplateRecipeHandler implements IComp
 
 	@Override
 	public String getRecipeName() {
-		return "Breeding Reactor";
+		return I18nUtil.resolveKey("desc.handler.nei.breeder.recipe_name");
 	}
 
 	@Override
@@ -123,7 +124,7 @@ public class BreederRecipeHandler extends TemplateRecipeHandler implements IComp
 	@Override
 	public void drawExtras(int recipe) {
 		drawProgressBar(48, 21, 176, 0, 70, 20, 50, 0);
-		
+
 		String flux = ((BreedingSet) this.arecipes.get(recipe)).flux + "";
 		GuiDraw.drawString(flux, 83 - GuiDraw.fontRenderer.getStringWidth(flux) / 2, 10, 0x08FF00);
 	}

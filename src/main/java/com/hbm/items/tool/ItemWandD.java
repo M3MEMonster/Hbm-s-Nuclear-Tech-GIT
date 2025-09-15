@@ -13,6 +13,7 @@ import com.hbm.dim.trait.CBT_Atmosphere.FluidEntry;
 import com.hbm.dim.trait.CBT_Destroyed;
 import com.hbm.lib.Library;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -44,12 +45,12 @@ public class ItemWandD extends Item {
 
 				if(targetId == 0) {
 					CelestialTeleporter.teleport(player, SpaceConfig.orbitDimension, player.posX, 128, player.posZ, false);
-					player.addChatMessage(new ChatComponentText("Teleported to: ORBIT"));
+					player.addChatMessage(new ChatComponentText(I18nUtil.resolveKey("chat.item.wand.dim.teleport")));
 				} else {
 					SolarSystem.Body target = SolarSystem.Body.values()[targetId];
 
 					CelestialTeleporter.teleport(player, target.getBody().dimensionId, player.posX, 300, player.posZ, true);
-					player.addChatMessage(new ChatComponentText("Teleported to: " + target.getBody().getUnlocalizedName()));
+					player.addChatMessage(new ChatComponentText(I18nUtil.format("chat.item.wand.dim.teleport", target.getBody().getUnlocalizedName())));
 				}
 
 			} else {
@@ -63,10 +64,10 @@ public class ItemWandD extends Item {
 				stack.stackTagCompound.setInteger("dim", targetId);
 
 				if(targetId == 0) {
-					player.addChatMessage(new ChatComponentText("Set teleport target to: ORBIT"));
+					player.addChatMessage(new ChatComponentText(I18nUtil.resolveKey("chat.item.wand.dim.teleport.orbit.set")));
 				} else {
 					SolarSystem.Body target = SolarSystem.Body.values()[targetId];
-					player.addChatMessage(new ChatComponentText("Set teleport target to: " + target.getBody().getUnlocalizedName()));
+					player.addChatMessage(new ChatComponentText(I18nUtil.format("chat.item.wand.dim.teleport.set", target.getBody().getUnlocalizedName())));
 				}
 			}
 		} else if(!(world.provider instanceof WorldProviderOrbit)) {
@@ -78,14 +79,14 @@ public class ItemWandD extends Item {
 				if(atmosphere != null) {
 					for(FluidEntry entry : atmosphere.fluids) {
 						// if(entry.pressure > 0.001) {
-							player.addChatMessage(new ChatComponentText("Atmosphere: " + entry.fluid.getUnlocalizedName() + " - " + entry.pressure + "bar"));
+							player.addChatMessage(new ChatComponentText(I18nUtil.format("chat.item.wand.dim.atmosphere",entry.fluid.getUnlocalizedName(), entry.pressure + "bar")));
 							isVacuum = false;
 						// }
 					}
 				}
 
 				if(isVacuum)
-					player.addChatMessage(new ChatComponentText("Atmosphere: NEAR VACUUM"));
+					player.addChatMessage(new ChatComponentText(I18nUtil.resolveKey("chat.item.wand.dim.atmosphere.vacuum")));
 			} else {
 				CelestialBody star = CelestialBody.getStar(world);
 
@@ -99,16 +100,15 @@ public class ItemWandD extends Item {
 
 					// GOD
 					// DAMN
-					player.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "GOD"));
-					player.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "DAMN"));
-					player.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "THE"));
-					player.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "" + EnumChatFormatting.OBFUSCATED + "SUN"));
+					for (String line : I18nUtil.resolveKeyArray("chat.item.wand.dim.sun")){
+						player.addChatMessage(new ChatComponentText(line));
+					}
 				} else {
 
 					star.clearTraits();
 					CelestialBody.clearTraits(world);
 
-					player.addChatMessage(new ChatComponentText("kidding"));
+					player.addChatMessage(new ChatComponentText(I18nUtil.resolveKey("chat.item.wand.dim.kidding")));
 				}
 			}
 		} else {
@@ -121,15 +121,15 @@ public class ItemWandD extends Item {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-		list.add("Dimension teleporter and atmosphere debugger.");
+		list.add(I18nUtil.resolveKey("desc.item.wand.dim.common"));
 
 		if(stack.stackTagCompound != null) {
 			int targetId = stack.stackTagCompound.getInteger("dim");
 			if(targetId == 0) {
-				list.add("Teleportation target: ORBIT");
+				list.add(I18nUtil.resolveKey("desc.item.wand.dim.teleport.orbit"));
 			} else {
 				SolarSystem.Body target = SolarSystem.Body.values()[targetId];
-				list.add("Teleportation target: " + target.getBody().getUnlocalizedName());
+				list.add(I18nUtil.format("desc.item.wand.dim.teleport", target.getBody().getUnlocalizedName()));
 			}
 		}
 	}

@@ -4,6 +4,7 @@ import com.hbm.inventory.gui.GUIScreenBobble;
 import com.hbm.items.special.ItemPlasticScrap.ScrapType;
 import com.hbm.main.MainRegistry;
 import com.hbm.tileentity.IGUIProvider;
+import com.hbm.util.i18n.I18nUtil;
 import com.hbm.world.gen.nbt.INBTTileEntityTransformable;
 import com.hbm.world.gen.nbt.INBTBlockTransformable;
 
@@ -190,35 +191,35 @@ public class BlockBobble extends BlockContainer implements IGUIProvider, INBTBlo
 
 	public static enum BobbleType {
 
-		NONE(			"null",								"null",			null,														null,																								false,	ScrapType.BOARD_BLANK),
-		STRENGTH(		"Strength",							"Strength",		null,														"It's essential to give your arguments impact.",													false,	ScrapType.BRIDGE_BIOS),
-		PERCEPTION(		"Perception",						"Perception",	null,														"Only through observation will you perceive weakness.",												false,	ScrapType.BRIDGE_NORTH),
-		ENDURANCE(		"Endurance",						"Endurance",	null,														"Always be ready to take one for the team.",														false,	ScrapType.BRIDGE_SOUTH),
-		CHARISMA(		"Charisma",							"Charisma",		null,														"Nothing says pizzaz like a winning smile.",														false,	ScrapType.BRIDGE_IO),
-		INTELLIGENCE(	"Intelligence",						"Intelligence",	null,														"It takes the smartest individuals to realize$there's always more to learn.",						false,	ScrapType.BRIDGE_BUS),
-		AGILITY(		"Agility",							"Agility",		null,														"Never be afraid to dodge the sensitive issues.",													false,	ScrapType.BRIDGE_CHIPSET),
-		LUCK(			"Luck",								"Luck",			null,														"There's only one way to give 110%.",																false,	ScrapType.BRIDGE_CMOS),
-		BOB(			"Robert \"The Bobcat\" Katzinsky",	"HbMinecraft",	"Hbm's Nuclear Tech Mod",									"I know where you live, " + System.getProperty("user.name"),										false,	ScrapType.CPU_SOCKET),
-		FRIZZLE(		"Frooz",							"Frooz",		"Weapon models",											"BLOOD IS FUEL",																					true,	ScrapType.CPU_CLOCK),
-		PU238(			"Pu-238",							"Pu-238",		"Improved Tom impact mechanics",							null,																								false,	ScrapType.CPU_REGISTER),
-		VT(				"VT-6/24",							"VT-6/24",		"Balefire warhead model and general texturework",			"You cannot unfuck a horse.",																		true,	ScrapType.CPU_EXT),
-		DOC(			"The Doctor",						"Doctor17PH",	"Russian localization, lunar miner",						"Perhaps the moon rocks were too expensive",														true,	ScrapType.CPU_CACHE),
-		BLUEHAT(		"The Blue Hat",						"The Blue Hat",	"Textures",													"payday 2's deagle freeaim champ of the year 2022",													true,	ScrapType.MEM_16K_A),
-		PHEO(			"Pheo",								"Pheonix",		"Deuterium machines, tantalium textures, Reliant Rocket",	"RUN TO THE BEDROOM, ON THE SUITCASE ON THE LEFT,$YOU'LL FIND MY FAVORITE AXE",						true,	ScrapType.MEM_16K_B),
-		ADAM29(			"Adam29",							"Adam29",		"Ethanol, liquid petroleum gas",							"You know, nukes are really quite beatiful.$It's like watching a star be born for a split second.",	true,	ScrapType.MEM_16K_C),
-		UFFR(			"UFFR",								"UFFR",			"All sorts of things from his PR",							"fried shrimp",																						false,	ScrapType.MEM_SOCKET),
-		VAER(			"vaer",								"vaer",			"ZIRNOX",													"taken de family out to the weekend cigarette festival",											true,	ScrapType.MEM_16K_D),
-		NOS(			"Dr Nostalgia",						"Dr Nostalgia",	"SSG and Vortex models",									"Take a picture, I'ma pose, paparazzi$I've been drinking, moving like a zombie",					true,	ScrapType.BOARD_TRANSISTOR),
-		DRILLGON(		"Drillgon200",						"Drillgon200",	"1.12 Port",												null,																								false,	ScrapType.CPU_LOGIC),
-		CIRNO(			"Cirno",							"Cirno",		"the only multi layered skin i had",						"No brain. Head empty.",																			true,	ScrapType.BOARD_BLANK),
-		GWEN(			"Gwen",								"Gwen",			"Numero Uno Homie",											"HELP ME I'M TRAPPED IN THIS FUCKING POLYRESIN PRISON YOU NEED TO LET ME OUT PLEASE SMASH IT OPEN DO IT NOW CRACK IT",																					true,	ScrapType.BOARD_BLANK),
-		JUICE(			"Juicy_Lad",						"Juicy_Lad",	"The Mojave Testing for this funny fork",					"\"What should the Inscription be?\",$ \"Uhh.. I'll think about it.\"",								true,	ScrapType.BOARD_BLANK),
-		JAMESH_2(		"JamesH_2",							"JamesH_2",		"The fork itself",										"COME ON AND SLAM",																						true,	ScrapType.BOARD_BLANK),
-		PEEP(			"Peep",								"LePeeperSauvage",	"Coilgun, Leadburster, Congo Lake models, and the 737",											"Fluffy ears can't hide in ash, nor snow.",											true,	ScrapType.CPU_CLOCK),
-		MICROWAVE(		"Microwave",						"Microwave",		"OC Compatibility and massive RBMK/packet optimizations",		"they call me the food heater$john optimization",                                                                    true, ScrapType.BRIDGE_BIOS),
-		MELLOW(			"MELLOWARPEGGIATION",				"Mellow",			"Celestial mechanics, rocketry,$atmospheric chemistry, orbital stations,$Dyson swarms",						"Make something cool now, ask for permission later.",												true,	ScrapType.CARD_PROCESSOR),
-		MRKIMKIMORA(	"MrKimkimora",						"MrKimkimora",		"Part of NTM:Space models,$textures and russian localization",						"I know your IP. Your IP is 127.0.0.1.",												false,	ScrapType.BOARD_BLANK),
-		ABEL(			"Abel1502", 						"Abel1502", 		"Abilities GUI, optimizations and many QoL improvements", 	"NANTO SUBARASHII",																				true,	ScrapType.CPU_REGISTER);
+		NONE(I18nUtil.resolveKey("desc.block.bobble.NONE.name"),								I18nUtil.resolveKey("desc.block.bobble.NONE.label"),			null,														null,																								false,	ScrapType.BOARD_BLANK),
+		STRENGTH(		I18nUtil.resolveKey("desc.block.bobble.STRENGTH.name"),							I18nUtil.resolveKey("desc.block.bobble.STRENGTH.label"),		null,														I18nUtil.resolveKey("desc.block.bobble.STRENGTH.inscription"),													false,	ScrapType.BRIDGE_BIOS),
+		PERCEPTION(		I18nUtil.resolveKey("desc.block.bobble.PERCEPTION.name"),						I18nUtil.resolveKey("desc.block.bobble.PERCEPTION.label"),	null,														I18nUtil.resolveKey("desc.block.bobble.PERCEPTION.inscription"),												false,	ScrapType.BRIDGE_NORTH),
+		ENDURANCE(		I18nUtil.resolveKey("desc.block.bobble.ENDURANCE.name"),						I18nUtil.resolveKey("desc.block.bobble.ENDURANCE.label"),	null,														I18nUtil.resolveKey("desc.block.bobble.ENDURANCE.inscription"),														false,	ScrapType.BRIDGE_SOUTH),
+		CHARISMA(		I18nUtil.resolveKey("desc.block.bobble.CHARISMA.name"),							I18nUtil.resolveKey("desc.block.bobble.CHARISMA.label"),		null,														I18nUtil.resolveKey("desc.block.bobble.CHARISMA.inscription"),														false,	ScrapType.BRIDGE_IO),
+		INTELLIGENCE(	I18nUtil.resolveKey("desc.block.bobble.INTELLIGENCE.name"),						I18nUtil.resolveKey("desc.block.bobble.INTELLIGENCE.label"),	null,														I18nUtil.resolveKey("desc.block.bobble.INTELLIGENCE.inscription"),						false,	ScrapType.BRIDGE_BUS),
+		AGILITY(		I18nUtil.resolveKey("desc.block.bobble.AGILITY.name"),							I18nUtil.resolveKey("desc.block.bobble.AGILITY.label"),		null,														I18nUtil.resolveKey("desc.block.bobble.AGILITY.inscription"),													false,	ScrapType.BRIDGE_CHIPSET),
+		LUCK(			I18nUtil.resolveKey("desc.block.bobble.LUCK.name"),								I18nUtil.resolveKey("desc.block.bobble.LUCK.label"),			null,														I18nUtil.resolveKey("desc.block.bobble.LUCK.inscription"),																false,	ScrapType.BRIDGE_CMOS),
+		BOB(			I18nUtil.resolveKey("desc.block.bobble.BOB.name"),	                            I18nUtil.resolveKey("desc.block.bobble.BOB.label"),	I18nUtil.resolveKey("desc.block.bobble.BOB.contribution"),									I18nUtil.format("desc.block.bobble.BOB.inscription", System.getProperty("user.name")),										false,	ScrapType.CPU_SOCKET),
+		FRIZZLE(		I18nUtil.resolveKey("desc.block.bobble.FRIZZLE.name"),							I18nUtil.resolveKey("desc.block.bobble.FRIZZLE.label"),		I18nUtil.resolveKey("desc.block.bobble.FRIZZLE.contribution"),											I18nUtil.resolveKey("desc.block.bobble.FRIZZLE.inscription"),																					true,	ScrapType.CPU_CLOCK),
+		PU238(			I18nUtil.resolveKey("desc.block.bobble.PU238.name"),							I18nUtil.resolveKey("desc.block.bobble.PU238.label"),		I18nUtil.resolveKey("desc.block.bobble.PU238.contribution"),							null,																								false,	ScrapType.CPU_REGISTER),
+		VT(				I18nUtil.resolveKey("desc.block.bobble.VT.name"),							I18nUtil.resolveKey("desc.block.bobble.VT.label"),		I18nUtil.resolveKey("desc.block.bobble.VT.contribution"),			I18nUtil.resolveKey("desc.block.bobble.VT.inscription"),																		true,	ScrapType.CPU_EXT),
+		DOC(			I18nUtil.resolveKey("desc.block.bobble.DOC.name"),						I18nUtil.resolveKey("desc.block.bobble.DOC.label"),	I18nUtil.resolveKey("desc.block.bobble.DOC.contribution"),						I18nUtil.resolveKey("desc.block.bobble.DOC.inscription"),														true,	ScrapType.CPU_CACHE),
+		BLUEHAT(		I18nUtil.resolveKey("desc.block.bobble.BLUEHAT.name"),						I18nUtil.resolveKey("desc.block.bobble.BLUEHAT.label"),	I18nUtil.resolveKey("desc.block.bobble.BLUEHAT.contribution"),													I18nUtil.resolveKey("desc.block.bobble.BLUEHAT.inscription"),													true,	ScrapType.MEM_16K_A),
+		PHEO(			I18nUtil.resolveKey("desc.block.bobble.PHEO.name"),								I18nUtil.resolveKey("desc.block.bobble.PHEO.label"),		I18nUtil.resolveKey("desc.block.bobble.PHEO.contribution"),	I18nUtil.resolveKey("desc.block.bobble.PHEO.inscription"),						true,	ScrapType.MEM_16K_B),
+		ADAM29(			I18nUtil.resolveKey("desc.block.bobble.ADAM29.name"),							I18nUtil.resolveKey("desc.block.bobble.ADAM29.label"),		I18nUtil.resolveKey("desc.block.bobble.ADAM29.contribution"),							I18nUtil.resolveKey("desc.block.bobble.ADAM29.inscription"),	true,	ScrapType.MEM_16K_C),
+		UFFR(			I18nUtil.resolveKey("desc.block.bobble.UFFR.name"),								I18nUtil.resolveKey("desc.block.bobble.UFFR.label"),			I18nUtil.resolveKey("desc.block.bobble.UFFR.contribution"),							I18nUtil.resolveKey("desc.block.bobble.UFFR.inscription"),																						false,	ScrapType.MEM_SOCKET),
+		VAER(			I18nUtil.resolveKey("desc.block.bobble.VAER.name"),								I18nUtil.resolveKey("desc.block.bobble.VAER.label"),			I18nUtil.resolveKey("desc.block.bobble.VAER.contribution"),													I18nUtil.resolveKey("desc.block.bobble.VAER.inscription"),											true,	ScrapType.MEM_16K_D),
+		NOS(			I18nUtil.resolveKey("desc.block.bobble.NOS.name"),						I18nUtil.resolveKey("desc.block.bobble.NOS.label"),	I18nUtil.resolveKey("desc.block.bobble.NOS.contribution"),									I18nUtil.resolveKey("desc.block.bobble.NOS.inscription"),					true,	ScrapType.BOARD_TRANSISTOR),
+		DRILLGON(		I18nUtil.resolveKey("desc.block.bobble.DRILLGON.name"),						I18nUtil.resolveKey("desc.block.bobble.DRILLGON.label"),	I18nUtil.resolveKey("desc.block.bobble.DRILLGON.contribution"),												null,																								false,	ScrapType.CPU_LOGIC),
+		CIRNO(			I18nUtil.resolveKey("desc.block.bobble.CIRNO.name"),							I18nUtil.resolveKey("desc.block.bobble.CIRNO.label"),		I18nUtil.resolveKey("desc.block.bobble.CIRNO.contribution"),						I18nUtil.resolveKey("desc.block.bobble.CIRNO.inscription"),																			true,	ScrapType.BOARD_BLANK),
+		GWEN(			I18nUtil.resolveKey("desc.block.bobble.GWEN.name"),								I18nUtil.resolveKey("desc.block.bobble.GWEN.label"),			I18nUtil.resolveKey("desc.block.bobble.GWEN.contribution"),											I18nUtil.resolveKey("desc.block.bobble.GWEN.inscription"),																					true,	ScrapType.BOARD_BLANK),
+		JUICE(			I18nUtil.resolveKey("desc.block.bobble.JUICE.name"),						I18nUtil.resolveKey("desc.block.bobble.JUICE.label"),	I18nUtil.resolveKey("desc.block.bobble.JUICE.contribution"),					I18nUtil.resolveKey("desc.block.bobble.JUICE.inscription"),								true,	ScrapType.BOARD_BLANK),
+		JAMESH_2(		I18nUtil.resolveKey("desc.block.bobble.JAMESH_2.name"),							I18nUtil.resolveKey("desc.block.bobble.JAMESH_2.label"),		I18nUtil.resolveKey("desc.block.bobble.JAMESH_2.contribution"),										I18nUtil.resolveKey("desc.block.bobble.JAMESH_2.inscription"),																						true,	ScrapType.BOARD_BLANK),
+		PEEP(			I18nUtil.resolveKey("desc.block.bobble.PEEP.name"),								I18nUtil.resolveKey("desc.block.bobble.PEEP.label"),	I18nUtil.resolveKey("desc.block.bobble.PEEP.contribution"),											I18nUtil.resolveKey("desc.block.bobble.PEEP.inscription"),											true,	ScrapType.CPU_CLOCK),
+		MICROWAVE(		I18nUtil.resolveKey("desc.block.bobble.MICROWAVE.name"),						I18nUtil.resolveKey("desc.block.bobble.MICROWAVE.label"),		I18nUtil.resolveKey("desc.block.bobble.MICROWAVE.contribution"),		I18nUtil.resolveKey("desc.block.bobble.MICROWAVE.inscription"),                                                                    true, ScrapType.BRIDGE_BIOS),
+		MELLOW(			I18nUtil.resolveKey("desc.block.bobble.MELLOW.name"),				I18nUtil.resolveKey("desc.block.bobble.MELLOW.label"),			I18nUtil.resolveKey("desc.block.bobble.MELLOW.contribution"),						I18nUtil.resolveKey("desc.block.bobble.MELLOW.inscription"),												true,	ScrapType.CARD_PROCESSOR),
+		MRKIMKIMORA(	I18nUtil.resolveKey("desc.block.bobble.MRKIMKIMORA.name"),						I18nUtil.resolveKey("desc.block.bobble.MRKIMKIMORA.label"),		I18nUtil.resolveKey("desc.block.bobble.MRKIMKIMORA.contribution"),						I18nUtil.resolveKey("desc.block.bobble.MRKIMKIMORA.inscription"),												false,	ScrapType.BOARD_BLANK),
+		ABEL(			I18nUtil.resolveKey("desc.block.bobble.ABEL.name"), 						I18nUtil.resolveKey("desc.block.bobble.ABEL.label"), 		I18nUtil.resolveKey("desc.block.bobble.ABEL.contribution"), 	I18nUtil.resolveKey("desc.block.bobble.ABEL.inscription"),																				true,	ScrapType.CPU_REGISTER);
 
 		public String name;			//the title of the tooltip
 		public String label;		//the name engraved in the socket

@@ -11,6 +11,7 @@ import com.hbm.explosion.vanillant.standard.EntityProcessorStandard;
 import com.hbm.explosion.vanillant.standard.PlayerProcessorStandard;
 import com.hbm.particle.helper.ExplosionCreator;
 
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -51,7 +52,7 @@ public class BlockChargeC4 extends BlockChargeBase {
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean ext) {
 		super.addInformation(stack, player, list, ext);
-		list.add(EnumChatFormatting.BLUE + "Does not drop blocks.");
+		list.add(EnumChatFormatting.BLUE + I18nUtil.resolveKey("desc.block.bomb.drop_no_blocks"));
 	}
 
 }

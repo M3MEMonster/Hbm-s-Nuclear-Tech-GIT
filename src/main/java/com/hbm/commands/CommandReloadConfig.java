@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import com.hbm.config.RunningConfig.ConfigWrapper;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -21,7 +22,7 @@ public abstract class CommandReloadConfig extends CommandBase {
 	public boolean canCommandSenderUseCommand(ICommandSender sender) {
 		return sender instanceof EntityPlayer;
 	}
-	
+
 	public abstract void help(ICommandSender sender, String[] args);
 	public abstract HashMap<String, ConfigWrapper> getConfigMap();
 	public abstract void refresh();
@@ -30,16 +31,16 @@ public abstract class CommandReloadConfig extends CommandBase {
 
 	@Override
 	public void processCommand(ICommandSender sender, String[] args) {
-		
+
 		if(args.length < 1) throw new CommandException(getCommandUsage(sender));
-		
+
 		String operator = args[0];
-		
+
 		if("help".equals(operator)) {
 			help(sender, args);
 			return;
 		}
-		
+
 		if("list".equals(operator)) {
 			sender.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + getTitle()));
 			for(Entry<String, ConfigWrapper> line : getConfigMap().entrySet()) {
@@ -47,43 +48,43 @@ public abstract class CommandReloadConfig extends CommandBase {
 			}
 			return;
 		}
-		
+
 		if("reload".equals(operator)) {
 			reload();
-			sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + "Variables loaded from config file."));
+			sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + I18nUtil.resolveKey("chat.command.reload_config.load")));
 			return;
 		}
 
 		if(args.length < 2) throw new CommandException(getCommandUsage(sender));
-		
+
 		String key = args[1];
-		
+
 		if("get".equals(operator)) {
 			ConfigWrapper wrapper = getConfigMap().get(key);
-			if(wrapper == null) throw new CommandException("Key does not exist.");
+			if(wrapper == null) throw new CommandException(I18nUtil.resolveKey("chat.command.reload_config.no_key"));
 			sender.addChatMessage(new ChatComponentText(EnumChatFormatting.GOLD + key + ": " + EnumChatFormatting.YELLOW + wrapper.value));
 			return;
 		}
 
 		if(args.length < 3) throw new CommandException(getCommandUsage(sender));
-		
+
 		String value = args[2];
-		
+
 		if("set".equals(operator)) {
 			ConfigWrapper wrapper = getConfigMap().get(key);
-			if(wrapper == null) throw new CommandException("Key does not exist.");
-			
+			if(wrapper == null) throw new CommandException(I18nUtil.resolveKey("chat.command.reload_config.no_key"));
+
 			try {
 				wrapper.update(value);
 				refresh();
-				sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + "Value updated."));
+				sender.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + I18nUtil.resolveKey("chat.command.reload_config.update")));
 			} catch(Exception ex) {
-				throw new CommandException("Error parsing type for " + wrapper.value.getClass().getSimpleName() + ": " + ex.getLocalizedMessage());
+				throw new CommandException(I18nUtil.format("chat.command.reload_config.error_parsing", wrapper.value.getClass().getSimpleName(), ex.getLocalizedMessage()));
 			}
-			
+
 			return;
 		}
-		
+
 		throw new CommandException(getCommandUsage(sender));
 	}
 

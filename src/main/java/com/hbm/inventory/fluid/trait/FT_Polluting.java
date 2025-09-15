@@ -12,6 +12,7 @@ import com.hbm.handler.pollution.PollutionHandler.PollutionType;
 import com.hbm.inventory.fluid.FluidType;
 import com.hbm.inventory.fluid.tank.FluidTank;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 
@@ -33,20 +34,20 @@ public class FT_Polluting extends FluidTrait {
 
 	@Override
 	public void addInfo(List<String> info) {
-		info.add(EnumChatFormatting.GOLD + "[Polluting]");
+		info.add(EnumChatFormatting.GOLD + I18nUtil.resolveKey("desc.fluid.polluting.trait"));
 	}
 
 	@Override
 	public void addInfoHidden(List<String> info) {
 
 		if(!this.releaseMap.isEmpty()) {
-			info.add(EnumChatFormatting.GREEN + "When spilled:");
-			for(Entry<PollutionType, Float> entry : releaseMap.entrySet()) info.add(EnumChatFormatting.GREEN + " - " + entry.getValue() + " " + entry.getKey() + " per mB");
+			info.add(EnumChatFormatting.GREEN + I18nUtil.resolveKey("desc.fluid.polluting.spill"));
+			for(Entry<PollutionType, Float> entry : releaseMap.entrySet()) info.add(I18nUtil.format("desc.fluid.polluting.spill.detail", entry.getValue(), entry.getKey()));
 		}
 
 		if(!this.burnMap.isEmpty()) {
-			info.add(EnumChatFormatting.RED + "When burned:");
-			for(Entry<PollutionType, Float> entry : burnMap.entrySet()) info.add(EnumChatFormatting.RED + " - " + entry.getValue() + " " + entry.getKey() + " per mB");
+			info.add(EnumChatFormatting.RED + I18nUtil.resolveKey("desc.fluid.polluting.burn"));
+			for(Entry<PollutionType, Float> entry : burnMap.entrySet()) info.add(I18nUtil.format("desc.fluid.polluting.burn.detail", entry.getValue(), entry.getKey()));
 		}
 	}
 

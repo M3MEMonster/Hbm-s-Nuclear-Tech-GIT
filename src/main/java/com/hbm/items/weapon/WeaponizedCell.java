@@ -5,6 +5,7 @@ import java.util.List;
 import com.hbm.config.WeaponConfig;
 import com.hbm.entity.effect.EntityCloudFleijaRainbow;
 import com.hbm.entity.logic.EntityNukeExplosionMK3;
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -58,7 +59,8 @@ public class WeaponizedCell extends Item {
 	@Override
 	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean bool) {
 
-		list.add("A charged energy cell, rigged to explode");
-		list.add("when left on the floor for too long.");
+		for (String line : I18nUtil.resolveKeyArray("desc.item.weaponized_cell")){
+			list.add(line);
+		}
 	}
 }

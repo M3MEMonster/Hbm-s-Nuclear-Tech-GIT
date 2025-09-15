@@ -76,7 +76,7 @@ public class HazardTypeNeutron extends HazardTypeBase {
 		list.add(EnumChatFormatting.LIGHT_PURPLE+ (neut + "RAD/s^2"));
 
 		if(stack.stackSize > 1) {
-			list.add(EnumChatFormatting.LIGHT_PURPLE + "Stack: " + ((Math.floor(level * 1000 * stack.stackSize) / 1000) + "RAD/s^2"));
+			list.add(EnumChatFormatting.LIGHT_PURPLE + I18nUtil.resolveKey("desc.hazard.neutron.stack", ((Math.floor(level * 1000 * stack.stackSize) / 1000))));
 		}
 	}
 

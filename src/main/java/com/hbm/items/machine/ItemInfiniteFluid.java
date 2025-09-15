@@ -9,6 +9,7 @@ import com.hbm.inventory.fluid.FluidType;
 import com.hbm.inventory.fluid.Fluids;
 import com.hbm.items.ModItems;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -22,7 +23,7 @@ public class ItemInfiniteFluid extends Item {
 	private int amount;
 	private int chance;
 	private boolean requiresTable; // Whether or not a CBT_Water with matching FluidType must be present to function
-	
+
 	public ItemInfiniteFluid(FluidType type, int amount) {
 		this(type, amount, 1, false);
 	}
@@ -34,7 +35,7 @@ public class ItemInfiniteFluid extends Item {
 	public ItemInfiniteFluid(FluidType type, int amount, boolean requiresTable) {
 		this(type, amount, 1, requiresTable);
 	}
-	
+
 	public ItemInfiniteFluid(FluidType type, int amount, int chance, boolean requiresTable) {
 		this.type = type;
 		this.amount = amount;
@@ -53,7 +54,7 @@ public class ItemInfiniteFluid extends Item {
 			stack.stackTagCompound.setInteger("fluid", 0);
 			return;
 		}
-		
+
 		// Check that the current body has a water table
 		CBT_Water table = CelestialBody.getTrait(world, CBT_Water.class);
 		boolean canOperate = table != null && table.fluid == type;
@@ -70,17 +71,17 @@ public class ItemInfiniteFluid extends Item {
 		FluidType currentFluid = Fluids.fromID(stack.stackTagCompound.getInteger("fluid"));
 
 		if(currentFluid == Fluids.NONE) {
-			list.add("Current environment has insufficient vapor pressure");
+			list.add(I18nUtil.resolveKey("desc.item.infinite_fluid.info1"));
 		} else {
-			list.add("Current environment has an incompatible fluid table");
+			list.add(I18nUtil.resolveKey("desc.item.infinite_fluid.info2"));
 		}
 
-		list.add("Requires: " + type.getLocalizedName() + " table");
+		list.add(I18nUtil.resolveKey("desc.item.infinite_fluid.info3", type.getLocalizedName()));
 
 		if(currentFluid == Fluids.NONE) {
-			list.add("Releasing 0.2atm of vapor into the atmosphere will add a table on dry celestial bodies");
+			list.add(I18nUtil.resolveKey("desc.item.infinite_fluid.info4"));
 		} else {
-			list.add("Current environment: " + currentFluid.getLocalizedName() + " table");
+			list.add(I18nUtil.resolveKey("desc.item.infinite_fluid.info5", currentFluid.getLocalizedName()));
 		}
 	}
 

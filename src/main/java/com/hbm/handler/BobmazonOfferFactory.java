@@ -18,6 +18,7 @@ import com.hbm.items.special.ItemKitCustom;
 import com.hbm.items.special.ItemKitNBT;
 import com.hbm.items.weapon.sedna.factory.GunFactory.EnumAmmo;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -108,7 +109,7 @@ public class BobmazonOfferFactory {
 		special.add(new Offer(new ItemStack(ModBlocks.ntm_dirt, 1), Requirement.HIDDEN, 16));
 		special.add(new Offer(new ItemStack(ModItems.euphemium_kit, 1), Requirement.HIDDEN, 64));
 
-		special.add(new Offer(ItemKitCustom.create("Fusion Man", "For the nuclear physicist on the go", 0xff00ff, 0x800080,
+		special.add(new Offer(ItemKitCustom.create(I18nUtil.resolveKey("desc.handler.bobmazon_offer_factory.1"), I18nUtil.resolveKey("desc.handler.bobmazon_offer_factory.2"), 0xff00ff, 0x800080,
 				new ItemStack(ModBlocks.iter),
 				new ItemStack(ModBlocks.plasma_heater),
 				new ItemStack(ModItems.fusion_shield_vaporwave),
@@ -133,7 +134,7 @@ public class BobmazonOfferFactory {
 				new ItemStack(Items.dye, 64)
 				), Requirement.HIDDEN, 64));
 
-		special.add(new Offer(ItemKitCustom.create("Maid's Cleaning Utensils", "For the hard to reach spots", 0x00ff00, 0x008000,
+		special.add(new Offer(ItemKitCustom.create(I18nUtil.resolveKey("desc.handler.bobmazon_offer_factory.3"), I18nUtil.resolveKey("desc.handler.bobmazon_offer_factory.4"), 0x00ff00, 0x008000,
 				new ItemStack(ModItems.gun_m2),
 				new ItemStack(ModItems.ammo_standard, 64, EnumAmmo.BMG50_DU.ordinal()),
 				new ItemStack(ModItems.ammo_standard, 64, EnumAmmo.BMG50_DU.ordinal()),
@@ -149,11 +150,11 @@ public class BobmazonOfferFactory {
 				), Requirement.HIDDEN, 64));
 
 		special.add(new Offer(ItemKitNBT.create(
-				new ItemStack(ModItems.rod_of_discord).setStackDisplayName("Cock Joke"),
-				ModItems.canned_conserve.stackFromEnum(64,EnumFoodType.JIZZ).setStackDisplayName("Class A Horse Semen"),
-				new ItemStack(ModItems.pipe_lead).setStackDisplayName("Get Nutted, Dumbass"),
+				new ItemStack(ModItems.rod_of_discord).setStackDisplayName(I18nUtil.resolveKey("desc.handler.bobmazon_offer_factory.5")),
+				ModItems.canned_conserve.stackFromEnum(64,EnumFoodType.JIZZ).setStackDisplayName(I18nUtil.resolveKey("desc.handler.bobmazon_offer_factory.6")),
+				new ItemStack(ModItems.pipe_lead).setStackDisplayName(I18nUtil.resolveKey("desc.handler.bobmazon_offer_factory.7")),
 				new ItemStack(ModItems.gem_alexandrite)
-				).setStackDisplayName("The Nut Bucket"), Requirement.HIDDEN, 64));
+				).setStackDisplayName(I18nUtil.resolveKey("desc.handler.bobmazon_offer_factory.8")), Requirement.HIDDEN, 64));
 
 		special.add(new Offer(ItemKitNBT.create(
 				new ItemStack(ModItems.rpa_helmet),
@@ -164,7 +165,7 @@ public class BobmazonOfferFactory {
 				new ItemStack(ModItems.ammo_standard, 64, EnumAmmo.CAPACITOR_OVERCHARGE.ordinal()),
 				new ItemStack(ModItems.ammo_standard, 64, EnumAmmo.CAPACITOR_OVERCHARGE.ordinal()),
 				new ItemStack(ModItems.ammo_standard, 64, EnumAmmo.CAPACITOR_OVERCHARGE.ordinal())
-				).setStackDisplayName("Frenchie's Reward"), Requirement.HIDDEN, 32));
+				).setStackDisplayName(I18nUtil.resolveKey("desc.handler.bobmazon_offer_factory.9")), Requirement.HIDDEN, 32));
 	}
 
 	public static List<Offer> getOffers(ItemStack stack) {

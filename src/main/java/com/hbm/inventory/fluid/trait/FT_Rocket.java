@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonWriter;
 import com.hbm.util.BobMathUtil;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.util.EnumChatFormatting;
 
 public class FT_Rocket extends FluidTrait {
@@ -14,29 +15,29 @@ public class FT_Rocket extends FluidTrait {
 	/**
 	 * this is only for the transporter pads, and probably won't remain forever
 	 * well now it's also used for station engines, but just the ISP value
-	 * 
+	 *
 	 * A rockets effectiveness and efficiency is defined within two flight regimes:
 	 * When escaping gravity and entering orbit (To Orbit)
 	 * Whilst in "free-fall", navigating to celestial bodies (Transfer)
-	 * 
+	 *
 	 * To Orbit costs include gravity losses, and factor in the rocket TWR
 	 * Transfer costs only include losses incurred to apply dV, assuming optimal bi-elliptic transfers
-	 * 
+	 *
 	 * Balancing a rocket requires having sufficiently high TWR to minimise gravity loss (spending dV that doesn't become orbital energy)
 	 * Whilst also having high enough efficiency such that dV per unit of fuel is very high
 	 */
-	
+
 	// The ISP of the fuel (aka how long it can go)
 	private int isp;
 
 	//The thrust of the fuel (aka how much it can carry)
 	private long thrust;
-	
+
 	public FT_Rocket(int isp, long twr) {
 		this.isp = isp;
 		this.thrust = twr;
 	}
-	
+
 	public int getISP() {
 		return this.isp;
 	}
@@ -48,16 +49,16 @@ public class FT_Rocket extends FluidTrait {
 	@Override
 	public void addInfo(List<String> info) {
 		super.addInfo(info);
-		
-		info.add(EnumChatFormatting.LIGHT_PURPLE + "[Rocket Grade]");
-		
+
+		info.add(EnumChatFormatting.LIGHT_PURPLE + I18nUtil.resolveKey("desc.fluid.rocket.grade.trait"));
+
 		if(isp > 0)
-			info.add(EnumChatFormatting.YELLOW + "Provides " + EnumChatFormatting.RED + "" + BobMathUtil.getShortNumber(isp) + " ISP " + EnumChatFormatting.YELLOW + "per bucket");
-		
-		info.add(EnumChatFormatting.RED + "[Thrust power]");
+			info.add(I18nUtil.format("desc.fluid.rocket.grade.provide", BobMathUtil.getShortNumber(isp)));
+
+		info.add(EnumChatFormatting.RED + I18nUtil.resolveKey("desc.fluid.rocket.thrust.trait"));
 
 		if(thrust > 0)
-			info.add(EnumChatFormatting.YELLOW + "Provides " + EnumChatFormatting.RED + "" + BobMathUtil.getShortNumber(thrust) + " N " + EnumChatFormatting.YELLOW + "of thrust per bucket");
+			info.add(I18nUtil.format("desc.fluid.rocket.thrust.provide", BobMathUtil.getShortNumber(thrust)));
 	}
 
 	@Override
@@ -65,7 +66,7 @@ public class FT_Rocket extends FluidTrait {
 		writer.name("isp").value(isp);
 		writer.name("thrust").value(thrust);
 	}
-	
+
 	@Override
 	public void deserializeJSON(JsonObject obj) {
 		this.isp = obj.get("isp").getAsInt();

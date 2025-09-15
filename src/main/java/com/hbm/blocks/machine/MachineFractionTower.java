@@ -68,12 +68,12 @@ public class MachineFractionTower extends BlockDummyable implements ILookOverlay
 				TileEntityMachineFractionTower frac = (TileEntityMachineFractionTower) te;
 
 				if(world.getTileEntity(pos[0], pos[1] - 3, pos[2]) instanceof TileEntityMachineFractionTower) {
-					player.addChatComponentMessage(new ChatComponentText(EnumChatFormatting.RED + "You can only change the type in the bottom segment!"));
+					player.addChatComponentMessage(new ChatComponentText(EnumChatFormatting.RED + I18nUtil.resolveKey("desc.block.fraction_tower.bottom")));
 				} else {
 					FluidType type = ((IItemFluidIdentifier) player.getHeldItem().getItem()).getType(world, pos[0], pos[1], pos[2], player.getHeldItem());
 					frac.tanks[0].setTankType(type);
 					frac.markDirty();
-					player.addChatComponentMessage(new ChatComponentText("Changed type to ").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.YELLOW)).appendSibling(new ChatComponentTranslation(type.getConditionalName())).appendSibling(new ChatComponentText("!")));
+					player.addChatComponentMessage(new ChatComponentText(I18nUtil.resolveKey("chat.block.type_change")).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.YELLOW)).appendSibling(new ChatComponentTranslation(type.getConditionalName())).appendSibling(new ChatComponentText("!")));
 				}
 
 				return true;

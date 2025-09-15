@@ -88,7 +88,7 @@ public class ItemPipette extends Item implements IFillableItem {
 				int a;
 				if(this == ModItems.pipette_laboratory)
 					a = !player.isSneaking() ? Math.min(this.getCapacity(stack) + 1, 50) : Math.max(this.getCapacity(stack) - 1, 1);
-				else 
+				else
 					a = !player.isSneaking() ? Math.min(this.getCapacity(stack) + 50, 1_000) : Math.max(this.getCapacity(stack) - 50, 50);
 				stack.stackTagCompound.setShort("capacity", (short) a);
 				player.addChatMessage(new ChatComponentText(a + "/" + this.getMaxFill() + "mB"));
@@ -109,8 +109,8 @@ public class ItemPipette extends Item implements IFillableItem {
 			list.add(I18nUtil.resolveKey("desc.item.pipette.corrosive"));
 		if(this == ModItems.pipette)
 			list.add(I18nUtil.resolveKey("desc.item.pipette.noCorrosive"));
-		list.add("Fluid: " + this.getType(stack).getLocalizedName());
-		list.add("Amount: " + this.getFill(stack) + "/" + this.getCapacity(stack) + "mB (" + this.getMaxFill() + "mB)");
+		list.add(I18nUtil.format("desc.item.pipette.fluid",this.getType(stack).getLocalizedName()));
+		list.add(I18nUtil.format("desc.item.pipette.amount",this.getFill(stack),this.getCapacity(stack),this.getMaxFill()));
 	}
 
 	@Override
@@ -170,10 +170,10 @@ public class ItemPipette extends Item implements IFillableItem {
 			this.overlayIcon = icon.registerIcon("hbm:pipette_laboratory_overlay");
 		else
 			this.overlayIcon = icon.registerIcon("hbm:pipette_overlay");
-		
+
 		this.emptyIcon = icon.registerIcon("hbm:pipette_empty");
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(ItemStack stack, int pass) {

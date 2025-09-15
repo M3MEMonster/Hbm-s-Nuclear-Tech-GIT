@@ -8,6 +8,7 @@ import com.hbm.packet.toclient.PlayerInformPacket;
 import com.hbm.util.BobMathUtil;
 import com.hbm.util.ChatBuilder;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
@@ -39,7 +40,7 @@ public class ItemAtmosphereScanner extends Item {
 		}
 
 		if(!hasAtmosphere) {
-			PacketDispatcher.wrapper.sendTo(new PlayerInformPacket(ChatBuilder.start("NEAR VACUUM").color(EnumChatFormatting.YELLOW).flush(), 969, 4000), player);
+			PacketDispatcher.wrapper.sendTo(new PlayerInformPacket(ChatBuilder.start(I18nUtil.resolveKey("desc.item.atmosphere_scanner.vacuum")).color(EnumChatFormatting.YELLOW).flush(), 969, 4000), player);
 		}
 	}
 

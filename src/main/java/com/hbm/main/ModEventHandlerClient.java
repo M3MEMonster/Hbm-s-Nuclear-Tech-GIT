@@ -735,9 +735,7 @@ public class ModEventHandlerClient {
 				}
 			} else {
 
-				list.add(EnumChatFormatting.DARK_GRAY + "" + EnumChatFormatting.ITALIC +"Hold <" +
-						EnumChatFormatting.YELLOW + "" + EnumChatFormatting.ITALIC + "LSHIFT" +
-						EnumChatFormatting.DARK_GRAY + "" + EnumChatFormatting.ITALIC + "> to display protection info");
+				list.add(I18nUtil.resolveKey("desc.more_info.show_protection"));
 			}
 		}
 
@@ -751,13 +749,11 @@ public class ModEventHandlerClient {
 
 			if(!Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) && !(Minecraft.getMinecraft().currentScreen instanceof GUIArmorTable)) {
 
-				list.add(EnumChatFormatting.DARK_GRAY + "" + EnumChatFormatting.ITALIC +"Hold <" +
-						EnumChatFormatting.YELLOW + "" + EnumChatFormatting.ITALIC + "LSHIFT" +
-						EnumChatFormatting.DARK_GRAY + "" + EnumChatFormatting.ITALIC + "> to display installed armor mods");
+				list.add(I18nUtil.resolveKey("desc.more_info.show_armor_mods"));
 
 			} else {
 
-				list.add(EnumChatFormatting.YELLOW + "Mods:");
+				list.add(EnumChatFormatting.YELLOW + I18nUtil.resolveKey("desc.more_info.armor_mods"));
 
 				ItemStack[] mods = ArmorModHandler.pryMods(stack);
 
@@ -778,7 +774,7 @@ public class ModEventHandlerClient {
 			List<String> names = ItemStackUtil.getOreDictNames(stack);
 
 			if(names.size() > 0) {
-				list.add(EnumChatFormatting.BLUE + "Ore Dict:");
+				list.add(EnumChatFormatting.BLUE + I18nUtil.resolveKey("desc.more_info.ore_dict"));
 				for(String s : names) {
 					list.add(EnumChatFormatting.AQUA + " -" + s);
 				}
@@ -799,7 +795,7 @@ public class ModEventHandlerClient {
 				list.add(EnumChatFormatting.YELLOW + (rads2 + "RAD/s"));
 
 				if(stack.stackSize > 1) {
-					list.add(EnumChatFormatting.YELLOW + "Stack: " + ((Math.floor(level * 1000 * stack.stackSize) / 1000) + "RAD/s"));
+					list.add(EnumChatFormatting.YELLOW + I18nUtil.resolveKey("desc.more_info.stack_radiation") + ((Math.floor(level * 1000 * stack.stackSize) / 1000) + "RAD/s"));
 				}
 			}
 		}
@@ -816,10 +812,10 @@ public class ModEventHandlerClient {
 					list.add("");
 
 				if(entry.entry == EnumEntryType.ADD)
-					list.add(EnumChatFormatting.GOLD + "Adds " + entry.value + " to the custom nuke stage " + entry.type);
+					list.add(I18nUtil.format("desc.more_info.custom_nuke.add", entry.value, entry.type));
 
 				if(entry.entry == EnumEntryType.MULT)
-					list.add(EnumChatFormatting.GOLD + "Adds multiplier " + entry.value + " to the custom nuke stage " + entry.type);
+					list.add(I18nUtil.format("desc.more_info.custom_nuke.muti", entry.value, entry.type));
 			}
 		}
 
@@ -831,7 +827,7 @@ public class ModEventHandlerClient {
 				canneryTimestamp = Clock.get_ms();
 			}
 		} catch(Exception ex) {
-			list.add(EnumChatFormatting.RED + "Error loading cannery: " + ex.getLocalizedMessage());
+			list.add(EnumChatFormatting.RED + I18nUtil.resolveKey("desc.more_info.cannery.error") + ex.getLocalizedMessage());
 		}
 
 		try {
@@ -845,7 +841,7 @@ public class ModEventHandlerClient {
 				qmawTimestamp = Clock.get_ms();
 			}
 		} catch(Exception ex) {
-			list.add(EnumChatFormatting.RED + "Error loading cannery: " + ex.getLocalizedMessage());
+			list.add(EnumChatFormatting.RED + I18nUtil.resolveKey("desc.more_info.cannery.error") + ex.getLocalizedMessage());
 		}
 
 		/*ItemStack copy = stack.copy();
@@ -866,7 +862,7 @@ public class ModEventHandlerClient {
 					ore.addInformation(stack, event.entityPlayer, list, event.showAdvancedItemTooltips);
 				} else if(block == Blocks.coal_ore) {
 					// we don't have any celestial coal, special case
-					list.add(EnumChatFormatting.GOLD + "Can be found on:");
+					list.add(EnumChatFormatting.GOLD + I18nUtil.resolveKey("desc.ore.canbefound.on"));
 					list.add(EnumChatFormatting.AQUA + " - " + I18nUtil.resolveKey("body.kerbin"));
 				}
 			}
@@ -987,7 +983,7 @@ public class ModEventHandlerClient {
 			}
 
 			if(ArmorUtil.isWearingEmptyMask(mc.thePlayer)) {
-				MainRegistry.proxy.displayTooltip(EnumChatFormatting.RED + "Your mask has no filter!", ServerProxy.ID_FILTER);
+				MainRegistry.proxy.displayTooltip(EnumChatFormatting.RED + I18nUtil.resolveKey("desc.main.event_handler.no_filter"), ServerProxy.ID_FILTER);
 			}
 		}
 
@@ -1536,24 +1532,24 @@ public class ModEventHandlerClient {
 			int rand = (int)(Math.random() * 150);
 
 			switch(rand) {
-			case 0: main.splashText = "Floppenheimer!"; break;
-			case 1: main.splashText = "i should dip my balls in sulfuric acid"; break;
-			case 2: main.splashText = "All answers are popbob!"; break;
-			case 3: main.splashText = "None may enter The Orb!"; break;
-			case 4: main.splashText = "Wacarb was here"; break;
-			case 5: main.splashText = "SpongeBoy me Bob I am overdosing on keramine agagagagaga"; break;
-			case 6: main.splashText = EnumChatFormatting.RED + "I know where you live, " + System.getProperty("user.name"); break;
-			case 7: main.splashText = "Nice toes, now hand them over."; break;
-			case 8: main.splashText = "I smell burnt toast!"; break;
-			case 9: main.splashText = "There are bugs under your skin!"; break;
-			case 10: main.splashText = "Fentanyl!"; break;
-			case 11: main.splashText = "Do drugs!"; break;
-			case 12: main.splashText = "Imagine being scared by splash texts!"; break;
+			case 0: main.splashText = I18nUtil.format("desc.main.event_handler.splash.0"); break;
+			case 1: main.splashText = I18nUtil.format("desc.main.event_handler.splash.1"); break;
+			case 2: main.splashText = I18nUtil.format("desc.main.event_handler.splash.2"); break;
+			case 3: main.splashText = I18nUtil.format("desc.main.event_handler.splash.3"); break;
+			case 4: main.splashText = I18nUtil.format("desc.main.event_handler.splash.4"); break;
+			case 5: main.splashText = I18nUtil.format("desc.main.event_handler.splash.5"); break;
+			case 6: main.splashText = EnumChatFormatting.RED + I18nUtil.format("desc.main.event_handler.splash.6", System.getProperty("user.name")); break;
+			case 7: main.splashText = I18nUtil.format("desc.main.event_handler.splash.7"); break;
+			case 8: main.splashText = I18nUtil.format("desc.main.event_handler.splash.8"); break;
+			case 9: main.splashText = I18nUtil.format("desc.main.event_handler.splash.9"); break;
+			case 10: main.splashText = I18nUtil.format("desc.main.event_handler.splash.10"); break;
+			case 11: main.splashText = I18nUtil.format("desc.main.event_handler.splash.11"); break;
+			case 12: main.splashText = I18nUtil.format("desc.main.event_handler.splash.12"); break;
 			}
 
 			double d = Math.random();
-			if(d < 0.1) main.splashText = "Redditors aren't people!";
-			else if(d < 0.2) main.splashText = "Can someone tell me what corrosive fumes the people on Reddit are huffing so I can avoid those more effectively?";
+			if(d < 0.1) main.splashText = I18nUtil.format("desc.main.event_handler.splash.13");
+			else if(d < 0.2) main.splashText = I18nUtil.format("desc.main.event_handler.splash.14");
 		}
 	}
 }

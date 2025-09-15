@@ -18,6 +18,7 @@ import com.hbm.lib.RefStrings;
 import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 
@@ -81,7 +82,7 @@ public class ShredderRecipeHandler extends TemplateRecipeHandler implements ICom
 
 	@Override
 	public String getRecipeName() {
-		return "Shredder";
+		return I18nUtil.resolveKey("desc.handler.nei.shredder.recipe_name");
 	}
 
 	@Override

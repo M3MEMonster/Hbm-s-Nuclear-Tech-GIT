@@ -11,6 +11,7 @@ import com.hbm.explosion.ExplosionChaos;
 import com.hbm.items.ModItems;
 import com.hbm.lib.Library;
 
+import com.hbm.util.i18n.I18nUtil;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -25,9 +26,9 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 public class ItemMultitoolPassive extends Item {
-	
+
 	Random rand = new Random();
-	
+
 	public ItemMultitoolPassive() {
 		this.setMaxDamage(5000);
 	}
@@ -36,9 +37,9 @@ public class ItemMultitoolPassive extends Item {
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
     {
 		if(player.isSneaking()) {
-			
+
 	        world.playSoundAtEntity(player, "hbm:item.techBoop", 2.0F, 1.0F);
-	        
+
 			if (this == ModItems.multitool_ext) {
 				return new ItemStack(ModItems.multitool_miner, 1, stack.getItemDamage());
 			} else if(this == ModItems.multitool_miner) {
@@ -67,7 +68,7 @@ public class ItemMultitoolPassive extends Item {
 				item.addEnchantment(Enchantment.fortune, 3);
 				return item;
 			}
-	        
+
 		} else {
 			if(this == ModItems.multitool_ext) {
 				return stack;
@@ -77,7 +78,7 @@ public class ItemMultitoolPassive extends Item {
 
 				world.playSoundAtEntity(player, "hbm:weapon.immolatorIgnite", 1.0F, 1F);
 				//world.playSoundAtEntity(player, "hbm:weapon.immolatorShoot", 1.0F, 1F);
-				
+
 				if (!world.isRemote)
 					world.spawnEntityInWorld(plasma);
 
@@ -90,7 +91,7 @@ public class ItemMultitoolPassive extends Item {
 
 				world.playSoundAtEntity(player, "hbm:weapon.immolatorIgnite", 1.0F, 1F);
 				//world.playSoundAtEntity(player, "hbm:weapon.immolatorShoot", 1.0F, 1F);
-				
+
 				if (!world.isRemote)
 					world.spawnEntityInWorld(plasma);
 
@@ -113,10 +114,10 @@ public class ItemMultitoolPassive extends Item {
 				return stack;
 			}
 		}
-		
+
 		return stack;
 	}
-	
+
 	@Override
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int i, float f1, float f2, float f3)
     {
@@ -127,7 +128,7 @@ public class ItemMultitoolPassive extends Item {
 				ItemStack t = s.copy();
 				if(!world.isRemote)
 					world.setBlock(x, y, z, Blocks.air, 0, 3);
-				
+
 	            if(!player.inventory.addItemStackToInventory(t))
 	            	player.dropPlayerItemWithRandomChoice(t, false);
 	            player.swingItem();
@@ -137,15 +138,15 @@ public class ItemMultitoolPassive extends Item {
 		} else if (this == ModItems.multitool_beam) {
 		} else if (this == ModItems.multitool_sky) {
 		} else if (this == ModItems.multitool_mega) {
-			
+
 			ExplosionChaos.levelDown(world, x, y, z, 2);
 			return true;
-			
+
 		} else if (this == ModItems.multitool_joule) {
-			
+
 			int l = 25;
 			float part = -1F/16F;
-			
+
 			Vec3 vec0 = player.getLookVec();
 			vec0.rotateAroundY(.25F);
 			List<int[]> list = Library.getBlockPosInPath(x, y, z, l, vec0);
@@ -168,41 +169,41 @@ public class ItemMultitoolPassive extends Item {
 
 			if(!world.isRemote)
 				for(int j = 0; j < list.size(); j++) {
-					
+
 					int x1 = list.get(j)[0];
 					int y1 = list.get(j)[1];
 					int z1 = list.get(j)[2];
 					int w1 = list.get(j)[3];
-					
+
 					Block b = world.getBlock(x1, y1, z1);
 					float k = b.getExplosionResistance(null);
-							
+
 					if(k < 6000 && b != Blocks.air) {
-						
+
 						EntityRubble rubble = new EntityRubble(world);
 						rubble.posX = x1 + 0.5F;
 						rubble.posY = y1;
 						rubble.posZ = z1 + 0.5F;
-						
+
 						rubble.motionY = 0.025F * w1 + 0.15F;
 						rubble.setMetaBasedOnBlock(b, world.getBlockMetadata(x1, y1, z1));
-						
+
 						world.spawnEntityInWorld(rubble);
-						
+
 						world.setBlock(x1, y1, z1, Blocks.air);
 					}
 				}
-			
+
 			return true;
-			
+
 		} else if (this == ModItems.multitool_decon) {
 
 			if(!world.isRemote)
 				ExplosionChaos.decontaminate(world, x, y, z);
 			return true;
-			
+
 		}
-		
+
 		return false;
     }
 
@@ -236,41 +237,41 @@ public class ItemMultitoolPassive extends Item {
 		}
 		return multimap;
 	}
-    
+
 	@Override
 	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean bool)
 	{
 		if(this == ModItems.multitool_ext) {
-			list.add("Right click instantly destroys smeltable blocks");
-			list.add("Mined blocks will be smelted and put in the player's inventory");
+			list.add(I18nUtil.resolveKey("desc.item.multitool_ext1"));
+			list.add(I18nUtil.resolveKey("desc.item.multitool_ext2"));
 		}
 		if(this == ModItems.multitool_miner) {
-			list.add("Shoots lasers which destroy smeltable blocks");
-			list.add("These blocks will drop the smelted item");
+			list.add(I18nUtil.resolveKey("desc.item.multitool_miner1"));
+			list.add(I18nUtil.resolveKey("desc.item.multitool_miner2"));
 		}
 		if(this == ModItems.multitool_hit) {
-			list.add("Very high damage against mobs");
-			list.add("Strong knock back");
+			list.add(I18nUtil.resolveKey("desc.item.multitool_hit1"));
+			list.add(I18nUtil.resolveKey("desc.item.multitool_hit2"));
 		}
 		if(this == ModItems.multitool_beam) {
-			list.add("Shoots lasers which ignite blocks and mobs");
-			list.add("Lasers are destroyed by water");
+			list.add(I18nUtil.resolveKey("desc.item.multitool_beam1"));
+			list.add(I18nUtil.resolveKey("desc.item.multitool_beam2"));
 		}
 		if(this == ModItems.multitool_sky) {
-			list.add("Right click summons a lightning storm around the player");
-			list.add("Lightning can also hit the player using the fist");
+			list.add(I18nUtil.resolveKey("desc.item.multitool_sky1"));
+			list.add(I18nUtil.resolveKey("desc.item.multitool_sky2"));
 		}
 		if(this == ModItems.multitool_mega) {
-			list.add("Right click will level down blocks with a powerful punch");
-			list.add("Immense knockback against mobs");
+			list.add(I18nUtil.resolveKey("desc.item.multitool_mega1"));
+			list.add(I18nUtil.resolveKey("desc.item.multitool_mega2"));
 		}
 		if(this == ModItems.multitool_joule) {
-			list.add("Right click will break blocks in the line of sight");
-			list.add("These blocks will be flung up as rubble");
+			list.add(I18nUtil.resolveKey("desc.item.multitool_joule1"));
+			list.add(I18nUtil.resolveKey("desc.item.multitool_joule2"));
 		}
 		if(this == ModItems.multitool_decon) {
-			list.add("Right click will remove radiation effect from blocks");
-			list.add("Blocks like nuclear waste turn into lead");
+			list.add(I18nUtil.resolveKey("desc.item.multitool_decon1"));
+			list.add(I18nUtil.resolveKey("desc.item.multitool_decon2"));
 		}
 	}
 

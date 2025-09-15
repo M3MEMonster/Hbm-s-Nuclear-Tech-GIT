@@ -5,6 +5,7 @@ import java.util.Random;
 
 import com.hbm.blocks.IBlockMulti;
 import com.hbm.blocks.ITooltipProvider;
+import com.hbm.util.i18n.I18nUtil;
 import com.hbm.world.gen.nbt.INBTTileEntityTransformable;
 import com.hbm.world.gen.nbt.INBTBlockTransformable;
 
@@ -158,12 +159,12 @@ public class BlockPlushie extends BlockContainer implements IBlockMulti, IToolti
 
 	public static enum PlushieType {
 		NONE(		"NONE",				null, null),
-		YOMI(		"Yomi",				"Hi! Can I be your rabbit friend?", "hbm:block.squeakyToy"),
-		NUMBERNINE(	"Number Nine",		"None of y'all deserve coal.", "hbm:block.squeakyToy"),
-		HUNDUN(		"Hundun",				"混沌", "hbm:block.hunduns_magnificent_howl"),
-		TETO(		"Kasane Teto",		"please help I've been trapped in her basement for da-", "hbm:block.teto"),
-		MIKU(		"Hatsune Miku",		"In your wifi, and your heart.", "hbm:block.miku"),
-		NERU(		"Akita Neru",			"Careful, she might electrocute you.", "hbm:block.akita");
+		YOMI(I18nUtil.resolveKey("doll.yomi.name"),				I18nUtil.resolveKey("doll.yomi.desc"), "hbm:block.squeakyToy"),
+		NUMBERNINE(	I18nUtil.resolveKey("doll.number9.name"),		I18nUtil.resolveKey("doll.number9.desc"), "hbm:block.squeakyToy"),
+		HUNDUN(		I18nUtil.resolveKey("doll.hundun.name"),				I18nUtil.resolveKey("doll.hundun.desc"), "hbm:block.hunduns_magnificent_howl"),
+		TETO(		I18nUtil.resolveKey("doll.teto.name"),		I18nUtil.resolveKey("doll.teto.desc"), "hbm:block.teto"),
+		MIKU(		I18nUtil.resolveKey("doll.miku.name"),		I18nUtil.resolveKey("doll.miku.desc"), "hbm:block.miku"),
+		NERU(		I18nUtil.resolveKey("doll.neru.name"),			I18nUtil.resolveKey("doll.neru.desc"), "hbm:block.akita");
 
 		public String label;
 		public String inscription;

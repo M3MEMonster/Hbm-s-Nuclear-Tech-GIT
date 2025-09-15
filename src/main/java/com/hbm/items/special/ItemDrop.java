@@ -33,23 +33,23 @@ public class ItemDrop extends Item {
 	@Override
 	public boolean onEntityItemUpdate(EntityItem entityItem) {
 		if (entityItem != null) {
-			
+
 			if(this == ModItems.beta) {
 				entityItem.setDead();
 				return true;
 			}
-			
+
 			ItemStack stack = entityItem.getEntityItem();
 
 			if (stack.getItem() != null && stack.getItem() == ModItems.detonator_deadman) {
 				if (!entityItem.worldObj.isRemote) {
-					
+
 					if(stack.stackTagCompound != null) {
-						
+
 						 int x = stack.stackTagCompound.getInteger("x");
 						 int y = stack.stackTagCompound.getInteger("y");
 						 int z = stack.stackTagCompound.getInteger("z");
-						 
+
 						 if(entityItem.worldObj.getBlock(x, y, z) instanceof IBomb)
 						 {
 							if(!entityItem.worldObj.isRemote)
@@ -75,10 +75,10 @@ public class ItemDrop extends Item {
 		    		if(GeneralConfig.enableExtendedLogging)
 		    			MainRegistry.logger.log(Level.INFO, "[DET] Detonated dead man's explosive at " + ((int)entityItem.posX) + " / " + ((int)entityItem.posY) + " / " + ((int)entityItem.posZ) + "!");
 				}
-				
+
 				entityItem.setDead();
 			}
-			
+
 			if (entityItem.onGround) {
 
 				if (stack.getItem() != null && stack.getItem() == ModItems.cell_antimatter && WeaponConfig.dropCell) {
@@ -182,95 +182,91 @@ public class ItemDrop extends Item {
 		}
 		return false;
     }
-	
+
 	@Override
 	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean bool)
 	{
 		if (this == ModItems.cell_antimatter || this == ModItems.particle_aelectron || this == ModItems.particle_aproton) {
-			list.add("Warning: Exposure to matter will");
-			list.add("lead to violent annihilation!");
+			for (String line : I18nUtil.resolveKeyArray("desc.item.special.drop.small_anti")){
+				list.add(line);
+			}
 		}
 		if (this == ModItems.pellet_antimatter) {
-			list.add("Very heavy antimatter cluster.");
-			list.add("Gets rid of black holes.");
+			for (String line : I18nUtil.resolveKeyArray("desc.item.special.drop.pellet_antimatter")){
+				list.add(line);
+			}
 		}
 		if (this == ModItems.cell_anti_schrabidium) {
-			list.add("Warning: Exposure to matter will");
-			list.add("create a fólkvangr field!");
+			for (String line : I18nUtil.resolveKeyArray("desc.item.special.drop.cell_anti_schrabidium")){
+				list.add(line);
+			}
 		}
 		if (this == ModItems.singularity) {
-			list.add("You may be asking:");
-			list.add("\"But HBM, a manifold with an undefined");
-			list.add("state of spacetime? How is this possible?\"");
-			list.add("Long answer short:");
-			list.add("\"I have no idea!\"");
+			for (String line : I18nUtil.resolveKeyArray("desc.item.special.drop.singularity")){
+				list.add(line);
+			}
 		}
 		if (this == ModItems.singularity_counter_resonant) {
-			list.add("Nullifies resonance of objects in");
-			list.add("non-euclidean space, creates variable");
-			list.add("gravity well. Spontaneously spawns");
-			list.add("tesseracts. If a tesseract happens to");
-			list.add("appear near you, do not look directly");
-			list.add("at it.");
+			for (String line : I18nUtil.resolveKeyArray("desc.item.special.drop.singularity_counter_resonant")){
+				list.add(line);
+			}
 		}
 		if (this == ModItems.singularity_super_heated) {
-			list.add("Continuously heats up matter by");
-			list.add("resonating every planck second.");
-			list.add("Tends to catch fire or to create");
-			list.add("small plasma arcs. Not edible.");
+			for (String line : I18nUtil.resolveKeyArray("desc.item.special.drop.singularity_super_heated")){
+				list.add(line);
+			}
 		}
 		if (this == ModItems.black_hole) {
-			list.add("Contains a regular singularity");
-			list.add("in the center. Large enough to");
-			list.add("stay stable. It's not the end");
-			list.add("of the world as we know it,");
-			list.add("and I don't feel fine.");
+			for (String line : I18nUtil.resolveKeyArray("desc.item.special.drop.black_hole")){
+				list.add(line);
+			}
 		}
 		if (this == ModItems.detonator_deadman) {
-			list.add("Shift right-click to set position,");
-			list.add("drop to detonate!");
+			for (String line : I18nUtil.resolveKeyArray("desc.item.special.drop.detonator")){
+				list.add(line);
+			}
 			if(itemstack.getTagCompound() == null)
 			{
-				list.add("No position set!");
+				list.add(I18nUtil.resolveKey("desc.item.special.drop.detonator.no_position"));
 			} else {
-				list.add("Set pos to " + itemstack.stackTagCompound.getInteger("x") + ", " + itemstack.stackTagCompound.getInteger("y") + ", " + itemstack.stackTagCompound.getInteger("z"));
+				list.add(I18nUtil.format("desc.item.special.drop.detonatorset_pos",itemstack.stackTagCompound.getInteger("x"),itemstack.stackTagCompound.getInteger("y"),itemstack.stackTagCompound.getInteger("z")));
 			}
 		}
 		if (this == ModItems.detonator_de) {
-			list.add("Explodes when dropped!");
+			list.add(I18nUtil.resolveKey("desc.item.special.drop.detonator.de"));
 		}
-		
+
 		list.add(EnumChatFormatting.RED + "[" + I18nUtil.resolveKey("trait.drop") + "]");
 	}
-	
+
 	@Override
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int p_77648_7_, float p_77648_8_, float p_77648_9_, float p_77648_10_)
     {
 		if(this != ModItems.detonator_deadman) {
 			return super.onItemUse(stack, player, world, x, y, z, p_77648_7_, p_77648_8_, p_77648_9_, p_77648_10_);
 		}
-		
+
 		if(stack.stackTagCompound == null)
 		{
 			stack.stackTagCompound = new NBTTagCompound();
 		}
-		
+
 		if(player.isSneaking())
 		{
 			stack.stackTagCompound.setInteger("x", x);
 			stack.stackTagCompound.setInteger("y", y);
 			stack.stackTagCompound.setInteger("z", z);
-			
+
 			if(world.isRemote)
 			{
-				player.addChatMessage(new ChatComponentText("Position set!"));
+				player.addChatMessage(new ChatComponentText(I18nUtil.resolveKey("desc.item.special.drop.detonator.position_set")));
 			}
-			
+
 	        world.playSoundAtEntity(player, "hbm:item.techBoop", 2.0F, 1.0F);
-        	
+
 			return true;
 		}
-		
+
 		return false;
     }
 

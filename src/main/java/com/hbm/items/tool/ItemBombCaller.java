@@ -5,6 +5,7 @@ import java.util.List;
 import com.hbm.entity.logic.EntityBomber;
 import com.hbm.lib.Library;
 
+import com.hbm.util.i18n.I18nUtil;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import com.hbm.world.WorldUtil;
@@ -26,19 +27,19 @@ public class ItemBombCaller extends Item {
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool)
 	{
-		list.add("Aim & click to call an airstrike!");
+		list.add(I18nUtil.resolveKey("desc.item.bomb_caller"));
 
 		switch (stack.getItemDamage()) {
-			case 0: list.add("Type: Carpet bombing"); break;
-			case 1: list.add("Type: Napalm"); break;
-			case 2: list.add("Type: Poison gas"); break;
-			case 3: list.add("Type: Agent orange"); break;
-			case 4: list.add("Type: Atomic bomb"); break;
-			case 5: list.add("Type: VT stinger rockets"); break;
-			case 6: list.add("Type: PIP OH GOD"); break;
-			case 7: list.add("Type: Cloud the cloud oh god the cloud"); break;
-			case 8: list.add("Civilian Airliner."); break;
-			default: list.add("Type: INVALID, Report it to mod creator");
+			case 0: list.add(I18nUtil.resolveKey("desc.item.bomb_caller.type.0")); break;
+			case 1: list.add(I18nUtil.resolveKey("desc.item.bomb_caller.type.1")); break;
+			case 2: list.add(I18nUtil.resolveKey("desc.item.bomb_caller.type.2")); break;
+			case 3: list.add(I18nUtil.resolveKey("desc.item.bomb_caller.type.3")); break;
+			case 4: list.add(I18nUtil.resolveKey("desc.item.bomb_caller.type.4")); break;
+			case 5: list.add(I18nUtil.resolveKey("desc.item.bomb_caller.type.5")); break;
+			case 6: list.add(I18nUtil.resolveKey("desc.item.bomb_caller.type.6")); break;
+			case 7: list.add(I18nUtil.resolveKey("desc.item.bomb_caller.type.7")); break;
+			case 8: list.add(I18nUtil.resolveKey("desc.item.bomb_caller.type.8")); break;
+			default: list.add(I18nUtil.resolveKey("desc.item.bomb_caller.type.error"));
 
 		}
 	}
@@ -50,10 +51,10 @@ public class ItemBombCaller extends Item {
 		int x = pos.blockX;
 		int y = pos.blockY;
 		int z = pos.blockZ;
-		
+
 		boolean b = false;
 		boolean b2 = false;
-		
+
 	    if(!world.isRemote)
 		{
 			EntityBomber bomber;
@@ -72,11 +73,11 @@ public class ItemBombCaller extends Item {
 
 			}
 			WorldUtil.loadAndSpawnEntityInWorld(bomber);
-			player.addChatMessage(new ChatComponentText("Called in airstrike!"));
+			player.addChatMessage(new ChatComponentText(I18nUtil.resolveKey("chat.item.bomb_caller.1")));
 			world.playSoundAtEntity(player, "hbm:item.techBleep", 1.0F, 1.0F);
 
 			if(b2){
-		    	player.addChatMessage(new ChatComponentText("Rerouted Civilian Traffic!"));
+		    	player.addChatMessage(new ChatComponentText(I18nUtil.resolveKey("chat.item.bomb_caller.2")));
 		        world.playSoundAtEntity(player, "hbm:item.techBleep", 1.0F, 1.0F);
 			}
 
